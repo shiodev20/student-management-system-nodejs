@@ -243,14 +243,58 @@ module.exports = {
     ], {})
     console.log('done ', 'classrooms');
 
-    await queryInterface.bulkInsert('classroomsubjects', [
+    // await queryInterface.bulkInsert('classroomsubjects', [
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH1',
+    //     subjectTeacher: 'GV1'
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH2',
+    //     subjectTeacher: 'GV2'
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH3',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH4',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH5',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH6',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH7',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH8',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     subjectId: 'MH9',
+    //   },
+    // ])
+    // console.log('done ', 'classroomsubjects');
+
+    await queryInterface.bulkInsert('teachingassignments', [
       {
         classroomId: '10A12122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV1'
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV2'
       },
       {
         classroomId: '10A12122',
@@ -279,18 +323,6 @@ module.exports = {
       {
         classroomId: '10A12122',
         subjectId: 'MH9',
-      },
-    ])
-    console.log('done ', 'classroomsubjects');
-
-    await queryInterface.bulkInsert('teachingassignments', [
-      {
-        classroomSubjectId: 1,
-        subjectTeacherId: 'GV1'
-      },
-      {
-        classroomSubjectId: 2,
-        subjectTeacherId: 'GV2'
       },
     ], {})
     console.log('done ', 'teachingassignments');
@@ -325,7 +357,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete('teachingassignments', null, {});
-    await queryInterface.bulkDelete('classroomsubjects', null, {});
+    // await queryInterface.bulkDelete('classroomsubjects', null, {});
     await queryInterface.bulkDelete('classroomdetails', null, {});
     await queryInterface.bulkDelete('employees', null, {});
     await queryInterface.bulkDelete('accounts', null, {});

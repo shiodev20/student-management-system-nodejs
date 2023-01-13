@@ -9,15 +9,16 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      classroomSubjectId: {
-        primaryKey: true,
-        type: Sequelize.INTEGER,
+      classroomId: {
+        type: Sequelize.STRING(10),
+        allowNull: false,
+      },
+      subjectId: {
+        type: Sequelize.STRING(6),
         allowNull: false,
       },
       subjectTeacherId: {
-        primaryKey: true,
         type: Sequelize.STRING(6),
-        allowNull: false,
       }
     });
   },

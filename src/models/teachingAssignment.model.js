@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 
       // TeachingAssignment.belongsTo(models.ClassroomSubject, { foreignKey: 'classroomSubjectId' })
       // TeachingAssignment.belongsTo(models.Teacher, { foreignKey: 'subjectTeacherId', as: 'subjectTeacher' })
+
+      TeachingAssignment.belongsTo(models.Classroom, { foreignKey: 'classroomId', as: 'classroom' })
+      TeachingAssignment.belongsTo(models.Subject, { foreignKey: 'subjectId', as: 'subject' })
+      TeachingAssignment.belongsTo(models.Teacher, { foreignKey: 'subjectTeacherId', as: 'subjectTeacher' })
     }
   }
   TeachingAssignment.init({

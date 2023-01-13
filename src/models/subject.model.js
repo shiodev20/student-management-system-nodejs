@@ -14,7 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       Subject.hasMany(models.Teacher, { foreignKey: 'subjectId', as: 'teachers' })
 
       // Subject.hasMany(models.ClassroomSubject, { foreignKey: 'subjectId', as: 'classroomSubjects'})
-      Subject.belongsToMany(models.Classroom, { through: models.ClassroomSubject, foreignKey: 'subjectId', as: 'classrooms' })
+      // Subject.belongsToMany(models.Classroom, { through: models.ClassroomSubject, foreignKey: 'subjectId', as: 'classrooms' })
+
+      Subject.hasMany(models.TeachingAssignment, { foreignKey: 'subjectId', as: 'teachingAssignment' })
+
+      Subject.belongsToMany(models.Classroom, { through: models.TeachingAssignment, foreignKey: 'subjectId', as: 'classrooms' })
+      Subject.belongsToMany(models.Teacher, { through: models.TeachingAssignment, foreignKey: 'subjectId', as: 'subjectTeacher' })
+
+
     }
   }
   Subject.init({
