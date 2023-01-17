@@ -1,0 +1,63 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="form-container">
+    <div class="box form-content">
+      <p class="form-title">Cập nhật tài khoản</p>
+
+      <form action="/tai-khoan/cap-nhat-tai-khoan?_method=PUT" method="POST">
+
+        <div class="field is-horizontal">
+          <div class="field-body">
+
+            <div class="field">
+              <label class="label">Mã tài khoản</label>
+              <div class="control">
+                <input class="input" type="text" name="accountId" value="TK1" readonly>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Tên đăng nhập</label>
+              <div class="control">
+                <input class="input" type="text" name="username" value="NV1" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+
+          <div class="field-body">
+            <div class="field" style="flex: 1;">
+              <label class="label">Mật khẩu</label>
+              <input class="input" type="text" name="password" value="123456">
+            </div>
+
+            <div class="field" style="flex: 1;">
+              <label class="label">Vai trò</label>
+              <div class="select" style="width: 100%;">
+                <select name="role" style="width: 100%;">
+                  <option value="VT1" selected>Giáo vụ</option>
+                  <option value="VT2">Giáo viên</option>
+                  <option value="VT3">Quản trị viên</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        
+        <div class="has-text-right">
+          <button type="submit" class="button is-primary">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</section>
+
+<%- include('../partials/footer') %>

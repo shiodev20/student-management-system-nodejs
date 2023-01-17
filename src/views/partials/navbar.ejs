@@ -1,0 +1,31 @@
+
+<nav class="navbar is-primary has-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        LOGO
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" href="javascript:void(0)">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    
+    <div class="navbar-menu">
+    
+      <div class="navbar-end">
+        <div class="navbar-item"> <%= currentUser.id %> | <%= currentUser.fullName %> </div>
+
+        <div class="navbar-item">
+          <a href="/dang-xuat" class="button is-info">Đăng xuất</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<%- include('./message.ejs') %>

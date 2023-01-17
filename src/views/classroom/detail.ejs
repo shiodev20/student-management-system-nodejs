@@ -1,0 +1,156 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+  <section class="section">
+    <div class="container">
+      <div class="is-flex is-flex-wrap-wrap">
+
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Mã lớp</label>
+            <div class="control">
+              <input class="input" type="text" value="10A12122" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Khối</label>
+            <div class="control">
+              <input class="input" type="text" value="Khối 10" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Tên lớp</label>
+            <div class="control">
+              <input class="input" type="text" value="10A1" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Sỉ số</label>
+            <div class="control">
+              <input class="input" type="text" value="2" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Giáo viên chủ nhiệm</label>
+            <div class="control">
+              <input class="input" type="text" value="" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <p>Lựa chọn:</p>
+
+      <div class="is-flex is-flex-wrap-wrap">
+
+        <div class="flex-item m-3">
+          <a href="/lop-hoc/lap-danh-sach-lop-hoc/10A12122" class="button is-info">Thêm học sinh</a>
+        </div>
+
+        <div class="flex-item m-3">
+          <a href="/lop-hoc/phan-cong-gvcn/10A12122" class="button is-info">Phân công GVCN</a>
+        </div>
+
+        <div class="flex-item m-3">
+          <a href="/lop-hoc/phan-cong-gvbm/10A12122" class="button is-info">Phân công GVBM</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container">
+
+      <div class="tabs is-boxed">
+        <ul>
+          <li id="student-list" class="tab-item is-active"><a href="javascript:void(0)">Danh sách học sinh</a></li>
+          <li id="subjectTeacher-list" class="tab-item"><a href="javascript:void(0)">Sanh sách giáo viên bộ môn</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="panes">
+        <div id="student-list" class="pane-item">
+          <div class="table-container">
+            <table class="table is-fullwidth is-hoverable is-bordered">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Mã học sinh</th>
+                  <th>Họ tên học sinh</th>
+                  <th>Ngày sinh</th>
+                  <th>Giới tính</th>
+                  <th>Địa chỉ</th>
+                  <th>Email</th>
+                  <th>Lựa chọn</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th>1</th>
+                  <td>HS1</td>
+                  <td>Shio Nguyen</td>
+                  <td>20-11-2000</td>
+                  <td>Nam</td>
+                  <td>828 HUFLIT</td>
+                  <td>shio.ng@gmail.com</td>
+                  <td class="has-text-centered">
+                    <a href="/hoc-sinh/ket-qua-hoc-tap/HS1?year=NH2122&semester=HK1" class="button is-info"><i
+                        class='bx bxs-bar-chart-square'></i></a>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+
+        <div id="subjectTeacher-list" class="pane-item" style="display: none;">
+          <div class="table-container">
+            <table class="table is-hoverable is-bordered">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Mã môn học</th>
+                  <th>Môn học</th>
+                  <th>Mã giáo viên</th>
+                  <th>Tên giáo viên</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th>1</th>
+                  <td>MH1</td>
+                  <td>Toán</td>
+                  <td>GV1</td>
+                  <td>John Doe</td>
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+<%- include('../partials/footer') %>

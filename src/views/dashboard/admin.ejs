@@ -1,0 +1,86 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+
+  <div class="l-container">
+
+    <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+
+      <div class="flex-item is-align-self-flex-end m-3">
+        <a href="/tai-khoan/tao-tai-khoan" class="button is-primary">
+          <i class='bx bxs-user-plus icon'></i> <span>Cấp tài khoản</span>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+  <div class="l-container">
+    
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable is-bordered">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Mã tài khoản</th>
+            <th>Tên đăng nhập</th>
+            <th>Mật khẩu</th>
+            <th>Vai trò</th>
+            <th>Trạng thái</th>
+            <th>Lựa chọn</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% accounts.forEach((account, idx) => { %>
+            <tr>
+              <th><%= idx + 1 %></th>
+              <td><%= account.id %></td>
+              <td><%= account.username %></td>
+              <td style="max-width: 150px; overflow: auto;"><%= account.password %></td>
+              <td><%= account.roleId %></td>
+              <% if(account.status) { %>
+                <td class="has-text-centered">
+                  <input class="account-active-input" style="width: 15px; height: 15px;"  type="checkbox" checked>
+                </td>
+              <% } else {%>
+                <td class="has-text-centered">
+                  <input class="account-active-input" style="width: 15px; height: 15px;"  type="checkbox">
+                </td>
+              <% } %>
+              <td class="has-text-centered">
+                <% if(account.status) { %>
+                  <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST" style="display: inline-block;" >
+                    <button class="button is-warning"><i class='bx bx-x'></i></button>
+                  </form>
+                <% } else {%>
+                  <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST" style="display: inline-block;" >
+                    <button class="button is-info"><i class='bx bx-check'></i></button>
+                  </form>
+                <% } %>
+                
+  
+                <a href="/tai-khoan/cap-nhat-tai-khoan/<%= account.id %>" class="button is-primary"><i class='bx bxs-edit-alt' ></i></a>
+                
+                <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST" style="display: inline-block;" >
+                  <button class="button is-danger"><i class='bx bxs-trash-alt'></i></button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

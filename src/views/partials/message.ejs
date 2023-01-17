@@ -1,0 +1,13 @@
+<% if(successMsg.length > 0) { %>
+  <div class="notification is-success">
+    <button class="delete"></button>
+    <%= successMsg[0] %>
+  </div>
+<% } %>
+
+<% if(errorMsg.length > 0) { %>
+  <div class="notification is-danger">
+    <button class="delete"></button>
+    <%= errorMsg[0] %>
+  </div>
+<% } %>

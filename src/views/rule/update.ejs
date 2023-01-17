@@ -1,0 +1,140 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="form-container">
+    <div class="box form-content">
+      <p class="form-title">Cập nhật quy định</p>
+
+      <%- include('../partials/form-message') %>
+
+      <form action="/quy-dinh/cap-nhat-quy-dinh?_method=PUT" method="POST">
+
+        <div class="field is-horizontal my-5">
+          <div class="field-label is-normal is-align-self-flex-end has-text-left">
+            <label class="label">Độ tuổi tiếp nhận học sinh: </label>
+          </div>
+    
+          <div class="field-body" style="flex: 2;">
+            <div class="field sm-input">
+              <p class="control">
+                <label for="" class="label">Tuổi tối thiểu</label>
+                <input class="input" name="minAge" type="number" value="<%= ruleList.TuoiToiThieu %>">
+              </p>
+            </div>
+    
+            <div class="field sm-input">
+              <p class="control">
+                <label for="" class="label">Tuổi tối đa</label>
+                <input class="input" name="maxAge" type="number" value="<%= ruleList.TuoiToiDa %>">
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="field is-horizontal my-5">
+          <div class="field-label is-normal is-align-self-flex-end has-text-left" style="flex: 1;">
+            <label class="label">Sỉ số tối đa: </label>
+          </div>
+    
+          <div class="field-body" style="flex: 2;">
+            <div class="field">
+              <p class="control">
+                <label for="" class="label"></label>
+                <input class="input" name="classSize" type="number" value="<%= ruleList.SiSoToiDa %>">
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal my-5">
+          <div class="field-label is-normal is-align-self-flex-end has-text-left" style="flex: 1;">
+            <label class="label">Điểm đạt: </label>
+          </div>
+    
+          <div class="field-body" style="flex: 2;">
+            <div class="field">
+              <p class="control">
+                <label for="" class="label"></label>
+                <input class="input" name="passScore" type="text" value="<%= ruleList.DiemDat.toFixed(1) %>">
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="has-text-right">
+          <button type="submit" class="button is-info">Cập nhật</button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="l-container">
+    <h1 class="has-text-centered is-size-1 mb-5">Quy Định</h1>
+
+    <div class="has-text-centered my-5">
+      <a href="/quy-dinh/cap-nhat-quy-dinh" class="button is-success">Cập nhật quy định</a>
+    </div>
+
+    <div class="field is-horizontal my-5">
+      <div class="field-label is-normal is-align-self-flex-end">
+        <label class="label">Độ tuổi tiếp nhận học sinh: </label>
+      </div>
+
+      <div class="field-body" style="flex: 2;">
+        <div class="field sm-input">
+          <p class="control">
+            <label for="" class="label">Tuổi tối thiểu</label>
+            <input class="input" type="number" value="15" readonly>
+          </p>
+        </div>
+
+        <div class="field sm-input">
+          <p class="control">
+            <label for="" class="label">Tuổi tối đa</label>
+            <input class="input" type="number" value="20" readonly>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal my-5">
+      <div class="field-label is-normal is-align-self-flex-end" style="flex: 1;">
+        <label class="label">Sỉ số tối đa của một lớp: </label>
+      </div>
+
+      <div class="field-body" style="flex: 2;">
+        <div class="field sm-input">
+          <p class="control">
+            <label for="" class="label"></label>
+            <input class="input" type="number" value="40" readonly>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal my-5">
+      <div class="field-label is-normal is-align-self-flex-end" style="flex: 1;">
+        <label class="label">Điểm đạt: </label>
+      </div>
+
+      <div class="field-body" style="flex: 2;">
+        <div class="field sm-input">
+          <p class="control">
+            <label for="" class="label"></label>
+            <input class="input" type="number" value="5" readonly>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section> -->
+
+
+<%- include('../partials/footer') %>

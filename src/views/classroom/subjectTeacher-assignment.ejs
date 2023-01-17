@@ -1,0 +1,72 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+  <section class="section">
+  
+    <div class="l-container">
+  
+      <form action="/lop-hoc/phan-cong-gvbm" method="POST">
+
+        <div class="is-flex is-flex-wrap-wrap">
+  
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Mã lớp</label>
+              <div class="control">
+                <input class="input" name="classroomId" type="text" value="10A12122" readonly>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Tên lớp</label>
+              <div class="control">
+                <input class="input" type="text" value="10A1" readonly>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex-item m-3 is-align-self-flex-end">
+            <button type="submit" class="button is-info">Cập nhật</button>
+          </div>
+        </div>
+  
+        <div class="table-container my-5">
+            <table class="table is-fullwidth is-hoverable is-bordered">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Mã môn học</th>
+                  <th>Môn học</th>
+                  <th class="has-text-centered">Giáo viên</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr>
+                  <th>1</th>
+                  <td>Toán</td>
+                  <td class="has-text-centered">
+                    <div class="select">
+                      <select>
+                        <option>Nguyễn Đình Nghi</option>
+                        <option>Nguyễn Thái Quốc Phong</option>
+                        <option>Duong Thai Bao</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+      
+            </table>
+          </table>          
+        </div>
+  
+      </form>
+    </div>
+  
+  </section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,86 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+  <section class="section">
+  
+    <div class="l-container">
+  
+      <form action="/lop-hoc/phan-cong-gvcn" method="POST">
+        <div class="is-flex is-flex-wrap-wrap">
+  
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Mã lớp</label>
+              <div class="control">
+                <input class="input" name="classroomId" type="text" value="10A12122" readonly>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Khối</label>
+              <div class="control">
+                <input class="input" type="text" value="Khối 10" readonly>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Tên lớp</label>
+              <div class="control">
+                <input class="input" type="text" value="10A1" readonly>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Giáo viên chủ nhiệm</label>
+              <div class="control">
+                <input class="input" type="text" value="" readonly>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex-item m-3 is-align-self-flex-end">
+            <button class="button is-info">Cập nhật</button>
+          </div>
+        </div>
+  
+        <table class="table">
+          <table class="table is-hoverable is-fullwidth is-bordered">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã giáo viên</th>
+                <th>Họ tên giáo viên</th>
+                <th>Giới tính</th>
+                <th>Môn giảng dạy</th>
+                <th class="has-text-centered">Lựa chọn</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr>
+                <th>1</th>
+                <td>GV1</td>
+                <td>John Doe</td>
+                <td>Nam</td>
+                <td>Toán</td>
+                <td class="has-text-centered">
+                  <input type="radio" name="headTeacherId" value="GV1">
+                </td>
+              </tr>
+            </tbody>
+    
+          </table>
+        </table>          
+      </form>
+    </div>
+  
+  </section>
+
+<%- include('../partials/footer') %>

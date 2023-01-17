@@ -1,0 +1,104 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="form-container">
+    <div class="box form-content">
+      <p class="form-title">Cập nhật học sinh</p>
+      
+      <%- include('../partials/form-message') %>
+
+        <form action="/hoc-sinh/cap-nhat-hoc-sinh/HS1?_method=PUT" method="POST">
+          
+          <div class="field is-horizontal">
+  
+            <div class="field-body">
+  
+              <div class="field">
+                <label class="label">Họ</label>
+                <div class="control">
+                  <input class="input" type="text" name="firstName" value="<%= student.firstName %>">
+                </div>
+              </div>
+  
+              <div class="field">
+                <label class="label">Tên</label>
+                <div class="control">
+                  <input class="input" type="text" name="lastName" value="<%= student.lastName %>">
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+  
+          <div class="field is-horizontal">
+  
+            <div class="field-body">
+  
+              <div class="field" style="flex: 1;">
+                <label class="label">Ngày sinh</label>
+                <input class="input" type="date" name="dob" value="<%= student.dob %>">
+              </div>
+  
+              <div class="field" style="flex: 1;">
+                <label class="label">Giới tính</label>
+                <div class="select" style="width: 100%;">
+                  <select name="gender" style="width: 100%;">
+                    <% if(student.gender == 1) { %>
+                      <option value="1" selected>Nam</option>
+                      <option value="0">Nữ</option>
+                    <% } %>
+
+                    <% if(student.gender == 0) { %>
+                      <option value="1">Nam</option>
+                      <option value="0" selected>Nữ</option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+  
+          <div class="field">
+            <label class="label">Địa chỉ</label>
+            <div class="control">
+              <input class="input" type="text" name="address" value="<%= student.address %>">
+            </div>
+          </div>
+  
+          <div class="field is-horizontal">
+  
+            <div class="field-body">
+  
+              <div class="field">
+                <label class="label">Họ tên phụ huynh</label>
+                <div class="control">
+                  <input class="input" type="text" name="parentName" value="<%= student.parentName %>">
+                </div>
+              </div>
+  
+              <div class="field">
+                <label class="label">SĐT phụ huynh</label>
+                <div class="control">
+                  <input class="input" type="tel" name="parentPhone" value="<%= student.parentPhone %>">
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+          
+          <div class="has-text-right">
+            <button type="submit" class="button is-primary">Cập nhật</button>
+          </div>
+        </form>
+    </div>
+  </div>
+
+</section>
+
+<%- include('../partials/footer') %>

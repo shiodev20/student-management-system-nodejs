@@ -1,0 +1,97 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="container">
+    <form action="/lop-hoc/lap-danh-sach-lop-hoc/10A12122" method="POST">
+
+      <div class="is-flex is-flex-wrap-wrap">
+
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Năm học</label>
+            <div class="control">
+              <input class="input" type="text" value="2021-2022" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Khối</label>
+            <div class="control">
+              <input class="input" type="text" value="Khối 10" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Tên lớp</label>
+            <div class="control">
+              <input class="input"type="text" value="10A1" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex-item m-3">
+          <div class="field sm-input">
+            <label class="label">Sỉ số</label>
+            <div class="field has-addons">
+              <p class="control">
+                <input class="input" type="text" value="0" readonly>
+              </p>
+              <p class="control">
+                <a class="button is-static">40</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex-item m-3 is-align-self-flex-end">
+          <button type="submit" class="button is-info">Cập nhật</button>
+        </div>
+
+      </div>
+
+      <div class="table-container my-5">
+        <table class="table is-fullwidth is-hoverable is-bordered">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Mã học sinh</th>
+              <th>Họ tên học sinh</th>
+              <th>Giới tính</th>
+              <th>Ngày sinh</th>
+              <th>Địa chỉ</th>
+              <th>Email</th>
+            
+              <th style="width: 100px;">Lựa chọn</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr>
+              <th>1</th>
+              <td>HS1</td>
+              <td>Shio Nguyen</td>
+              <td>Nam</td>
+              <td>20-11-2000</td>
+              <td>828 HUFLIT</td>
+              <td>shio.ng@gmail.com</td>
+              <td class="has-text-centered">
+                <input type="checkbox" name="students" value="HS1" style="width: 20px; height: 20px;">
+              </td>
+            </tr>
+          </tbody>
+  
+        </table>
+      </div>
+      
+    </form>
+  </div>
+</section>
+
+
+<%- include('../partials/footer') %>

@@ -12,13 +12,24 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    await queryInterface.bulkInsert('rules', [
+      {
+        minAge: 15,
+        maxAge: 20,
+        classSize: 40,
+        passMark: 5
+      }
+    ], {})
+    console.log('done ', 'rules');
+
+
     await queryInterface.bulkInsert('roles', [
       { id: 'VT1', name: 'Giáo vụ' },
       { id: 'VT2', name: 'Giáo viên' },
       { id: 'VT3', name: 'Quản trị viên' }
     ], {})
-
     console.log('done ', 'roles');
+
     await queryInterface.bulkInsert('years', [
       { id: 'NH2122', name: '2021-2022', status: 1 },
       { id: 'NH2223', name: '2022-2023', status: 0 },
@@ -71,6 +82,7 @@ module.exports = {
         address: "23580 La Follette Street",
         parentName: "Leona Tauret",
         parentPhone: "3759552263",
+        enrollDate: '2023-01-13 07:27:39'
       },
       {
         id: "HS2",
@@ -81,6 +93,7 @@ module.exports = {
         address: "23580 La Follette Street",
         parentName: "Anna Doe",
         parentPhone: "3759552263",
+        enrollDate: '2023-01-13 08:27:39'
       },
       {
         id: "HS3",
@@ -91,6 +104,7 @@ module.exports = {
         address: "23580 La Follette Street",
         parentName: "Skylie Josh",
         parentPhone: "3759552263",
+        enrollDate: '2023-01-13 09:27:39'
       },
       {
         id: "HS4",
@@ -101,6 +115,7 @@ module.exports = {
         address: "23580 La Follette Street",
         parentName: "Mason Parkle",
         parentPhone: "3759552263",
+        enrollDate: '2023-01-13 10:27:39'
       },
     ], {})
     console.log('done ', 'students');
@@ -109,21 +124,21 @@ module.exports = {
       {
         id: 'TK1',
         username: 'NV1',
-        password: '123456',
+        password: '$2b$10$9uT8hlVXwLU6ZnGgu46RtuGS5rJLTZmzPjjIGUov4CEe4ALWt2u..',
         status: 1,
         roleId: 'VT1'
       },
       {
         id: 'TK2',
         username: 'NV2',
-        password: '123456',
+        password: '$2b$10$dqPTEcwSnZT/oXaXzMOCb.UB.Ork4eVe4gxk8lg4kf8UVuPtwoS6O',
         status: 1,
         roleId: 'VT1'
       },
       {
         id: 'TK3',
         username: 'NV3',
-        password: '123456',
+        password: '$2b$10$VukYajXX4rPwtFc7uWwGyex31bE5FqRPi9OuENafHqJ6EFaKsnp3K',
         status: 1,
         status: 0,
         roleId: 'VT1'
@@ -131,14 +146,14 @@ module.exports = {
       {
         id: 'TK4',
         username: 'NV4',
-        password: '123456',
+        password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
         roleId: 'VT3'
       },
       {
         id: 'TK5',
-        username: 'GV1',
-        password: '123456',
+        username: 'NV05',
+        password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
         status: 1,
         roleId: 'VT3'
       }
@@ -199,7 +214,7 @@ module.exports = {
         address: "6 Lotheville Pass",
         email: "sgeorgeau4@linkedin.com",
         phone: "1095019190",
-        accountId: null,
+        accountId: 'TK5',
       }
     ])
     console.log('done ', 'employees');
@@ -242,48 +257,6 @@ module.exports = {
       },
     ], {})
     console.log('done ', 'classrooms');
-
-    // await queryInterface.bulkInsert('classroomsubjects', [
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH1',
-    //     subjectTeacher: 'GV1'
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH2',
-    //     subjectTeacher: 'GV2'
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH3',
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH4',
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH5',
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH6',
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH7',
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH8',
-    //   },
-    //   {
-    //     classroomId: '10A12122',
-    //     subjectId: 'MH9',
-    //   },
-    // ])
-    // console.log('done ', 'classroomsubjects');
 
     await queryInterface.bulkInsert('teachingassignments', [
       {
@@ -371,5 +344,6 @@ module.exports = {
     await queryInterface.bulkDelete('subjects', null, {});
     await queryInterface.bulkDelete('marktypes', null, {});
     await queryInterface.bulkDelete('roles', null, {});
+    await queryInterface.bulkDelete('rules', null, {});
   }
 };

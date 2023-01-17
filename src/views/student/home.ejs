@@ -1,0 +1,124 @@
+
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+
+<section class="section">
+
+  <div class="container">
+    <div class="is-flex is-justify-content-space-between is-flex-wrap-wrap">
+      <div class="flex-item">
+        <form action="/hoc-sinh/tim-kiem-hoc-sinh" method="GET">
+          <div class="is-flex is-flex-wrap-wrap">
+            
+            <div class="flex-item m-3">
+              <div class="field sm-input">
+                <label class="label">Thông tin</label>
+                <div class="control">
+                  <input class="input" type="text" name="info">
+                </div>
+              </div>
+            </div>
+    
+            <div class="flex-item m-3">
+              <div class="field sm-input">
+                <label class="label">Loại tìm kiếm</label>
+                <div class="select">
+                  <select name="type">
+                    <option value="0">Mã học sinh</option>
+                    <option value="1">Tên học sinh</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+      
+            <div class="flex-item is-align-self-flex-end m-3">
+              <button type="submit" class="button is-info">Tìm kiếm</button>
+            </div>
+      
+          </div>
+        </form>
+      </div>
+
+      <div class="flex-item m-3 is-align-self-flex-end">
+        <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary">
+          <i class='bx bxs-user-plus icon'></i> <span>Tiếp nhận học sinh</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+  <section class="section">
+    <div class="container">
+      
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable is-bordered">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Mã học sinh</th>
+              <th>Họ tên học sinh</th>
+              <th>Ngày sinh</th>
+              <th>Giới tính</th>
+              <th>Địa chỉ</th>
+              <th>Họ tên phụ huynh</th>
+              <th>SĐT phụ huynh</th>
+            
+              <th>Lựa chọn</th>
+            </tr>
+          </thead>
+          
+          <tfoot>
+            <tr>
+              <th>STT</th>
+              <th>Mã học sinh</th>
+              <th>Họ tên học sinh</th>
+              <th>Ngày sinh</th>
+              <th>Giới tính</th>
+              <th>Địa chỉ</th>
+              <th>Họ tên phụ huynh</th>
+              <th>SĐT phụ huynh</th>
+            
+              <th>Lựa chọn</th>
+            </tr>
+          </tfoot>
+
+          <tbody>
+
+            <% students.forEach((student, idx) => { %>
+              <tr>
+                <th><%= idx + 1 %></th>
+                <td><%= student.id %></td>
+                <td><%= student.fullName %></td>
+                <td><%= student.formatDob %></td>
+                <td><%= student.genderText %></td>
+                <td style="max-width: 150px;"><%= student.address %></td>
+                <td><%= student.parentName %></td>
+                <td><%= student.parentPhone %></td>
+                <td>
+                  <div class="is-flex is-flex-wrap-no-wrap">
+                    <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="button is-info mx-1"><i class='bx bxs-bar-chart-square'></i></a>
+                    <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="button is-primary mx-1"><i class='bx bxs-edit-alt' ></i></a>
+                    <form class="mx-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
+                      <button class="button is-danger"><i class='bx bxs-trash-alt'></i></a>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+
+  
+          </tbody>
+  
+        </table>
+      </div>
+  
+    </div>
+  </section>
+
+
+<%- include('../partials/footer') %>
+

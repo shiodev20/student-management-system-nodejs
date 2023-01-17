@@ -1,0 +1,109 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+  <section class="section">
+    <div class="l-container">
+  
+      <form action='/hoc-sinh/ket-qua-hoc-tap/HS1' method="GET">
+        <div class="is-flex is-flex-wrap-wrap">
+          
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Mã học sinh</label>
+              <div class="control">
+                <input class="input" type="text" value="HS1" readonly>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Họ tên</label>
+              <div class="control">
+                <input class="input" type="text" value="Shio Nguyen" readonly>
+              </div>
+            </div>
+          </div>
+    
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Lớp</label>
+              <div class="control">
+                <input style="width: 100px;" class="input" type="text" value="10A1" readonly>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Năm học</label>
+              <div class="select">
+                <select name="year">
+                  <option value="NH2122" selected>2021-2022</option>
+                  <option value="NH2122">2021-2022</option>
+                  <option value="NH2122">2021-2022</option>
+                </select>
+              </div>
+            </div>
+          </div>
+    
+          <div class="flex-item m-3">
+            <div class="field sm-input">
+              <label class="label">Học kỳ</label>
+              <div class="select">
+                <select name="semester">
+                  <option value="HK1" selected>Học kỳ 1</option>
+                  <option value="HK2">Học kỳ 2</option>
+                </select>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex-item m-3 is-align-self-flex-end">
+            <button class="button is-info">Xem điểm</button>
+          </div>
+    
+        </div>
+      </form>
+  
+      <hr>
+  
+    </div>
+  </section>
+  
+  <section>
+    <div class="l-container">
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable is-bordered">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Môn học</th>
+              <th>Điểm ĐGTX</th>
+              <th>Điểm 15'</th>
+              <th>Điểm 45'</th>
+              <th>Điểm thi</th>
+              <th>Điểm TBM</th>
+            </tr>
+          </thead>
+    
+          <tbody>
+            <tr>
+              <th>1</th>
+              <td style="width: 200px;">Toán</td>
+              <td><input class="input sm-input" type="text" value="10" readonly></td>
+              <td><input class="input" type="text" value="10" readonly></td>
+              <td><input class="input" type="text" value="10" readonly></td>
+              <td><input class="input" type="text" value="10" readonly></td>
+              <td><input class="input" type="text" value="10" readonly></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+    </div>
+  </section>
+
+
+<%- include('../partials/footer') %>

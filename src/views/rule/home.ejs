@@ -1,0 +1,71 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="l-container">
+    <div class="box">
+      <h1 class="has-text-centered is-size-1 mb-5">Quy Định</h1>
+  
+      <div class="has-text-centered my-5">
+        <a href="/quy-dinh/cap-nhat-quy-dinh" class="button is-info">Cập nhật quy định</a>
+      </div>
+  
+      <div class="field is-horizontal my-5">
+        <div class="field-label is-normal is-align-self-flex-end">
+          <label class="label">Độ tuổi tiếp nhận học sinh: </label>
+        </div>
+  
+        <div class="field-body" style="flex: 2;">
+          <div class="field sm-input">
+            <p class="control">
+              <label for="" class="label">Tuổi tối thiểu</label>
+              <input class="input" value="<%= ruleList.TuoiToiThieu %>" readonly>
+            </p>
+          </div>
+  
+          <div class="field sm-input">
+            <p class="control">
+              <label for="" class="label">Tuổi tối đa</label>
+              <input class="input" value="<%= ruleList.TuoiToiDa %>" readonly>
+            </p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="field is-horizontal my-5">
+        <div class="field-label is-normal is-align-self-flex-end" style="flex: 1;">
+          <label class="label">Sỉ số tối đa của một lớp: </label>
+        </div>
+  
+        <div class="field-body" style="flex: 2;">
+          <div class="field sm-input">
+            <p class="control">
+              <label for="" class="label"></label>
+              <input class="input" value="<%= ruleList.SiSoToiDa %>" readonly>
+            </p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="field is-horizontal my-5">
+        <div class="field-label is-normal is-align-self-flex-end" style="flex: 1;">
+          <label class="label">Điểm đạt: </label>
+        </div>
+  
+        <div class="field-body" style="flex: 2;">
+          <div class="field sm-input">
+            <p class="control">
+              <label for="" class="label"></label>
+              <input class="input" value="<%= ruleList.DiemDat.toFixed(1) %>" readonly>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<%- include('../partials/footer') %>

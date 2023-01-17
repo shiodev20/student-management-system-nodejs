@@ -1,0 +1,91 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<div>
+  <section class="section">
+  
+    <div class="l-container">
+  
+        <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+          <div class="flex-item m-3">
+            <form action="/lop-hoc" method="GET">
+              <div class="field is-grouped">
+    
+                <div class="control">
+                  <label class="label">Năm học</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="year">
+                        <option selected value="NH2122">2021-2022</option>
+                        <option value="NH2223">2022-2023</option>
+                        <option value="NH2324">2023-2024</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="control mt-auto">
+                  <button class="button is-info">Tìm kiếm</button>
+                </div>
+    
+              </div>
+            </form>
+          </div>
+    
+          <div class="flex-item is-align-self-flex-end m-3">
+            <a href="/lop-hoc/mo-lop-hoc" class="button is-primary">
+              <i class='bx bxs-user-plus icon'></i> <span>Mở lớp</span>
+            </a>
+          </div>
+        </div>
+
+    </div>
+  
+  </section>
+  
+    <section class="section">
+      <div class="l-container">
+        
+        <div class="table-container">
+          <table class="table is-fullwidth is-hoverable is-bordered">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã lớp</th>
+                <th>Khối lớp</th>
+                <th>Tên lớp</th>
+                <th>Sỉ số</th>
+                <th>Giáo viên chủ nhiệm</th>
+                <th>Lựa chọn</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+            
+              <tr>
+                <th>1</th>
+                <td>10A12122</td>
+                <td>Khối 10</td>
+                <td>10A1</td>
+                <td>2</td>
+                <td></td>
+                <td class="has-text-centered">
+                  <a href="/lop-hoc/10A12122" class="button is-info"><i class='bx bxs-bar-chart-square'></i></a>
+                  <form class="mx-1"  style="display: inline-block;" action="/lop-hoc/xoa-lop-hoc//lop-hoc/10A12122?_method=DELETE" method="POST">
+                    <button class="button is-danger"><i class='bx bxs-trash-alt'></i></a>
+                  </form>
+                </td>
+              </tr>
+    
+            </tbody>
+    
+          </table>
+        </div>
+    
+      </div>
+    </section>
+
+</div>
+
+<%- include('../partials/footer') %>

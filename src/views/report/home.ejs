@@ -1,0 +1,196 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="container">
+
+    <div class="tabs is-boxed">
+      <ul>
+        <li id="report-classroom-subject-score" class="tab-item is-active"><a href="javascript:void(0)">Tổng kết điểm môn học của lớp</a></li>
+        <li id="report-subject" class="tab-item"><a href="javascript:void(0)">Tổng kết môn học</a></li>
+        <li id="report-semeter" class="tab-item"><a href="javascript:void(0)">Tổng kết học kỳ</a></li>
+      </ul>
+    </div>
+
+    <div class="panes">
+
+      <div id="report-classroom-subject-score" class="pane-item l-container">
+        <div class="my-3">
+          <form action="/bao-cao/tong-ket-diem-mon-hoc-cua-lop" method="GET">
+            <div class="is-flex is-flex-wrap-wrap">
+              
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Năm học</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="year">
+                        <% yearList.forEach(year => { %>
+                          <option value="<%= year.MaNamHoc %>"><%= year.TenNamHoc %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Học kỳ</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="semester">
+                        <% semesterList.forEach(semester => { %>
+                          <option value="<%= semester.MaHocKy %>"><%= semester.TenHocKy %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Lớp học</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="classroom">
+                        <% classroomList.forEach(classroom => { %>
+                          <option value="<%= classroom.MaLop %>"><%= classroom.MaLop + ' - ' + classroom.TenLop %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Môn học</label>
+                  <div class="select">
+                    <select name="subject">
+                      <% subjectList.forEach(subject => { %>
+                        <option value="<%= subject.MaMonHoc %>"><%= subject.TenMonHoc %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="flex-item m-3 is-align-self-flex-end">
+                <button class="button is-info">Báo cáo</button>
+              </div>
+        
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="report-subject" class="pane-item l-container" style="display: none;">
+        <div class="my-3">
+          <form action="/bao-cao/tong-ket-mon-hoc" method="GET">
+            <div class="is-flex is-flex-wrap-wrap">
+              
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Năm học</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="year">
+                        <% yearList.forEach(year => { %>
+                          <option value="<%= year.MaNamHoc %>"><%= year.TenNamHoc %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Học kỳ</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="semester">
+                        <% semesterList.forEach(semester => { %>
+                          <option value="<%= semester.MaHocKy %>"><%= semester.TenHocKy %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Môn học</label>
+                  <div class="select">
+                    <select name="subject">
+                      <% subjectList.forEach(subject => { %>
+                        <option value="<%= subject.MaMonHoc %>"><%= subject.TenMonHoc %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="flex-item m-3 is-align-self-flex-end">
+                <button class="button is-info">Báo cáo</button>
+              </div>
+        
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="report-semeter" class="pane-item l-container" style="display: none;">
+        <div class="my-3">
+          <form action="/bao-cao/tong-ket-hoc-ky" method="GET">
+            <div class="is-flex is-flex-wrap-wrap">
+              
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Năm học</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="year">
+                        <% yearList.forEach(year => { %>
+                          <option value="<%= year.MaNamHoc %>"><%= year.TenNamHoc %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="flex-item m-3">
+                <div class="field sm-input">
+                  <label class="label">Học kỳ</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="semester">
+                        <% semesterList.forEach(semester => { %>
+                          <option value="<%= semester.MaHocKy %>"><%= semester.TenHocKy %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-item m-3 is-align-self-flex-end">
+                <button class="button is-info">Báo cáo</button>
+              </div>
+        
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+<%- include('../partials/footer') %>

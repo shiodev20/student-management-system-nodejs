@@ -1,0 +1,96 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="l-container">
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable is-bordered">
+        <thead>
+          <tr>
+            <th>Mã nhân viên</th>
+            <th>Tên nhân viên</th>
+            <th>Lựa chọn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NV1</td>
+            <td>Shio Nguyen</td>
+            <td style="width: 200px;" class="has-text-centered">
+              <button class="button is-info add-account-btn">Cấp tài khoản</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</section>
+
+<div id="account-add-form-modal" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="form-container">
+      <div class="box form-content">
+        <p class="form-title">Cấp tài khoản</p>
+    
+        <form id="account-add-form" action="/tai-khoan/tao-tai-khoan" method="POST">
+    
+          <div class="field is-horizontal">
+            <div class="field-body">
+    
+              <div class="field">
+                <label class="label">Mã tài khoản</label>
+                <div class="control">
+                  <input class="input" type="text" name="accountId" value="TK1" readonly>
+                </div>
+              </div>
+    
+              <div class="field">
+                <label class="label">Tên đăng nhập</label>
+                <div class="control">
+                  <input class="input" type="text" name="username" value="" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="field is-horizontal">
+    
+            <div class="field-body">
+              <div class="field" style="flex: 1;">
+                <label class="label">Mật khẩu</label>
+                <input class="input" type="text" name="password">
+              </div>
+    
+              <div class="field" style="flex: 1;">
+                <label class="label">Vai trò</label>
+                <div class="select" style="width: 100%;">
+                  <select name="role" style="width: 100%;">
+                    <option value="VT1">Giáo vụ</option>
+                    <option value="VT2">Giáo viên</option>
+                    <option value="VT3">Quản trị viên</option>
+                  </select>
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+          
+          <div class="mt-5 has-text-right">
+            <button type="submit" class="button is-primary">Cấp tài khoản</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+<%- include('../partials/footer') %>

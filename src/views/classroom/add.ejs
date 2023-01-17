@@ -1,0 +1,53 @@
+<%- include('../partials/head') %>
+
+<%- include('../partials/navbar') %>
+
+<section class="section">
+  <div class="form-container">
+    <div class="box form-content">
+      <p class="form-title">Mở lớp</p>
+
+      <%- include('../partials/form-message') %>
+
+      <form action="/lop-hoc/mo-lop-hoc" method="POST">
+
+        <div class="field is-horizontal">
+
+          <div class="field-body">
+
+            <div class="field" style="flex: 1;">
+              <label class="label">Năm học</label>
+              <input type="text" name="yearId" value="NH2122" readonly hidden>
+              <input class="input" type="text" value="2021-2022" readonly>
+            </div>
+
+            <div class="field" style="flex: 1;">
+              <label class="label">Khối lớp</label>
+              <div class="select" style="width: 100%;">
+                <select name="gradeId" style="width: 100%;">
+                  <option value="KH10"Khối 10</option>
+                  <option value="KH11"Khối 11</option>
+                  <option value="KH12"Khối 12</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label class="label">Tên lớp</label>
+            <input class="input" type="text" name="classroomName">
+        </div>
+
+        <div class="has-text-right">
+          <button type="submit" class="button is-primary">Mở lớp</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</section>
+
+<%- include('../partials/footer') %>

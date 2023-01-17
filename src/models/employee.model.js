@@ -31,10 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     gender: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      get() {
-        const rawValue = this.getDataValue('gender')
-        return rawValue == 1 ? 'Nam' : 'Nữ'
-      }
     },
     dob: {
       type: DataTypes.DATEONLY,
@@ -51,6 +47,29 @@ module.exports = (sequelize, DataTypes) => {
     phone: {
       type: DataTypes.STRING(11),
       allowNull: false
+    },
+    fullName: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${this.firstName} ${this.lastName}`
+      }
+    },
+    genderText: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.getDataValue('gender') == 1 ? 'Nam' : 'Nữ'
+      }
+    },
+    formatDob: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        const rawDob = new Date(this.getDataValue('dob'))
+        const day = rawDob.getDate() < 10 ? `0${rawDob.getDate()}` : rawDob.getDate()
+        const month = rawDob.getMonth() + 1 < 10 ? `0${rawDob.getMonth() + 1}` : rawDob.getMonth() + 1
+        const year  = rawDob.getFullYear()
+
+        return `${day}-${month}-${year}`
+      }
     },
   }, {
     sequelize,

@@ -1,0 +1,9 @@
+<% if(formMsg.length > 0) { %>
+  <div class="form-msg-container has-background-danger my-3">
+    <ul>
+      <% formMsg.forEach(msg => { %>
+        <li>- <%= msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
