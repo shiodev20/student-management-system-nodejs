@@ -1,6 +1,5 @@
 const { Op } = require('sequelize')
 
-const errorHelper = require('../helpers/error.helper')
 const { Account, Employee, Teacher } = require('../models')
 
 function authService() {
@@ -13,7 +12,7 @@ function authService() {
   
       return result
     } catch (error) {
-      throw errorHelper('Lỗi hệ thống')
+      throw new Error('Lỗi hệ thống')
     }
   }
 
@@ -39,7 +38,7 @@ function authService() {
 
       return result
     } catch (error) {
-      throw errorHelper('Lỗi hệ thống')
+      throw new Error('Lỗi hệ thống')
     }
   }
 

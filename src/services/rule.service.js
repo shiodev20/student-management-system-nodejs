@@ -1,5 +1,4 @@
 const { Rule } = require('../models')
-const errorHelper = require('../helpers/error.helper')
  
 function ruleService() {
 
@@ -8,8 +7,7 @@ function ruleService() {
       const result = await Rule.findOne()
       return result
     } catch (error) {
-      console.error('rule service: getRuleList');
-      throw errorHelper('Lỗi hệ thống')
+      throw new Error('Lỗi hệ thống')
     }
   }
 
@@ -29,8 +27,7 @@ function ruleService() {
       return false
 
     } catch (error) {
-      console.error('rule service: checkStudentAge');
-      throw errorHelper('Lỗi hệ thống')
+      throw new Error('Lỗi hệ thống')
     }
   }
 

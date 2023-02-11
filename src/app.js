@@ -6,6 +6,8 @@ const methodOverride = require('method-override')
 
 const initialRoutes = require('./routes')
 
+const errorMiddleware = require('./middlewares/error.middleware')
+
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -35,6 +37,8 @@ app.use((req, res, next) => {
 })
 
 initialRoutes(app)
+
+app.use(errorMiddleware)
 
 app.listen(3000, () => {
   console.log('app is running');

@@ -45,7 +45,6 @@ function authController() {
       }
 
     } catch (error) {
-      console.log(error.message);
       req.flash('errorMsg', error.message)
       return res.redirect('/dang-nhap')
     }

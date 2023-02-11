@@ -1,6 +1,5 @@
 const { Op } = require('sequelize')
 const { Student } = require('../models')
-const errorHelper = require('../helpers/error.helper')
 const generateId = require('../helpers/generateId.helper')
 
 function studentService() {
@@ -13,8 +12,7 @@ function studentService() {
 
       return result
     } catch (error) {
-      console.error('student service: getStudentList');
-      throw errorHelper('Lỗi hệ thống') 
+      throw new Error(error.message)
     }
   }
 
@@ -24,14 +22,14 @@ function studentService() {
 
       return result
     } catch (error) {
-      throw errorHelper('Lỗi hệ thống')
+      throw new Error(error.message)
     }
   }
   
   const getStudentBySearch = async (info, type) => {
 
     if(info == '') {
-      throw errorHelper('Thông tin tìm kiếm không hợp lệ')
+      throw new Error('Vui lòng nhập thông tin tìm kiếm')
     }
 
     try {
@@ -61,8 +59,7 @@ function studentService() {
       return result
 
     } catch (error) {
-      console.error('studentService: getStudentBySearch');
-      throw errorHelper('Lỗi hệ thống')
+      throw new Error(error.message)
     }
 
   }
@@ -83,17 +80,47 @@ function studentService() {
 
       return result
     } catch (error) {
-      console.error('student service: addStudent');
-      throw errorHelper('Thêm học sinh không thành công')
+      console.log(error);
+      throw new Error(error.message)
     }
 
+  }
+
+  const updateStudent = async (id, student) => {
+    try {
+      const updateStudent = await Student.findByPk(id)
+
+      if(!updateStudent) throw new Error(`Không tìm thấy học sinh ${id}`)
+
+      const result = await updateStudent.update({ ...student })
+      return result
+
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+  const deleteStudent = async (id) => {
+    try {
+      const deleteStudent = await Student.findByPk(id)
+
+      if(!deleteStudent) throw new Error(`Không tìm thấy học sinh ${id}`)
+
+      const result = await deleteStudent.destroy()
+      return result
+      
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
   return {
     getStudentList,
     getStudentById,
-    addStudent,
     getStudentBySearch,
+    addStudent,
+    updateStudent,
+    deleteStudent,
   }
 }
 

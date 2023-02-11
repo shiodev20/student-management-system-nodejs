@@ -1,6 +1,5 @@
 const { Op } = require('sequelize')
 const { Year } = require('../models')
-const errorHelper = require('../helpers/error.helper')
 
 function yearService() {
 
@@ -12,7 +11,8 @@ function yearService() {
   
       return result
     } catch (error) {
-      throw errorHelper('Lỗi hệ thống')
+      console.log(error);
+      throw new Error('Lỗi hệ thống')
     }
   }
 

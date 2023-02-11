@@ -1,6 +1,5 @@
 const { Op } = require('sequelize')
 const { Semester } = require('../models')
-const errorHelper = require('../helpers/error.helper')
 
 function SemesterService() {
 
@@ -12,7 +11,8 @@ function SemesterService() {
   
       return result
     } catch (error) {
-      throw errorHelper('Lỗi hệ thống')
+      console.log(error);
+      throw new Error('Lỗi hệ thống')
     }
   }
 
