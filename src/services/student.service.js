@@ -28,9 +28,7 @@ function studentService() {
   
   const getStudentBySearch = async (info, type) => {
 
-    if(info == '') {
-      throw new Error('Vui lòng nhập thông tin tìm kiếm')
-    }
+    if(info == '') throw new Error('Vui lòng nhập thông tin tìm kiếm')
 
     try {
       let result = null
@@ -53,7 +51,7 @@ function studentService() {
           })
           break;
         default:
-          break;
+          throw new Error('Loại tìm kiếm không phù hợp');
       }
 
       return result
