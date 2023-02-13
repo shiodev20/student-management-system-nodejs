@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const classroomController = require('../controllers/classroom.controller')
+const { isLogin, isStaff } = require('../middlewares/auth.middleware')
 
 const { 
   getClassroomDashboard, 
@@ -16,26 +17,26 @@ const {
   deleteClassroomDelete
 } = classroomController()
 
-router.get('/mo-lop-hoc', getClassroomAdd)
+router.get('/mo-lop-hoc', [isLogin, isStaff], getClassroomAdd)
 
-router.post('/mo-lop-hoc', postClassroomAdd)
+router.post('/mo-lop-hoc', [isLogin, isStaff], postClassroomAdd)
 
-router.get('/lap-danh-sach-lop-hoc/:id', getClassroomStudentAssignment)
+router.get('/lap-danh-sach-lop-hoc/:id', [isLogin, isStaff], getClassroomStudentAssignment)
 
-router.post('/lap-danh-sach-lop-hoc/:id', postClassroomStudentAssignment)
+router.post('/lap-danh-sach-lop-hoc/:id', [isLogin, isStaff], postClassroomStudentAssignment)
 
-router.get('/phan-cong-gvcn/:id', getClassroomHeadTeacherAssignment)
+router.get('/phan-cong-gvcn/:id', [isLogin, isStaff], getClassroomHeadTeacherAssignment)
 
-router.post('/phan-cong-gvcn', postClassroomHeadTeacherAssignment)
+router.post('/phan-cong-gvcn', [isLogin, isStaff], postClassroomHeadTeacherAssignment)
 
-router.get('/phan-cong-gvbm/:id', getClassroomSubjectTeacherAssignment)
+router.get('/phan-cong-gvbm/:id', [isLogin, isStaff], getClassroomSubjectTeacherAssignment)
 
-router.post('/phan-cong-gvbm',  postClassroomSubjectTeacherAssignment)
+router.post('/phan-cong-gvbm', [isLogin, isStaff], postClassroomSubjectTeacherAssignment)
 
-router.get('/:id', getClassroomDetail)
+router.get('/:id', [isLogin, isStaff], getClassroomDetail)
 
-router.delete('/xoa-lop-hoc/:id', deleteClassroomDelete)
+router.delete('/xoa-lop-hoc/:id', [isLogin, isStaff], deleteClassroomDelete)
 
-router.use('/', getClassroomDashboard)
+router.use('/', [isLogin, isStaff], getClassroomDashboard)
 
 module.exports = router

@@ -3,6 +3,15 @@ const { Year } = require('../models')
 
 function yearService() {
 
+  const getYearList = async () => {
+    try {
+      const result = await Year.findAll()
+      return result
+    } catch (error) {
+      throw new Error('Lỗi hệ thống')
+    }
+  }
+
   const getCurrentYear = async () => {
     try {
       const result = await Year.findOne({
@@ -17,6 +26,7 @@ function yearService() {
   }
 
   return {
+    getYearList,
     getCurrentYear,
   }
 }
