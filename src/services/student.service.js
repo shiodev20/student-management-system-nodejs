@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const { Student } = require('../models')
-const generateId = require('../helpers/generateId.helper')
+const { generateStudentId } = require('../helpers/generateId.helper')
 
 function studentService() {
 
@@ -69,7 +69,7 @@ function studentService() {
         order: [ ['enrollDate', 'DESC'] ]
       })
 
-      const studentId = generateId(lastStudent.id)
+      const studentId = generateStudentId(lastStudent.id)
 
       const result = await Student.create({
         id: studentId,

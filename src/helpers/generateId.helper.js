@@ -1,5 +1,5 @@
 
-const generateId = (id) => {
+const generateStudentId = (id) => {
 
   const text = id.slice(0, 2)
   const number = Number(id.slice(2))
@@ -7,4 +7,13 @@ const generateId = (id) => {
   return `${text}${number + 1}`
 }
 
-module.exports = generateId
+const generateClassroomId = (year, classroomName) => {
+  const customYear = year.slice(2)
+
+  return `${classroomName}${customYear}`
+}
+
+module.exports = {
+  generateStudentId,
+  generateClassroomId,
+}

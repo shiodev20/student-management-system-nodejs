@@ -1,35 +1,70 @@
-const { classroomService, yearService } = require('../services')
+const { classroomService, yearService, gradeService } = require('../services')
 
 function classroomController() {
 
-  const { getClassroomByYear } = classroomService()
+  const { getClassroomByYear, addClassroom,  } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
+  const { getGradeList } = gradeService()
 
   const getClassroomDashboard = async (req, res, next) => {
     try {
       let selectedYear = ''
 
-      if(req.query.year) selectedYear = req.query.year
+      if (req.query.year) {
+        selectedYear = req.query.year
+      }
       else {
         const currentYear = await getCurrentYear()
         selectedYear = currentYear.id
       }
-      
-      const yearList = await getYearList()
+
+      const years = await getYearList()
       const classrooms = await getClassroomByYear(selectedYear)
+
+      if(classrooms.length == 0) {
+        const error = {
+          type: 'errorMsg',
+          message: `Không có lớp học nào được mở trong năm học ${selectedYear}`,
+          url: `/lop-hoc`,
+        }
+        return next(error)
+      }
 
       res.render('classroom/home', {
         documentTitle: 'Quản lý lớp học',
         selectedYear,
-        yearList,
+        years,
         classrooms,
       })
 
     } catch (err) {
+      console.log('error');
+
       const error = {
         type: 'errorMsg',
         message: err.message,
         url: '/',
+      }
+      next(error)
+    }
+  }
+
+
+  const getClassroomAdd = async (req, res, next) => {
+    try {
+      const currentYear = await getCurrentYear()
+      const grades = await getGradeList()
+
+      res.render('classroom/add', {
+        documentTitle: 'Mở lớp',
+        currentYear,
+        grades,
+      })
+    } catch (err) {
+      const error = {
+        type: 'errorMsg',
+        message: err.message,
+        url: '/lop-hoc/mo-lop-hoc'
       }
 
       next(error)
@@ -37,14 +72,30 @@ function classroomController() {
   }
 
 
-  const getClassroomAdd = async (req, res) => {
-    res.render('classroom/add', {
-      documentTitle: 'Mở lớp'
-    })
-  }
+  const postClassroomAdd = async (req, res, next) => {
+    try {
+      if(!req.body.year || !req.body.grade || !req.body.classroomName) {
+        const error = {
+          type: 'formMsg',
+          message: 'Vui lòng nhập đầy đủ thông tin',
+          url: '/lop-hoc/mo-lop-hoc'
+        }
 
+        next(error)
+      }
 
-  const postClassroomAdd = async (req, res) => {
+      const classroom = {
+        yearId: req.body.year,
+        gradeId: req.body.grade,
+        name: req.body.classroomName.toUpperCase(),
+      }
+
+      const result = await addClassroom(classroom)
+
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
