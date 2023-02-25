@@ -1,5 +1,6 @@
 const { Op } = require('sequelize')
 const { Year } = require('../models')
+const customError = require('../utils/customError')
 
 function yearService() {
 
@@ -8,7 +9,7 @@ function yearService() {
       const result = await Year.findAll()
       return result
     } catch (error) {
-      throw new Error('Lỗi hệ thống')
+      throw customError()
     }
   }
 
@@ -20,7 +21,7 @@ function yearService() {
   
       return result
     } catch (error) {
-      throw new Error('Lỗi hệ thống')
+      throw customError()
     }
   }
 

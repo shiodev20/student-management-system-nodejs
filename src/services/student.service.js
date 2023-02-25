@@ -1,6 +1,7 @@
 const { Op } = require('sequelize')
 const { Student } = require('../models')
-const { generateStudentId } = require('../helpers/generateId.helper')
+const { generateStudentId } = require('../utils/generateId')
+const customError = require('../utils/customError')
 
 function studentService() {
 
@@ -12,7 +13,7 @@ function studentService() {
 
       return result
     } catch (error) {
-      throw new Error(error.message)
+      throw customError()
     }
   }
 
@@ -22,13 +23,13 @@ function studentService() {
 
       return result
     } catch (error) {
-      throw new Error(error.message)
+      throw customError()
     }
   }
   
   const getStudentBySearch = async (info, type) => {
 
-    if(info == '') throw new Error('Vui lòng nhập thông tin tìm kiếm')
+    if(info == '') throw customError(1, 'Vui lòng nhập thông tin tìm kiếm')
 
     try {
       let result = null
@@ -51,13 +52,14 @@ function studentService() {
           })
           break;
         default:
-          throw new Error('Loại tìm kiếm không phù hợp');
+          throw customError(1, 'Loại tìm kiếm không phù hợp')
       }
 
       return result
 
     } catch (error) {
-      throw new Error(error.message)
+      if(error.code != 0) throw error
+      throw customError()
     }
 
   }
@@ -78,8 +80,7 @@ function studentService() {
 
       return result
     } catch (error) {
-      console.log(error);
-      throw new Error(error.message)
+      throw customError()
     }
 
   }
@@ -88,13 +89,14 @@ function studentService() {
     try {
       const updateStudent = await Student.findByPk(id)
 
-      if(!updateStudent) throw new Error(`Không tìm thấy học sinh ${id}`)
+      if(!updateStudent) throw customError(1, `Không tìm thấy học sinh ${id}`)
 
       const result = await updateStudent.update({ ...student })
       return result
 
     } catch (error) {
-      throw new Error(error.message)
+      if(error.code != 0) throw error
+      throw customError()
     }
   }
 
@@ -102,13 +104,14 @@ function studentService() {
     try {
       const deleteStudent = await Student.findByPk(id)
 
-      if(!deleteStudent) throw new Error(`Không tìm thấy học sinh ${id}`)
+      if(!deleteStudent) throw customError(1, `Không tìm thấy học sinh ${id}`)
 
       const result = await deleteStudent.destroy()
       return result
       
     } catch (error) {
-      throw new Error(error.message)
+      if(error.code != 0) throw error
+      throw customError()
     }
   }
 

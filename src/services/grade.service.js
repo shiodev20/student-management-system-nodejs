@@ -1,4 +1,5 @@
 const { Grade } = require('../models')
+const customError = require('../utils/customError')
 
 function gradeService() {
 
@@ -8,7 +9,7 @@ function gradeService() {
 			return result
 
 		} catch (err) {
-			throw new Error('Lỗi hệ thống')
+			throw customError()
 		}
 	}
 

@@ -1,18 +1,22 @@
 const { studentService, yearService, semesterService, ruleService } = require('../services')
+const customError = require('../utils/customError')
 
 function studentController() {
 
-  const { 
-    getStudentList, 
-    getStudentById, 
-    getStudentBySearch, 
-    addStudent, 
-    updateStudent, 
+  const {
+    getStudentList,
+    getStudentById,
+    getStudentBySearch,
+    addStudent,
+    updateStudent,
     deleteStudent,
   } = studentService()
   const { getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
   const { getRuleList, checkStudentAge } = ruleService()
+
+  const err = { type: '', message: '', url: '' }
+
 
   const getStudentDashboard = async (req, res, next) => {
     try {
@@ -27,14 +31,12 @@ function studentController() {
         currentSemester,
       })
 
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/hoc-sinh'
-      }
+    } catch (error) {
+      err.type = 'errorMsg'
+      err.message = error.message
+      err.url = '/hoc-sinh'
 
-      next(error)
+      next(err)
     }
   }
 
@@ -55,13 +57,7 @@ function studentController() {
         !req.body.parentName ||
         !req.body.parentPhone
       ) {
-        const error = {
-          type: 'formMsg',
-          message: 'Vui lòng nhập đầy đủ thông tin',
-          url: '/hoc-sinh/tiep-nhan-hoc-sinh'
-        }
-
-        next(error)
+        throw customError(2, 'Vui lòng nhập đầy đủ thông tin')
       }
 
       const student = {
@@ -76,28 +72,35 @@ function studentController() {
 
       const checkAge = await checkStudentAge(student.dob)
 
-      if (checkAge) {
-        const result = await addStudent(student)
-
-        req.flash('successMsg', `Tiếp nhận học sinh ${result.id} thành công`)
-        return res.redirect('/hoc-sinh')
+      if (!checkAge) {
+        const ruleList = await getRuleList()
+        throw customError(2, `Tuổi học sinh từ ${ruleList.minAge} đến ${ruleList.maxAge} tuổi`)
       }
 
-      const ruleList = await getRuleList()
-      const error = {
-        type: 'formMsg',
-        message: `Tuổi học sinh từ ${ruleList.minAge} đến ${ruleList.maxAge} tuổi`,
-        url: '/hoc-sinh/tiep-nhan-hoc-sinh'
+      const result = await addStudent(student)
+      req.flash('successMsg', `Tiếp nhận học sinh ${result.id} thành công`)
+      return res.redirect('/hoc-sinh')
+     
+    } catch (error) {
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/hoc-sinh/tiep-nhan-hoc-sinh'
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/hoc-sinh/tiep-nhan-hoc-sinh'
+          break;
+        case 2:
+          err.type = 'formMsg'
+          err.message = error.message
+          err.url = '/hoc-sinh/tiep-nhan-hoc-sinh'
+          break;
       }
-      next(error)
-
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/hoc-sinh/tiep-nhan-hoc-sinh'
-      }
-      next(error)
+      
+      next(err)
     }
   }
 
@@ -108,12 +111,7 @@ function studentController() {
       const student = await getStudentById(id)
 
       if (!student) {
-        const error = {
-          type: 'errorMsg',
-          message: `Không tìm thấy học sinh ${id}`,
-          url: '/hoc-sinh'
-        }
-        next(error)
+        throw customError(1, `Không tìm thấy học sinh ${id}`)
       }
 
       return res.render('student/update', {
@@ -121,13 +119,21 @@ function studentController() {
         student,
       })
 
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/hoc-sinh'
+    } catch (error) {
+      switch(error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/hoc-sinh'
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/hoc-sinh'
+          break;
       }
-      next(error)
+      
+      next(err)
     }
   }
 
@@ -144,12 +150,7 @@ function studentController() {
         !req.body.parentName ||
         !req.body.parentPhone
       ) {
-        const error = {
-          type: 'formMsg',
-          message: 'Vui lòng nhập đầy đủ thông tin',
-          url: `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
-        }
-        next(error)
+        throw customError(2, 'Vui lòng nhập đầy đủ thông tin')
       }
 
       const student = {
@@ -164,27 +165,35 @@ function studentController() {
 
       const checkAge = await checkStudentAge(student.dob)
 
-      if (checkAge) {
-        const result = await updateStudent(id, student)
-        req.flash('successMsg', `Cập nhật học sinh ${result.id} thành công`)
-        return res.redirect(`/hoc-sinh/cap-nhat-hoc-sinh/${id}`)
+      if (!checkAge) {
+        const ruleList = await getRuleList()
+        throw customError(2, `Tuổi học sinh từ ${ruleList.minAge} đến ${ruleList.maxAge} tuổi`)
       }
 
-      const ruleList = await getRuleList()
-      const error = {
-        type: 'formMsg',
-        message: `Tuổi học sinh từ ${ruleList.minAge} đến ${ruleList.maxAge} tuổi`,
-        url: `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
-      }
-      next(error)
+      const result = await updateStudent(id, student)
+      req.flash('successMsg', `Cập nhật học sinh ${result.id} thành công`)
+      return res.redirect(`/hoc-sinh/cap-nhat-hoc-sinh/${id}`)
 
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+    } catch (error) {
+      switch(error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+          break;
+        case 2:
+          err.type = 'formMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+          break;
       }
-      next(error)
+    
+      next(err)
     }
   }
 
@@ -209,13 +218,21 @@ function studentController() {
         students,
       })
 
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/hoc-sinh'
+    } catch (error) {
+      switch(error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh`
+          break;
       }
-      next(error)
+
+      next(err)
     }
   }
 
@@ -224,18 +241,26 @@ function studentController() {
 
     try {
       const result = await deleteStudent(id)
-      
+
       req.flash('successMsg', `Xóa thành công học sinh ${id}`)
       return res.redirect('/hoc-sinh')
-      
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/hoc-sinh'
+
+    } catch (error) {
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/hoc-sinh`
+          break;
+        
       }
-      
-      next(error)
+
+      next(err)
     }
   }
 

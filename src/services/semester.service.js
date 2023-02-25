@@ -1,5 +1,6 @@
 const { Op } = require('sequelize')
 const { Semester } = require('../models')
+const customError = require('../utils/customError')
 
 function SemesterService() {
 
@@ -11,7 +12,7 @@ function SemesterService() {
   
       return result
     } catch (error) {
-      throw new Error('Lỗi hệ thống')
+      throw customError()
     }
   }
 

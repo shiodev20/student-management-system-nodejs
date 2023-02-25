@@ -1,6 +1,7 @@
 const { Op } = require('sequelize')
 const { Classroom, Teacher } = require('../models')
-const { generateClassroomId } = require('../helpers/generateId.helper')
+const { generateClassroomId } = require('../utils/generateId')
+const customError = require('../utils/customError')
 
 function classroomService() {
 
@@ -15,7 +16,7 @@ function classroomService() {
       })
       return result
     } catch (error) {
-      throw new Error('Lỗi hệ thống')
+      throw customError()
     }
   }
   
@@ -24,7 +25,7 @@ function classroomService() {
       const classroomId = generateClassroomId(classroom.yearId, classroom.name)
       const isContainClassroom = await Classroom.findByPk(classroomId)
 
-      if(isContainClassroom) throw new Error('Lớp học đã tồn tại')
+      if(isContainClassroom) throw customError(1, 'Lớp học đã tồn tại')
 
       const result = await Classroom.create({
         id: classroomId,
@@ -33,7 +34,8 @@ function classroomService() {
 
       return result
     } catch (error) {
-      throw new Error(error.message)
+      if(error.code != 0) throw error
+      throw customError()
     }
   }
 

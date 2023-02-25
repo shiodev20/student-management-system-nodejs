@@ -1,5 +1,6 @@
 const { Rule } = require('../models')
- 
+const customError = require('../utils/customError')
+
 function ruleService() {
 
   const getRuleList = async () => {
@@ -7,7 +8,7 @@ function ruleService() {
       const result = await Rule.findOne()
       return result
     } catch (error) {
-      throw new Error('Lỗi hệ thống')
+      throw customError()
     }
   }
 
@@ -27,7 +28,7 @@ function ruleService() {
       return false
 
     } catch (error) {
-      throw new Error('Lỗi hệ thống')
+      throw customError()
     }
   }
 

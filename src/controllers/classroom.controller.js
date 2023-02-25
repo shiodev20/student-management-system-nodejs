@@ -1,10 +1,14 @@
 const { classroomService, yearService, gradeService } = require('../services')
+const customError = require('../utils/customError')
 
 function classroomController() {
 
-  const { getClassroomByYear, addClassroom,  } = classroomService()
+  const { getClassroomByYear, addClassroom } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getGradeList } = gradeService()
+
+  const err = { type: '', message: '', url: '' }
+
 
   const getClassroomDashboard = async (req, res, next) => {
     try {
@@ -21,13 +25,8 @@ function classroomController() {
       const years = await getYearList()
       const classrooms = await getClassroomByYear(selectedYear)
 
-      if(classrooms.length == 0) {
-        const error = {
-          type: 'errorMsg',
-          message: `Không có lớp học nào được mở trong năm học ${selectedYear}`,
-          url: `/lop-hoc`,
-        }
-        return next(error)
+      if (classrooms.length == 0) {
+        throw customError(1, `Không có lớp học nào được mở trong năm học ${selectedYear}`)
       }
 
       res.render('classroom/home', {
@@ -37,15 +36,21 @@ function classroomController() {
         classrooms,
       })
 
-    } catch (err) {
-      console.log('error');
+    } catch (error) {
 
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/',
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/'
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc`
       }
-      next(error)
+
+      return next(err)
     }
   }
 
@@ -60,30 +65,22 @@ function classroomController() {
         currentYear,
         grades,
       })
-    } catch (err) {
-      const error = {
-        type: 'errorMsg',
-        message: err.message,
-        url: '/lop-hoc/mo-lop-hoc'
-      }
 
-      next(error)
+    } catch (error) {
+      err.type = 'errorMsg'
+      err.message = error.message
+      err.url = '/lop-hoc/mo-lop-hoc'
+
+      next(err)
     }
   }
 
 
   const postClassroomAdd = async (req, res, next) => {
     try {
-      if(!req.body.year || !req.body.grade || !req.body.classroomName) {
-        const error = {
-          type: 'formMsg',
-          message: 'Vui lòng nhập đầy đủ thông tin',
-          url: '/lop-hoc/mo-lop-hoc'
-        }
-
-        next(error)
+      if (!req.body.year || !req.body.grade || !req.body.classroomName) {
+        throw customError(2, 'Vui lòng nhập đầy đủ thông tin')
       }
-
       const classroom = {
         yearId: req.body.year,
         gradeId: req.body.grade,
@@ -92,9 +89,32 @@ function classroomController() {
 
       const result = await addClassroom(classroom)
 
-      console.log(result);
-    } catch (err) {
-      console.log(err);
+      if(result) {
+        req.flash('successMsg', `Lớp học được tạo thành công`)
+        res.redirect('/lop-hoc/mo-lop-hoc')
+      }
+
+    } catch (error) {
+
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/lop-hoc/mo-lop-hoc'
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/lop-hoc/mo-lop-hoc'
+          break;
+        case 2:
+          err.type = 'formMsg'
+          err.message = error.message
+          err.url = '/lop-hoc/mo-lop-hoc'
+          break;
+      }
+
+      next(err)
     }
   }
 

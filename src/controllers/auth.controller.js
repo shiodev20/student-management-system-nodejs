@@ -1,56 +1,69 @@
 const bcrypt = require('bcrypt')
 
 const { authService } = require('../services')
-
+const customError = require('../utils/customError')
 
 function authController() {
-
   const { findAccountByUsername, getUserInfo } = authService()
 
-  const getLogin = (req, res) => {
+  const err = { type: '', message: '', url: '' }
+
+  const getLogin = (req, res, next) => {
     res.render('auth/login', { documentTitle: 'Đăng nhập' })
   }
-  
-  const postLogin = async (req, res) => {
+
+  const postLogin = async (req, res, next) => {
     const { username, password } = req.body
 
-    if(!username || !password) {
-      req.flash('formMsg', 'Vui lòng nhập đầy đủ thông tin')
-      return res.redirect('/dang-nhap')
-    }
-
     try {
+      if (!username || !password) {
+        throw customError(2, 'Vui lòng nhập đầy đủ thông tin')
+      }
+      
       const account = await findAccountByUsername(username)
 
-      if(!account) {
-        req.flash('formMsg', 'Tài khoản không tồn tại hoặc bị vô hiệu hóa')
-        return res.redirect('/dang-nhap')
+      if (!account) {
+        throw customError(2, 'Tài khoản không tồn tại hoặc bị vô hiệu hóa')
       }
-      else {
-        const isMatch = await bcrypt.compare(password, account.password)
 
-        if(isMatch) {
-          const user = await getUserInfo(account.id)
+      const isMatch = await bcrypt.compare(password, account.password)
 
-          req.session.regenerate((err) => {
-            req.session.auth = true
-            req.session.user = user
-            res.redirect('/')
-          })
-        }
-        else {
-          req.flash('formMsg', 'Tài khoản hoặc mật khẩu không chính xác')
-          return res.redirect('/dang-nhap')
-        }
+      if (!isMatch) {
+        throw customError(2, 'Tài khoản hoặc mật khẩu không chính xác')
       }
+
+      const user = await getUserInfo(account.id)
+
+      req.session.regenerate((err) => {
+        req.session.auth = true
+        req.session.user = user
+        res.redirect('/')
+      })
 
     } catch (error) {
-      req.flash('errorMsg', error.message)
-      return res.redirect('/dang-nhap')
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/dang-nhap'
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/dang-nhap'
+          break;
+        case 2:
+          err.type = 'formMsg'
+          err.message = error.message
+          err.url = '/dang-nhap'
+          break;
+      }
+
+      next(err)
     }
   }
-  
-  const getLogout = async (req, res) => {
+
+  const getLogout = async (req, res, next) => {
 
     req.session.destroy((err) => {
       res.redirect('/dang-nhap')
