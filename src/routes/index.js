@@ -8,8 +8,6 @@ const studentRouter = require('./student.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
-const db = require('../models')
-
 const initialRoutes = (app) => {
 
   app.get('/', [isLogin], async (req, res) => {
