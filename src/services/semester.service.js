@@ -11,7 +11,6 @@ function SemesterService() {
   
       return result
     } catch (error) {
-      console.log(error);
       throw new Error('Lỗi hệ thống')
     }
   }
