@@ -5,6 +5,17 @@ const customError = require('../utils/customError')
 
 function classroomService() {
 
+  const getClassroomById = async (id) => {
+    try {
+      const result = await Classroom.findByPk(id)
+
+      return result
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
+
   const getClassroomByYear = async (yearId) => {
     try {
       const result = await Classroom.findAll({
@@ -41,6 +52,7 @@ function classroomService() {
 
 
   return {
+    getClassroomById,
     getClassroomByYear,
     addClassroom,
   }

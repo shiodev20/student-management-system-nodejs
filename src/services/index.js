@@ -5,6 +5,7 @@ const studentService = require('./student.service')
 const classroomService = require('./classroom.service')
 const gradeService = require('./grade.service')
 const ruleService = require('./rule.service')
+const subjectService = require('./subject.service')
 
 module.exports = {
   authService,
@@ -14,4 +15,5 @@ module.exports = {
   studentService,
   classroomService,
   ruleService,
+  subjectService,
 }

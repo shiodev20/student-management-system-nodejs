@@ -14,7 +14,7 @@ const {
   postClassroomStudentAssignment,
   postClassroomHeadTeacherAssignment,
   postClassroomSubjectTeacherAssignment,
-  deleteClassroomDelete
+  deleteClassroomDelete,
 } = classroomController()
 
 router.get('/mo-lop-hoc', [isLogin, isStaff], getClassroomAdd)

@@ -10,7 +10,7 @@
           <div class="field sm-input">
             <label class="label">Mã lớp</label>
             <div class="control">
-              <input class="input" type="text" value="10A12122" readonly>
+              <input class="input" type="text" value="<%= classroom.id %>" readonly>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
           <div class="field sm-input">
             <label class="label">Khối</label>
             <div class="control">
-              <input class="input" type="text" value="Khối 10" readonly>
+              <input class="input" type="text" value="<%= classroom.gradeId %>" readonly>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <div class="field sm-input">
             <label class="label">Tên lớp</label>
             <div class="control">
-              <input class="input" type="text" value="10A1" readonly>
+              <input class="input" type="text" value="<%= classroom.name %>" readonly>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <div class="field sm-input">
             <label class="label">Sỉ số</label>
             <div class="control">
-              <input class="input" type="text" value="2" readonly>
+              <input class="input" type="text" value="<%= classroom.size %>" readonly>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <div class="field sm-input">
             <label class="label">Giáo viên chủ nhiệm</label>
             <div class="control">
-              <input class="input" type="text" value="" readonly>
+              <input class="input" type="text" value="<%= classroom.headTeacher %>" readonly>
             </div>
           </div>
         </div>
@@ -86,6 +86,7 @@
       </div>
 
       <div class="panes">
+
         <div id="student-list" class="pane-item">
           <div class="table-container">
             <table class="table is-fullwidth is-hoverable is-bordered">
@@ -97,25 +98,25 @@
                   <th>Ngày sinh</th>
                   <th>Giới tính</th>
                   <th>Địa chỉ</th>
-                  <th>Email</th>
                   <th>Lựa chọn</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>HS1</td>
-                  <td>Shio Nguyen</td>
-                  <td>20-11-2000</td>
-                  <td>Nam</td>
-                  <td>828 HUFLIT</td>
-                  <td>shio.ng@gmail.com</td>
-                  <td class="has-text-centered">
-                    <a href="/hoc-sinh/ket-qua-hoc-tap/HS1?year=NH2122&semester=HK1" class="button is-info"><i
-                        class='bx bxs-bar-chart-square'></i></a>
-                  </td>
-                </tr>
+                <% students.forEach((student, idx) => { %>
+                  <tr>
+                    <th><%= idx + 1 %></th>
+                    <td><%= student.id %></td>
+                    <td><%= student.fullName %></td>
+                    <td><%= student.formatDob %></td>
+                    <td><%= student.genderText %></td>
+                    <td><%= student.address %></td>
+                    <td class="has-text-centered">
+                      <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=NH2122&semester=HK1" class="button is-info"><i
+                          class='bx bxs-bar-chart-square'></i></a>
+                    </td>
+                  </tr>
+                <% }) %>
               </tbody>
 
             </table>
@@ -136,13 +137,22 @@
               </thead>
 
               <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>MH1</td>
-                  <td>Toán</td>
-                  <td>GV1</td>
-                  <td>John Doe</td>
-                </tr>
+                <% subjectTeachers.forEach((item, idx) => { %>
+                  <tr>
+                    <th><%= idx + 1 %></th>
+                    <td><%= item[0].id %></td>
+                    <td><%= item[0].name %></td>
+
+                    <% if(item[1]) { %>
+                      <td><%= item[1].id %></td>
+                      <td><%= item[1].fullName %></td>
+                    <% } else { %>
+                      <td></td>
+                      <td></td>
+                    <% } %>
+                  </tr>
+                <% }) %>
+               
               </tbody>
 
             </table>

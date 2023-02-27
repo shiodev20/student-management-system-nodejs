@@ -1,11 +1,12 @@
-const { classroomService, yearService, gradeService } = require('../services')
+const { classroomService, yearService, gradeService, subjectService } = require('../services')
 const customError = require('../utils/customError')
 
 function classroomController() {
 
-  const { getClassroomByYear, addClassroom } = classroomService()
+  const { getClassroomById, getClassroomByYear, addClassroom } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getGradeList } = gradeService()
+  const { getSubjectList } = subjectService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -119,10 +120,48 @@ function classroomController() {
   }
 
 
-  const getClassroomDetail = async (req, res) => {
-    res.render('classroom/detail', {
-      documentTitle: 'Chi tiết lớp học'
-    })
+  const getClassroomDetail = async (req, res, next) => {
+    const id = req.params.id
+
+    try {
+      
+      const classroom = await getClassroomById(id)
+      const students = await classroom.getStudents()
+      const teachingAssignments = await classroom.getTeachingAssignments()
+
+      const subjectTeachers = []
+
+      await Promise.all(teachingAssignments.map(async item => {
+        const subject = await item.getSubject()
+        const subjectTeacher = await item.getSubjectTeacher()
+
+        subjectTeachers.push([subject, subjectTeacher])
+      }))
+      
+      subjectTeachers.sort((a, b) => {
+        return Number(a[0].id.slice(-1)) - Number(b[0].id.slice(-1))
+      })
+
+      
+      res.render('classroom/detail', {
+        documentTitle: 'Chi tiết lớp học',
+        classroom,
+        students,
+        subjectTeachers,
+      })
+
+    } catch (error) {
+      switch (error.code) {
+        case 0:
+          
+          break;
+        case 1:
+          
+          break;
+      }
+
+      next(err)
+    }
   }
 
 
@@ -136,6 +175,7 @@ function classroomController() {
   const postClassroomStudentAssignment = async (req, res) => {
   }
 
+  
   const getClassroomHeadTeacherAssignment = async (req, res) => {
     res.render('classroom/headTeacher-assignment', {
       documentTitle: 'Phân công giáo viên chủ nhiệm',
