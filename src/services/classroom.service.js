@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { Classroom, Teacher } = require('../models')
+const { Classroom, Teacher, TeachingAssignment, Subject } = require('../models')
 const { generateClassroomId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
@@ -42,6 +42,16 @@ function classroomService() {
         id: classroomId,
         ...classroom,
       })
+
+      const subjects = await Subject.findAll()
+
+      await Promise.all(subjects.map(async subject => {
+        await TeachingAssignment.create({
+          classroomId: result.id,
+          subjectId: subject.id,
+          subjectTeacherId: null,
+        })
+      }))
 
       return result
     } catch (error) {

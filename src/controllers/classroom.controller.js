@@ -1,12 +1,12 @@
-const { classroomService, yearService, gradeService, subjectService } = require('../services')
+const { classroomService, yearService, gradeService, semesterService } = require('../services')
 const customError = require('../utils/customError')
 
 function classroomController() {
 
   const { getClassroomById, getClassroomByYear, addClassroom } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
+  const { getCurrentSemester } = semesterService()
   const { getGradeList } = gradeService()
-  const { getSubjectList } = subjectService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -126,6 +126,11 @@ function classroomController() {
     try {
       
       const classroom = await getClassroomById(id)
+
+      if(!classroom) {
+        throw customError(1, `Không tìm thấy lớp học ${id}`)
+      }
+
       const students = await classroom.getStudents()
       const teachingAssignments = await classroom.getTeachingAssignments()
 
@@ -153,10 +158,14 @@ function classroomController() {
     } catch (error) {
       switch (error.code) {
         case 0:
-          
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/lop-hoc'
           break;
         case 1:
-          
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/lop-hoc'
           break;
       }
 
