@@ -38,6 +38,34 @@ function classroomService() {
     }
   }
   
+  const getSubjectTeacherByClassroom = async (classroomId) => {
+    try {
+      const classroom = await Classroom.findByPk(classroomId)
+
+      if(!classroom) throw customError(1, `Không tìm thấy lớp ${classroomId}`)
+
+      const result = []
+
+      const teachingAssignments = await classroom.getTeachingAssignments()
+
+      await Promise.all(teachingAssignments.map(async item => {
+        const subject = await item.getSubject()
+        const subjectTeacher = await item.getSubjectTeacher()
+
+        result.push([subject, subjectTeacher])
+      }))
+
+      result.sort((a, b) => {
+        return Number(a[0].id.slice(-1)) - Number(b[0].id.slice(-1))
+      })
+      
+      return result
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
+
   const addClassroom = async (classroom) => {
     try {
       const classroomId = generateClassroomId(classroom.yearId, classroom.name)
@@ -67,7 +95,7 @@ function classroomService() {
     }
   }
 
-  const assignHeadTeacher = async (classroomId, headTeacherId) => {
+  const addHeadTeacherToClassroom = async (classroomId, headTeacherId) => {
     try {
       const classroom = await Classroom.findByPk(classroomId)
 
@@ -85,8 +113,9 @@ function classroomService() {
   return {
     getClassroomById,
     getClassroomByYear,
+    getSubjectTeacherByClassroom,
     addClassroom,
-    assignHeadTeacher,
+    addHeadTeacherToClassroom,
   }
 }
 

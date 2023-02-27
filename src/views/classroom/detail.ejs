@@ -46,7 +46,7 @@
           <div class="field sm-input">
             <label class="label">Giáo viên chủ nhiệm</label>
             <div class="control">
-              <input class="input" type="text" value="<%= classroom.headTeacher.fullName %>" readonly>
+              <input class="input" type="text" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
             </div>
           </div>
         </div>

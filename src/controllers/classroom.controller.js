@@ -1,13 +1,20 @@
-const { classroomService, yearService, gradeService, semesterService, teacherService } = require('../services')
+const { classroomService, yearService, gradeService, semesterService, teacherService, studentService } = require('../services')
 const customError = require('../utils/customError')
 
 function classroomController() {
 
-  const { getClassroomById, getClassroomByYear, getSubjectTeachers, addClassroom, assignHeadTeacher, } = classroomService()
+  const { 
+    getClassroomById, 
+    getClassroomByYear, 
+    addClassroom, 
+    addHeadTeacherToClassroom ,
+    getSubjectTeacherByClassroom,
+  } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
   const { getGradeList } = gradeService()
   const { getNoAssignmentHeadTeacherList } = teacherService()
+  const { getStudentsByClassroom } = studentService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -123,6 +130,7 @@ function classroomController() {
 
   const getClassroomDetail = async (req, res, next) => {
     const { id } = req.params
+   
     try {
       const classroom = await getClassroomById(id)
 
@@ -130,59 +138,36 @@ function classroomController() {
         throw customError(1, `Không tìm thấy lớp học ${id}`)
       }
 
-      const subjectTeachers = []
       const currentYear = await getCurrentYear()
       const currentSemester = await getCurrentSemester()
-      const students = await classroom.getStudents()
-
-      const teachingAssignments = await classroom.getTeachingAssignments()
-
-
-      await Promise.all(teachingAssignments.map(async item => {
-        const subject = await item.getSubject()
-        const subjectTeacher = await item.getSubjectTeacher()
-
-        subjectTeachers.push([subject, subjectTeacher])
-      }))
-
-      subjectTeachers.sort((a, b) => {
-        return Number(a[0].id.slice(-1)) - Number(b[0].id.slice(-1))
-      })
-
-      // return res.json({
-      //   documentTitle: 'Chi tiết lớp học',
-      //   currentYear,
-      //   currentSemester,
-      //   classroom,
-      //   students,
-      //   subjectTeachers,
-      // })
+      const students = await getStudentsByClassroom(classroom.id)
+      const subjectTeachers = await getSubjectTeacherByClassroom(classroom.id)
+      
 
       res.render('classroom/detail', {
-        documentTitle: 'Chi tiết lớp học',
+        documentTitle: `Lớp ${id}`,
+        classroom,
         currentYear,
         currentSemester,
-        classroom,
         students,
         subjectTeachers,
       })
 
     } catch (error) {
-      // switch (error.code) {
-      //   case 0:
-      //     err.type = 'errorMsg'
-      //     err.message = error.message
-      //     err.url = '/lop-hoc'
-      //     break;
-      //   case 1:
-      //     err.type = 'errorMsg'
-      //     err.message = error.message
-      //     err.url = '/lop-hoc'
-      //     break;
-      // }
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/lop-hoc'
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/lop-hoc'
+          break;
+      }
 
-      // next(err)
-      console.log(error);
+      next(err)
     }
   }
 
@@ -238,7 +223,7 @@ function classroomController() {
         throw customError(1, 'Vui lòng chọn giáo viện cần phân lớp')
       }
 
-      const result = await assignHeadTeacher(classroomId, headTeacherId)
+      const result = await addHeadTeacherToClassroom(classroomId, headTeacherId)
 
       if(result) {
         req.flash('successMsg', 'Cập nhật GVCN thành công')
