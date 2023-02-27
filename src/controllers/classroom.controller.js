@@ -13,7 +13,7 @@ function classroomController() {
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
   const { getGradeList } = gradeService()
-  const { getNoAssignmentHeadTeacherList } = teacherService()
+  const { getNoAssignmentHeadTeacherList, getTeachersBySubject } = teacherService()
   const { getStudentsByClassroom } = studentService()
 
   const err = { type: '', message: '', url: '' }
@@ -244,9 +244,33 @@ function classroomController() {
 
 
   const getClassroomSubjectTeacherAssignment = async (req, res) => {
-    res.render('classroom/subjectTeacher-assignment', {
-      documentTitle: 'Phân công giáo viên bộ môn',
-    })
+    const { id } = req.params
+
+    try {
+
+      const teachers = await getTeachersBySubject('MH1')
+
+      return res.json(teachers)
+      res.render('classroom/subjectTeacher-assignment', {
+        documentTitle: 'Phân công giáo viên bộ môn',
+      })
+
+    } catch (error) {
+        switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+          break;
+      }
+
+      next(err)
+    }
   }
 
 

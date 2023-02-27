@@ -41,8 +41,23 @@ function teacherService() {
 
   }
 
+  const getTeachersBySubject = async (subjectId) => {
+    try {
+      const subject = await Subject.findByPk(subjectId)
+
+      const result = await subject.getTeachers()
+
+      return result
+      
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw error
+    }
+  }
+
   return {
     getNoAssignmentHeadTeacherList,
+    getTeachersBySubject
   }
 }
 
