@@ -16,6 +16,8 @@ function classroomService() {
         },
       })
       
+      if(!result) throw customError(1, `Không tìm thấy lớp ${id}`)
+
       return result
     } catch (error) {
       if(error.code != 0) throw error
@@ -98,8 +100,37 @@ function classroomService() {
   const addHeadTeacherToClassroom = async (classroomId, headTeacherId) => {
     try {
       const classroom = await Classroom.findByPk(classroomId)
+      if(!classroom) throw customError(1, `Không tìm lấy lớp học ${classroomId}`)
 
-      if(!classroom) throw customError(1, 'Không tìm lấy lớp học')
+      const headTeacher = await Teacher.findByPk(headTeacherId)
+      if(!headTeacher) throw customError(1, `Không tìm thấy giáo viên ${headTeacherId}`)
+
+      // Xóa GVCN cũ khỏi "TeachingAssignemnt" (Nếu có)
+      if(classroom.headTeacherId) {
+        const oldHeadTeacher = await Teacher.findByPk(classroom.headTeacherId)
+  
+        const oldteachingAssingment = await TeachingAssignment.findOne({
+          where: {
+            [Op.and]: [
+              { classroomId: { [Op.eq]: classroomId } },
+              { subjectId: { [Op.eq]: oldHeadTeacher.subjectId }}
+            ]
+          }
+        })
+        await oldteachingAssingment.update({ subjectTeacherId: null })
+      }
+
+      // Thêm GVCN mới vào "TeachingAssignment"
+      const teachingAssingment = await TeachingAssignment.findOne({
+        where: {
+          [Op.and]: [
+            { classroomId: { [Op.eq]: classroomId } },
+            { subjectId: { [Op.eq]: headTeacher.subjectId }}
+          ]
+        }
+      })
+      await teachingAssingment.update({ subjectTeacherId: headTeacher.id })
+
 
       const result = await classroom.update({ headTeacherId })
 

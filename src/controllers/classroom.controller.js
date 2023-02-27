@@ -133,16 +133,10 @@ function classroomController() {
    
     try {
       const classroom = await getClassroomById(id)
-
-      if (!classroom) {
-        throw customError(1, `Không tìm thấy lớp học ${id}`)
-      }
-
       const currentYear = await getCurrentYear()
       const currentSemester = await getCurrentSemester()
       const students = await getStudentsByClassroom(classroom.id)
       const subjectTeachers = await getSubjectTeacherByClassroom(classroom.id)
-      
 
       res.render('classroom/detail', {
         documentTitle: `Lớp ${id}`,
