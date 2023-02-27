@@ -33,9 +33,9 @@ router.get('/phan-cong-gvbm/:id', [isLogin, isStaff], getClassroomSubjectTeacher
 
 router.post('/phan-cong-gvbm', [isLogin, isStaff], postClassroomSubjectTeacherAssignment)
 
-router.get('/:id', [isLogin, isStaff], getClassroomDetail)
-
 router.delete('/xoa-lop-hoc/:id', [isLogin, isStaff], deleteClassroomDelete)
+
+router.get('/:id', [isLogin, isStaff], getClassroomDetail)
 
 router.use('/', [isLogin, isStaff], getClassroomDashboard)
 

@@ -1,12 +1,13 @@
-const { classroomService, yearService, gradeService, semesterService } = require('../services')
+const { classroomService, yearService, gradeService, semesterService, teacherService } = require('../services')
 const customError = require('../utils/customError')
 
 function classroomController() {
 
-  const { getClassroomById, getClassroomByYear, addClassroom } = classroomService()
+  const { getClassroomById, getClassroomByYear, getSubjectTeachers, addClassroom, assignHeadTeacher, } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
   const { getGradeList } = gradeService()
+  const { getNoAssignmentHeadTeacherList } = teacherService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -90,7 +91,7 @@ function classroomController() {
 
       const result = await addClassroom(classroom)
 
-      if(result) {
+      if (result) {
         req.flash('successMsg', `Lớp học được tạo thành công`)
         res.redirect('/lop-hoc/mo-lop-hoc')
       }
@@ -121,20 +122,21 @@ function classroomController() {
 
 
   const getClassroomDetail = async (req, res, next) => {
-    const id = req.params.id
-
+    const { id } = req.params
     try {
-      
       const classroom = await getClassroomById(id)
 
-      if(!classroom) {
+      if (!classroom) {
         throw customError(1, `Không tìm thấy lớp học ${id}`)
       }
 
+      const subjectTeachers = []
+      const currentYear = await getCurrentYear()
+      const currentSemester = await getCurrentSemester()
       const students = await classroom.getStudents()
+
       const teachingAssignments = await classroom.getTeachingAssignments()
 
-      const subjectTeachers = []
 
       await Promise.all(teachingAssignments.map(async item => {
         const subject = await item.getSubject()
@@ -142,17 +144,71 @@ function classroomController() {
 
         subjectTeachers.push([subject, subjectTeacher])
       }))
-      
+
       subjectTeachers.sort((a, b) => {
         return Number(a[0].id.slice(-1)) - Number(b[0].id.slice(-1))
       })
 
-      
+      // return res.json({
+      //   documentTitle: 'Chi tiết lớp học',
+      //   currentYear,
+      //   currentSemester,
+      //   classroom,
+      //   students,
+      //   subjectTeachers,
+      // })
+
       res.render('classroom/detail', {
         documentTitle: 'Chi tiết lớp học',
+        currentYear,
+        currentSemester,
         classroom,
         students,
         subjectTeachers,
+      })
+
+    } catch (error) {
+      // switch (error.code) {
+      //   case 0:
+      //     err.type = 'errorMsg'
+      //     err.message = error.message
+      //     err.url = '/lop-hoc'
+      //     break;
+      //   case 1:
+      //     err.type = 'errorMsg'
+      //     err.message = error.message
+      //     err.url = '/lop-hoc'
+      //     break;
+      // }
+
+      // next(err)
+      console.log(error);
+    }
+  }
+
+
+  const getClassroomStudentAssignment = async (req, res) => {
+    res.render('classroom/student-assignment', {
+      documentTitle: 'Lập danh sách lớp học',
+    })
+  }
+
+
+  const postClassroomStudentAssignment = async (req, res) => {
+  }
+
+
+  const getClassroomHeadTeacherAssignment = async (req, res, next) => {
+    const id = req.params.id
+
+    try {
+      const classroom = await getClassroomById(id)
+      const noAssignmentHeadTeacherList = await getNoAssignmentHeadTeacherList()
+
+      res.render('classroom/headTeacher-assignment', {
+        documentTitle: 'Phân công giáo viên chủ nhiệm',
+        classroom,
+        noAssignmentHeadTeacherList,
       })
 
     } catch (error) {
@@ -174,24 +230,37 @@ function classroomController() {
   }
 
 
-  const getClassroomStudentAssignment = async (req, res) => {
-    res.render('classroom/student-assignment', {
-      documentTitle: 'Lập danh sách lớp học',
-    })
-  }
+  const postClassroomHeadTeacherAssignment = async (req, res, next) => {
+    const { classroomId, headTeacherId } = req.body
 
+    try {
+      if(!classroomId || !headTeacherId) {
+        throw customError(1, 'Vui lòng chọn giáo viện cần phân lớp')
+      }
 
-  const postClassroomStudentAssignment = async (req, res) => {
-  }
+      const result = await assignHeadTeacher(classroomId, headTeacherId)
 
-  
-  const getClassroomHeadTeacherAssignment = async (req, res) => {
-    res.render('classroom/headTeacher-assignment', {
-      documentTitle: 'Phân công giáo viên chủ nhiệm',
-    })
-  }
+      if(result) {
+        req.flash('successMsg', 'Cập nhật GVCN thành công')
+        res.redirect(`/lop-hoc/phan-cong-gvcn/${classroomId}`)
+      }
 
-  const postClassroomHeadTeacherAssignment = async (req, res) => {
+    } catch (error) {
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+          break;
+      }
+
+      next(err)
+    }
   }
 
 
@@ -203,6 +272,7 @@ function classroomController() {
 
 
   const postClassroomSubjectTeacherAssignment = async (req, res) => {
+
   }
 
 

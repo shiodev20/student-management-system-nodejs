@@ -6,9 +6,16 @@ const customError = require('../utils/customError')
 function classroomService() {
 
   const getClassroomById = async (id) => {
+    
     try {
-      const result = await Classroom.findByPk(id)
-
+      const result = await Classroom.findOne({
+        where: { id: { [Op.eq]: id } },
+        include: {
+          model: Teacher,
+          as: 'headTeacher',
+        },
+      })
+      
       return result
     } catch (error) {
       if(error.code != 0) throw error
@@ -60,11 +67,26 @@ function classroomService() {
     }
   }
 
+  const assignHeadTeacher = async (classroomId, headTeacherId) => {
+    try {
+      const classroom = await Classroom.findByPk(classroomId)
+
+      if(!classroom) throw customError(1, 'Không tìm lấy lớp học')
+
+      const result = await classroom.update({ headTeacherId })
+
+      return result
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
 
   return {
     getClassroomById,
     getClassroomByYear,
     addClassroom,
+    assignHeadTeacher,
   }
 }
 

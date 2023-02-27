@@ -46,7 +46,7 @@
           <div class="field sm-input">
             <label class="label">Giáo viên chủ nhiệm</label>
             <div class="control">
-              <input class="input" type="text" value="<%= classroom.headTeacher %>" readonly>
+              <input class="input" type="text" value="<%= classroom.headTeacher.fullName %>" readonly>
             </div>
           </div>
         </div>
@@ -58,21 +58,20 @@
       <div class="is-flex is-flex-wrap-wrap">
 
         <div class="flex-item m-3">
-          <a href="/lop-hoc/lap-danh-sach-lop-hoc/10A12122" class="button is-info">Thêm học sinh</a>
+          <a href="/lop-hoc/lap-danh-sach-lop-hoc/<%= classroom.id %>" class="button is-info">Thêm học sinh</a>
         </div>
 
         <div class="flex-item m-3">
-          <a href="/lop-hoc/phan-cong-gvcn/10A12122" class="button is-info">Phân công GVCN</a>
+          <a href="/lop-hoc/phan-cong-gvcn/<%= classroom.id %>" class="button is-info">Phân công GVCN</a>
         </div>
 
         <div class="flex-item m-3">
-          <a href="/lop-hoc/phan-cong-gvbm/10A12122" class="button is-info">Phân công GVBM</a>
+          <a href="/lop-hoc/phan-cong-gvbm/<%= classroom.id %>" class="button is-info">Phân công GVBM</a>
         </div>
       </div>
 
     </div>
   </section>
-
 
   <section class="section">
     <div class="container">
@@ -112,8 +111,9 @@
                     <td><%= student.genderText %></td>
                     <td><%= student.address %></td>
                     <td class="has-text-centered">
-                      <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=NH2122&semester=HK1" class="button is-info"><i
-                          class='bx bxs-bar-chart-square'></i></a>
+                      <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="button is-info">
+                        <i class='bx bxs-bar-chart-square'></i>
+                      </a>
                     </td>
                   </tr>
                 <% }) %>
@@ -152,7 +152,7 @@
                     <% } %>
                   </tr>
                 <% }) %>
-               
+              
               </tbody>
 
             </table>

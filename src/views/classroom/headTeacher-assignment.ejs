@@ -13,7 +13,7 @@
             <div class="field sm-input">
               <label class="label">Mã lớp</label>
               <div class="control">
-                <input class="input" name="classroomId" type="text" value="10A12122" readonly>
+                <input class="input" name="classroomId" type="text" value="<%= classroom.id %>" readonly>
               </div>
             </div>
           </div>
@@ -22,7 +22,7 @@
             <div class="field sm-input">
               <label class="label">Khối</label>
               <div class="control">
-                <input class="input" type="text" value="Khối 10" readonly>
+                <input class="input" type="text" value="<%= classroom.gradeId %>" readonly>
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <div class="field sm-input">
               <label class="label">Tên lớp</label>
               <div class="control">
-                <input class="input" type="text" value="10A1" readonly>
+                <input class="input" type="text" value="<%= classroom.name %>" readonly>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
             <div class="field sm-input">
               <label class="label">Giáo viên chủ nhiệm</label>
               <div class="control">
-                <input class="input" type="text" value="" readonly>
+                <input class="input" type="text" value="<%= classroom.headTeacher.fullName %>" readonly>
               </div>
             </div>
           </div>
@@ -64,16 +64,19 @@
             </thead>
             
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>GV1</td>
-                <td>John Doe</td>
-                <td>Nam</td>
-                <td>Toán</td>
-                <td class="has-text-centered">
-                  <input type="radio" name="headTeacherId" value="GV1">
-                </td>
-              </tr>
+              <% noAssignmentHeadTeacherList.forEach((teacher, idx) => { %>
+                <tr>
+                  <th><%= idx + 1 %></th>
+                  <td><%= teacher.id %></td>
+                  <td><%= teacher.fullName %></td>
+                  <td><%= teacher.genderText %></td>
+                  <td><%= teacher.subject.name %></td>
+                  <td class="has-text-centered">
+                    <input type="radio" name="headTeacherId" value="<%= teacher.id %>">
+                  </td>
+                </tr>
+              <% }) %>
+
             </tbody>
     
           </table>
