@@ -467,7 +467,7 @@ module.exports = {
       {
         id: '10A12122',
         name: '10A1',
-        size: 0,
+        size: 4,
         gradeId: 'KH10',
         yearId: 'NH2122'
       },
@@ -478,12 +478,10 @@ module.exports = {
       {
         classroomId: '10A12122',
         subjectId: 'MH1',
-        subjectTeacherId: 'GV1'
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH2',
-        subjectTeacherId: 'GV2'
       },
       {
         classroomId: '10A12122',
@@ -528,10 +526,6 @@ module.exports = {
       {
         classroomId: '10A12122',
         studentId: 'HS3',
-      },
-      {
-        classroomId: '10A12122',
-        studentId: 'HS4',
       },
     ])
     console.log('done ', 'lassroomdetails');

@@ -54,11 +54,11 @@ function classroomService() {
         const subject = await item.getSubject()
         const subjectTeacher = await item.getSubjectTeacher()
 
-        result.push([subject, subjectTeacher])
+        result.push({subject, subjectTeacher})
       }))
 
       result.sort((a, b) => {
-        return Number(a[0].id.slice(-1)) - Number(b[0].id.slice(-1))
+        return Number(a.subject.id.substring(2)) - Number(b.subject.id.substring(2))
       })
       
       return result
@@ -82,6 +82,7 @@ function classroomService() {
 
       const subjects = await Subject.findAll()
 
+      // Thêm môn học cho lớp vừa tạo
       await Promise.all(subjects.map(async subject => {
         await TeachingAssignment.create({
           classroomId: result.id,
@@ -141,12 +142,43 @@ function classroomService() {
     }
   }
 
+  const addSubjectTeacherToClassroom = async (classroomId, { subjectId, teacherId }) => {
+    try {
+      const classroom = await getClassroomById(classroomId)
+      if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
+      const subject = await Subject.findByPk(subjectId)
+      if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+
+      const teacher = await Teacher.findByPk(teacherId)
+      if(!teacher) throw customError(1, `Không tìm thấy giáo viên ${teacherId}`)
+
+      const teachingAssignment = await TeachingAssignment.findOne({
+        where: {
+          [Op.and]: [
+            { classroomId: { [Op.eq]: classroomId } },
+            { subjectId: { [Op.eq]: subjectId } },
+          ]
+        }
+      })
+
+      const result = await teachingAssignment.update({ subjectTeacherId: teacherId })
+      
+      return result
+
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError
+    }
+  }
+
   return {
     getClassroomById,
     getClassroomByYear,
     getSubjectTeacherByClassroom,
     addClassroom,
     addHeadTeacherToClassroom,
+    addSubjectTeacherToClassroom,
   }
 }
 

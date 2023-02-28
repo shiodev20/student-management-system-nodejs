@@ -1,4 +1,12 @@
-const { classroomService, yearService, gradeService, semesterService, teacherService, studentService } = require('../services')
+const { 
+  classroomService, 
+  yearService, 
+  gradeService, 
+  semesterService, 
+  teacherService, 
+  studentService,
+  subjectService,
+} = require('../services')
 const customError = require('../utils/customError')
 
 function classroomController() {
@@ -6,15 +14,17 @@ function classroomController() {
   const { 
     getClassroomById, 
     getClassroomByYear, 
+    getSubjectTeacherByClassroom,
     addClassroom, 
     addHeadTeacherToClassroom ,
-    getSubjectTeacherByClassroom,
+    addSubjectTeacherToClassroom,
   } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
   const { getGradeList } = gradeService()
   const { getNoAssignmentHeadTeacherList, getTeachersBySubject } = teacherService()
   const { getStudentsByClassroom } = studentService()
+  const { getSubjectList } = subjectService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -247,12 +257,23 @@ function classroomController() {
     const { id } = req.params
 
     try {
+      const teachersBySubjects = []
+      const classroom = await getClassroomById(id)
+      const subjects = await getSubjectList()
 
-      const teachers = await getTeachersBySubject('MH1')
+      await Promise.all(subjects.map(async subject => {
+        const teachers = await getTeachersBySubject(subject.id)
+        teachersBySubjects.push({ subject, teachers })
+      }))
 
-      return res.json(teachers)
+      teachersBySubjects.sort((a, b) => {
+        return Number(a.subject.id.substring(2)) - Number(b.subject.id.substring(2))
+      })
+
       res.render('classroom/subjectTeacher-assignment', {
         documentTitle: 'Phân công giáo viên bộ môn',
+        classroom,
+        teachersBySubjects,
       })
 
     } catch (error) {
@@ -260,12 +281,12 @@ function classroomController() {
         case 0:
           err.type = 'errorMsg'
           err.message = error.message
-          err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+          err.url = `/lop-hoc/phan-cong-gvbm/${id}`
           break;
         case 1:
           err.type = 'errorMsg'
           err.message = error.message
-          err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+          err.url = `/lop-hoc/phan-cong-gvbm/${id}`
           break;
       }
 
@@ -274,8 +295,42 @@ function classroomController() {
   }
 
 
-  const postClassroomSubjectTeacherAssignment = async (req, res) => {
+  const postClassroomSubjectTeacherAssignment = async (req, res, next) => {
+    const { classroomId, ...data } = req.body
 
+    try {
+      const subjectTeachingAssignment = []
+
+      for (const key in data) {
+        if(data[key] != '') {
+          const item = { subjectId: key, teacherId: data[key] }
+          subjectTeachingAssignment.push(item)
+        }
+      }
+
+      await Promise.all(subjectTeachingAssignment.map(async item => {
+        await addSubjectTeacherToClassroom(classroomId, item)
+      }))
+
+      req.flash('successMsg', 'Phân công giảng dạy thành công')
+      res.redirect(`/lop-hoc/${classroomId}`)
+
+    } catch (error) {
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/phan-cong-gvbm/${classroomId}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/phan-cong-gvbm/${classroomId}`
+          break;
+      }
+
+      next(err)
+    }
   }
 
 
