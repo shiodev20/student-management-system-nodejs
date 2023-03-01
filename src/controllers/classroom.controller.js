@@ -7,6 +7,7 @@ const {
   studentService,
   subjectService,
 } = require('../services')
+const { Student, Classroom } = require('../models')
 const customError = require('../utils/customError')
 
 function classroomController() {
@@ -177,9 +178,25 @@ function classroomController() {
 
 
   const getClassroomStudentAssignment = async (req, res) => {
-    res.render('classroom/student-assignment', {
-      documentTitle: 'Lập danh sách lớp học',
-    })
+    const { id } = req.params
+
+    try {
+      const result = await Student.findAll({
+        include: {
+          model: Classroom,
+          as: 'classrooms'
+        }
+      })
+
+      return res.json(result)
+
+      res.render('classroom/student-assignment', {
+        documentTitle: 'Lập danh sách lớp học',
+      })
+
+    } catch (error) {
+      
+    }
   }
 
 

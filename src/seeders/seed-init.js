@@ -117,6 +117,314 @@ module.exports = {
         parentPhone: "3759552263",
         enrollDate: '2023-01-13 10:27:39'
       },
+      {
+        id: "HS5",
+        firstName: "Grenville",
+        lastName: "Neate",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "708 Graedel Trail",
+        parentName: "Grenville Neate",
+        parentPhone: "3759552263",
+        enrollDate: '2023-01-13 11:27:39'
+      },
+      {
+        id: "HS6",
+        firstName: "Ilyssa",
+        lastName: "Andreas",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "19394 Pine View Center",
+        parentName: "Ilyssa Andreas",
+        parentPhone: "3366992386",
+        enrollDate: '2023-01-13 11:28:39'
+      },
+      {
+        id: "HS7",
+        firstName: "Sari",
+        lastName: "Reijmers",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "9 Morrow Point",
+        parentName: "Sari Reijmers",
+        parentPhone: "7949187082",
+        enrollDate: '2023-01-13 11:29:39'
+      },
+      {
+        id: "HS8",
+        firstName: "Saunderson",
+        lastName: "Kopje",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "0746 Westerfield Drive",
+        parentName: "Saunderson Kopje",
+        parentPhone: "9669079872",
+        enrollDate: '2023-01-13 11:30:39'
+      },
+      {
+        id: "HS9",
+        firstName: "Bertie",
+        lastName: "Huckett",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "6 Jackson Pass",
+        parentName: "Bertie Huckett",
+        parentPhone: "2655184956",
+        enrollDate: '2023-01-13 11:31:39'
+      },
+      {
+        id: "HS10",
+        firstName: "Kerwinn",
+        lastName: "Vedyaev",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "0588 West Terrace",
+        parentName: "Kerwinn Vedyaev",
+        parentPhone: "7892353438",
+        enrollDate: '2023-01-13 11:32:39'
+      },
+      {
+        id: "HS11",
+        firstName: "Bobby",
+        lastName: "Ysson",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "9329 Mariners Cove Place",
+        parentName: "Kerwinn Vedyaev",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:33:39'
+      },
+      {
+        id: "HS12",
+        firstName: "Ewart",
+        lastName: "Measen",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "18969 Alpine Avenue",
+        parentName: "Ewart Measen",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:34:39'
+      },
+      {
+        id: "HS13",
+        firstName: "Carly",
+        lastName: "Cartwright",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "242 Service Terrace",
+        parentName: "Carly Cartwright",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:35:39'
+      },
+      {
+        id: "HS14",
+        firstName: "Orville",
+        lastName: "Essery",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "47 Norway Maple Road",
+        parentName: "Orville Kart",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:36:39'
+      },
+      {
+        id: "HS15",
+        firstName: "Lydia",
+        lastName: "Strettle",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "786 Fulton Lane",
+        parentName: "Lydia Kaet",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:37:39'
+      },
+      {
+        id: "HS16",
+        firstName: "Bobine",
+        lastName: "Throughton",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "192 Old Shore Trail",
+        parentName: "Bobine Martin",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:38:39'
+      },
+      {
+        id: "HS17",
+        firstName: "Anna",
+        lastName: "Carriage",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "25 Springs Court",
+        parentName: "Anna futar",
+        parentPhone: "2434302653",
+        enrollDate: '2023-01-13 11:39:39'
+      },
+      {
+        id: "HS18",
+        firstName: "Serge",
+        lastName: "Shoppee",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "25 Springs Court",
+        parentName: "Serge Lazada",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:40:39'
+      },
+      {
+        id: "HS19",
+        firstName: "Nicholas",
+        lastName: "Yakushkin",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "080 Clove Parkway",
+        parentName: "Nicholas Yaksin",
+        parentPhone: "3034454451",
+        enrollDate: '2023-01-13 11:41:39'
+      },
+      {
+        id: "HS20",
+        firstName: "Tremayne",
+        lastName: "Hendron",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "1 Cordelia Crossing",
+        parentName: "Tremayne Halton",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:42:39'
+      },
+      {
+        id: "HS21",
+        firstName: "Darcee",
+        lastName: "Brickham",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "577 Holmberg Point",
+        parentName: "Darcee Halton",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:43:39'
+      },
+      {
+        id: "HS22",
+        firstName: "Abdul",
+        lastName: "Jahns",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "7 Lakewood Gardens Plaza",
+        parentName: "Abdul Dabi",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:44:39'
+      },
+      {
+        id: "HS23",
+        firstName: "Harold",
+        lastName: "Pavie",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "22889 Scofield Court",
+        parentName: "Harold Pavie",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:45:39'
+      },
+      {
+        id: "HS24",
+        firstName: "Berna",
+        lastName: "Greaterex",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "815 Veith Point",
+        parentName: "Berna Cost",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:46:39'
+      },
+      {
+        id: "HS25",
+        firstName: "Jayme",
+        lastName: "Darrington",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "815 Veith Point",
+        parentName: "Jayme Dawn",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:47:39'
+      },
+      {
+        id: "HS26",
+        firstName: "Liv",
+        lastName: "Dunkerley",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "96 Elgar Trail",
+        parentName: "Liv Lizzie",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:48:39'
+      },
+      {
+        id: "HS27",
+        firstName: "Ruthy",
+        lastName: "Cirlos",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "29092 Holmberg Center",
+        parentName: "Ruthy Miles",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:49:39'
+      },
+      {
+        id: "HS28",
+        firstName: "Richard",
+        lastName: "Davis",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "07755 Nevada Parkway",
+        parentName: "Richard Luke",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:50:39'
+      },
+      {
+        id: "HS29",
+        firstName: "Cortney",
+        lastName: "Hamly",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "21 Lighthouse Bay Trail",
+        parentName: "Cortney Martha",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:51:39'
+      },
+      {
+        id: "HS30",
+        firstName: "Atlanta",
+        lastName: "Jachimczak",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "416 Rieder Crossing",
+        parentName: "Atlanta Aqua",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:52:39'
+      },
+      {
+        id: "HS31",
+        firstName: "Zorana",
+        lastName: "Showl",
+        gender: 0,
+        dob: "1995-07-06",
+        address: "85 Corry Street",
+        parentName: "Zorana Anna",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:53:39'
+      },
+      {
+        id: "HS32",
+        firstName: "Rogerio",
+        lastName: "Huxton",
+        gender: 1,
+        dob: "1995-07-06",
+        address: "12 Mayfield Road",
+        parentName: "Rogerio Kate",
+        parentPhone: "2647506922",
+        enrollDate: '2023-01-13 11:54:39'
+      },
     ], {})
     console.log('done ', 'students');
 
@@ -471,6 +779,41 @@ module.exports = {
         gradeId: 'KH10',
         yearId: 'NH2122'
       },
+      {
+        id: '10A22122',
+        name: '10A2',
+        size: 4,
+        gradeId: 'KH10',
+        yearId: 'NH2122'
+      },
+      {
+        id: '11A12122',
+        name: '11A1',
+        size: 4,
+        gradeId: 'KH11',
+        yearId: 'NH2122'
+      },
+      {
+        id: '11A22122',
+        name: '11A2',
+        size: 4,
+        gradeId: 'KH11',
+        yearId: 'NH2122'
+      },
+      {
+        id: '12A12122',
+        name: '12A1',
+        size: 4,
+        gradeId: 'KH12',
+        yearId: 'NH2122'
+      },
+      {
+        id: '12A22122',
+        name: '12A2',
+        size: 4,
+        gradeId: 'KH12',
+        yearId: 'NH2122'
+      },
     ], {})
     console.log('done ', 'classrooms');
 
@@ -511,6 +854,199 @@ module.exports = {
         classroomId: '10A12122',
         subjectId: 'MH9',
       },
+
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH1',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH2',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH3',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH4',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH5',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH6',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH7',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH8',
+      },
+      {
+        classroomId: '10A22122',
+        subjectId: 'MH9',
+      },
+
+
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH1',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH2',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH3',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH4',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH5',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH6',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH7',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH8',
+      },
+      {
+        classroomId: '11A12122',
+        subjectId: 'MH9',
+      },
+
+
+
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH1',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH2',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH3',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH4',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH5',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH6',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH7',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH8',
+      },
+      {
+        classroomId: '11A22122',
+        subjectId: 'MH9',
+      },
+
+
+
+
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH1',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH2',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH3',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH4',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH5',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH6',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH7',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH8',
+      },
+      {
+        classroomId: '12A12122',
+        subjectId: 'MH9',
+      },
+
+
+
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH1',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH2',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH3',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH4',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH5',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH6',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH7',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH8',
+      },
+      {
+        classroomId: '12A22122',
+        subjectId: 'MH9',
+      },
     ], {})
     console.log('done ', 'teachingassignments');
 
@@ -527,8 +1063,102 @@ module.exports = {
         classroomId: '10A12122',
         studentId: 'HS3',
       },
+      {
+        classroomId: '10A12122',
+        studentId: 'HS4',
+      },
+
+
+      {
+        classroomId: '10A22122',
+        studentId: 'HS5',
+      },
+      {
+        classroomId: '10A22122',
+        studentId: 'HS6',
+      },
+      {
+        classroomId: '10A22122',
+        studentId: 'HS7',
+      },
+      {
+        classroomId: '10A22122',
+        studentId: 'HS8',
+      },
+
+
+      {
+        classroomId: '11A12122',
+        studentId: 'HS9',
+      },
+      {
+        classroomId: '11A12122',
+        studentId: 'HS10',
+      },
+      {
+        classroomId: '11A12122',
+        studentId: 'HS11',
+      },
+      {
+        classroomId: '11A12122',
+        studentId: 'HS12',
+      },
+
+
+      {
+        classroomId: '11A22122',
+        studentId: 'HS13',
+      },
+      {
+        classroomId: '11A22122',
+        studentId: 'HS14',
+      },
+      {
+        classroomId: '11A22122',
+        studentId: 'HS15',
+      },
+      {
+        classroomId: '11A22122',
+        studentId: 'HS16',
+      },
+
+
+      {
+        classroomId: '12A12122',
+        studentId: 'HS17',
+      },
+      {
+        classroomId: '12A12122',
+        studentId: 'HS18',
+      },
+      {
+        classroomId: '12A12122',
+        studentId: 'HS19',
+      },
+      {
+        classroomId: '12A12122',
+        studentId: 'HS20',
+      },
+
+
+      {
+        classroomId: '12A22122',
+        studentId: 'HS21',
+      },
+      {
+        classroomId: '12A22122',
+        studentId: 'HS22',
+      },
+      {
+        classroomId: '12A22122',
+        studentId: 'HS23',
+      },
+      {
+        classroomId: '12A22122',
+        studentId: 'HS24',
+      },
     ])
-    console.log('done ', 'lassroomdetails');
+    console.log('done ', 'Classroomdetails');
 
   },
 
@@ -540,7 +1170,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete('teachingassignments', null, {});
-    // await queryInterface.bulkDelete('classroomsubjects', null, {});
     await queryInterface.bulkDelete('classroomdetails', null, {});
     await queryInterface.bulkDelete('employees', null, {});
     await queryInterface.bulkDelete('accounts', null, {});

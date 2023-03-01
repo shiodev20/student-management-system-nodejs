@@ -79,6 +79,21 @@ function studentService() {
     }
   }
 
+  const getNoClassAssignmentStudents = async () => {
+    try {
+      const result = await Student.findAll({
+        include: {
+          model: Classroom,
+          as: 'classroom'
+        }
+      })
+
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw error
+    }
+  }
+
   const addStudent = async (student) => {
     try {
       const lastStudent = await Student.findOne({
