@@ -12,6 +12,10 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: false,
       },
+      order: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       status: {
         type: Sequelize.BOOLEAN,
         defaultValue: 0,

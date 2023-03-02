@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { Student, Classroom } = require('../models')
+const { Student, Classroom, Year, Grade, ClassroomDetail } = require('../models')
 const { generateStudentId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
@@ -79,15 +79,53 @@ function studentService() {
     }
   }
 
-  const getNoClassAssignmentStudents = async () => {
+  const getNoClassAssignmentStudents = async (gradeId, yearId) => {
     try {
+      const year = await Year.findByPk(yearId)
+
+      const yearOrder = year.order - 1
+      const gradeNumber = Number(gradeId.substring(2)) - 1
+      
+      // Lớp muốn thêm học sinh là lớp 10
+      if(gradeNumber < 10) {
+        const assignedStudentsId = []
+        const assignedStudents = await ClassroomDetail.findAll()
+        assignedStudents.forEach(item => assignedStudentsId.push(item["StudentId"]))
+  
+        const noAssignStudents = await Student.findAll({
+          where: {
+            id: { [Op.notIn]: assignedStudentsId }
+          }
+        })
+
+        return noAssignStudents
+      }
+
+      const gradeBeforeId = "KH" + gradeNumber
+      
+      const yearBefore = await Year.findOne({
+        where: { order: { [Op.eq]: yearOrder }}
+      })
+
+      const gradeBefore = await Grade.findByPk(gradeBeforeId)
+
       const result = await Student.findAll({
         include: {
           model: Classroom,
-          as: 'classroom'
+          as: 'classrooms',
+          through: { attributes: [] },
+          where: {
+            [Op.and]: [
+              { gradeId: { [Op.eq]: gradeBefore.id } },
+              { yearId: { [Op.eq]: yearBefore.id }},
+            ]
+          }
         }
       })
 
+
+      return result
+      
     } catch (error) {
       if(error.code != 0) throw error
       throw error
@@ -150,6 +188,7 @@ function studentService() {
     getStudentById,
     getStudentBySearch,
     getStudentsByClassroom,
+    getNoClassAssignmentStudents,
     addStudent,
     updateStudent,
     deleteStudent,
@@ -157,3 +196,4 @@ function studentService() {
 }
 
 module.exports = studentService
+

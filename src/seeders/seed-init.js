@@ -31,9 +31,9 @@ module.exports = {
     console.log('done ', 'roles');
 
     await queryInterface.bulkInsert('years', [
-      { id: 'NH2122', name: '2021-2022', status: 1 },
-      { id: 'NH2223', name: '2022-2023', status: 0 },
-      { id: 'NH2324', name: '2023-2024', status: 0 },
+      { id: 'NH2122', name: '2021-2022', order: 1, status: 0 },
+      { id: 'NH2223', name: '2022-2023', order: 2, status: 1 },
+      { id: 'NH2324', name: '2023-2024', order: 3, status: 0 },
     ], {})
     console.log('done ', 'years');
 

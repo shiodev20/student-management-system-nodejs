@@ -7,7 +7,7 @@ const {
   studentService,
   subjectService,
 } = require('../services')
-const { Student, Classroom } = require('../models')
+const { Student, Classroom, Year } = require('../models')
 const customError = require('../utils/customError')
 
 function classroomController() {
@@ -24,7 +24,7 @@ function classroomController() {
   const { getCurrentSemester } = semesterService()
   const { getGradeList } = gradeService()
   const { getNoAssignmentHeadTeacherList, getTeachersBySubject } = teacherService()
-  const { getStudentsByClassroom } = studentService()
+  const { getStudentsByClassroom, getNoClassAssignmentStudents } = studentService()
   const { getSubjectList } = subjectService()
 
   const err = { type: '', message: '', url: '' }
@@ -45,9 +45,9 @@ function classroomController() {
       const years = await getYearList()
       const classrooms = await getClassroomByYear(selectedYear)
 
-      if (classrooms.length == 0) {
-        throw customError(1, `Không có lớp học nào được mở trong năm học ${selectedYear}`)
-      }
+      // if (classrooms.length == 0) {
+      //   throw customError(1, `Không có lớp học nào được mở trong năm học ${selectedYear}`)
+      // }
 
       res.render('classroom/home', {
         documentTitle: 'Quản lý lớp học',
@@ -57,7 +57,6 @@ function classroomController() {
       })
 
     } catch (error) {
-
       switch (error.code) {
         case 0:
           err.type = 'errorMsg'
@@ -181,21 +180,30 @@ function classroomController() {
     const { id } = req.params
 
     try {
-      const result = await Student.findAll({
-        include: {
-          model: Classroom,
-          as: 'classrooms'
-        }
-      })
-
-      return res.json(result)
-
+      const classroom = await getClassroomById(id)
+      const noClassroomAssignStudents = await getNoClassAssignmentStudents(classroom.gradeId, classroom.yearId)
+      
       res.render('classroom/student-assignment', {
-        documentTitle: 'Lập danh sách lớp học',
+        documentTitle: `Lập danh sách lớp ${id}`,
+        classroom,
+        noClassroomAssignStudents,
       })
 
     } catch (error) {
-      
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/${id}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/${id}`
+          break;
+      }
+
+      next(err)
     }
   }
 

@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       size: {
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false,
       },
