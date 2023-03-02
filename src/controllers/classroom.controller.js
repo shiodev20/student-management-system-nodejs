@@ -209,6 +209,7 @@ function classroomController() {
 
 
   const postClassroomStudentAssignment = async (req, res) => {
+    console.log(req.body);
   }
 
 

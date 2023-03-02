@@ -121,8 +121,46 @@ const handleModal = (accountAddBtns, accountAddFormModal, accountAddFormModalClo
 }
 
 
+/**
+ * Check class size
+ */
+const classSize = document.querySelector('#classSize')
+const classSizeMax = document.querySelector('#classSizeMax')
+const assignStudentInputs = document.querySelectorAll('input[name=studentId]')
+
+const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
+  if(classSize && classSizeMax && assignStudentInputs) {
+    assignStudentInputs.forEach(input => {
+      input.addEventListener('change', () => {
+    
+        let count = 0
+        
+        assignStudentInputs.forEach(item => {
+          if(item.checked) return count += 1
+        })
+    
+        classSize.value = count
+    
+        if(Number(classSize.value) >= Number(classSizeMax.innerHTML)) {
+          assignStudentInputs.forEach(item => {
+            if(!item.checked) item.disabled = true
+          })
+        } else {
+          assignStudentInputs.forEach(item => {
+            if(!item.checked) item.disabled = false
+          })
+        }
+    
+      })
+    
+    })
+  }
+}
+
+
 handleTab(tabItems, paneItems)
 handleMobileNavbar(navbarToggleBtn, navbarMenu)
 handleNotification(notification)
 handleModal(accountAddBtns, accountAddFormModal, accountAddFormModalClose, accountUsernameInput)
+handleCheckClassSize(classSize, classSizeMax, assignStudentInputs)
 disableAccountActiveInputClick(accountActiveInputs)
