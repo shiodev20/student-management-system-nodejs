@@ -68,6 +68,39 @@ function classroomService() {
     }
   }
 
+  const getClassroomsBySubjectTeacher = async (subjectTeacherId, yearId) => {
+    try {
+      const subjectTeacher = await Teacher.findByPk(subjectTeacherId)
+      if(!subjectTeacher) throw customError(1, `Không tìm thấy giáo viên ${subjectTeacherId}`)
+
+      const result = await Classroom.findAll({
+        where: {
+          yearId: { [Op.eq]: yearId },
+        },
+        include: [
+          {
+            model: Teacher,
+            as: 'subjectTeachers',
+            through: { attributes: [] },
+            where: {
+              id: { [Op.eq]: subjectTeacher.id }
+            }
+          },
+          {
+            model: Teacher,
+            as: 'headTeacher'
+          }
+         ]
+      })
+
+      return result
+
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
+
   const addClassroom = async (classroom) => {
     try {
       const classroomId = generateClassroomId(classroom.yearId, classroom.name)
@@ -227,6 +260,7 @@ function classroomService() {
   return {
     getClassroomById,
     getClassroomByYear,
+    getClassroomsBySubjectTeacher,
     getSubjectTeacherByClassroom,
     addClassroom,
     addHeadTeacherToClassroom,

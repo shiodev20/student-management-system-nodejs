@@ -9,14 +9,14 @@
         <div class="flex-item m-3">
           <div class="field sm-input">
             <label class="label">Năm học</label>
-            <input class="input" type="text" value="2021-2022" readonly>
+            <input class="input" type="text" value="<%= currentYear.name %>" readonly>
           </div>
         </div>
   
         <div class="flex-item m-3">
           <div class="field sm-input">
             <label class="label">Học kỳ</label>
-            <input class="input" type="text" value="Học kỳ 1" readonly>
+            <input class="input" type="text" value="<%= currentSemester.name %>" readonly>
           </div>
         </div>
         
@@ -32,6 +32,7 @@
           <tr>
             <th>STT</th>
             <th>Mã lớp</th>
+            <th>Khối lớp</th>
             <th>Lớp</th>
             <th>Sỉ số</th>
             <th>Giáo viên chủ nhiệm</th>
@@ -40,16 +41,19 @@
         </thead>
         
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>10A12122</td>
-            <td>10A1</td>
-            <td>0</td>
-            <td></td>
-            <td class="has-text-centered">
-              <a href="/diem/nhap-diem/10A12122" class="button is-info">Nhập điểm</a>
-            </td>
-          </tr>
+          <% classrooms.forEach((classroom, idx) => { %>
+            <tr>
+              <th><%= idx + 1 %></th>
+              <td><%= classroom.id %></td>
+              <td><%= classroom.gradeId %></td>
+              <td><%= classroom.name %></td>
+              <td><%= classroom.size %></td>
+              <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+              <td class="has-text-centered">
+                <a href="/diem/nhap-diem/<%= classroom.id %>" class="button is-info">Nhập điểm</a>
+              </td>
+            </tr>
+          <% }) %>
         </tbody>
   
       </table>

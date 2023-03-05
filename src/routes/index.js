@@ -8,7 +8,13 @@ const studentRouter = require('./student.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
+const { yearService, semesterService, classroomService } = require('../services')
+
 const initialRoutes = (app) => {
+
+  const { getCurrentYear } = yearService()
+  const { getCurrentSemester } = semesterService()
+  const { getClassroomsBySubjectTeacher } = classroomService()
 
   app.get('/', [isLogin], async (req, res) => {
 
@@ -18,7 +24,16 @@ const initialRoutes = (app) => {
         break;
 
       case 'VT2':
-        res.render('dashboard/teacher', { documentTitle: 'Trang chủ' })
+        const currentYear = await getCurrentYear()
+        const currentSemester = await getCurrentSemester()
+        const classrooms = await getClassroomsBySubjectTeacher(req.session.user.id, currentYear.id)
+
+        res.render('dashboard/teacher', { 
+          documentTitle: 'Trang chủ', 
+          currentYear,
+          currentSemester,
+          classrooms,
+        })
         break;
 
       case 'VT3':

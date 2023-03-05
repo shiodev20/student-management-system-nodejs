@@ -428,7 +428,7 @@ module.exports = {
     ], {})
     console.log('done ', 'students');
 
-    await queryInterface.bulkInsert('Accounts', [
+    await queryInterface.bulkInsert('accounts', [
       {
         id: 'TK1',
         username: 'NV1',
@@ -460,10 +460,24 @@ module.exports = {
       },
       {
         id: 'TK5',
-        username: 'NV05',
+        username: 'NV5',
         password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
         status: 1,
         roleId: 'VT3'
+      },
+      {
+        id: 'TK6',
+        username: 'GV1',
+        password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
+        status: 1,
+        roleId: 'VT2'
+      },
+      {
+        id: 'TK7',
+        username: 'GV2',
+        password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
+        status: 1,
+        roleId: 'VT2'
       }
     ], {})
     console.log('done ', 'accounts');
@@ -538,7 +552,7 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '5484261865',
         subjectId: 'MH1',
-        accountId: 'TK5'
+        accountId: 'TK6'
       },
       {
         id: 'GV2',
@@ -550,7 +564,7 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1762753746',
         subjectId: 'MH1',
-        accountId: null
+        accountId: 'TK7'
       },
       {
         id: 'GV3',

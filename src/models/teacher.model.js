@@ -18,10 +18,8 @@ module.exports = (sequelize, DataTypes) => {
 
       Teacher.hasMany(models.TeachingAssignment, { foreignKey: 'subjectTeacherId', as: 'teachingAssignment' })
 
-      Teacher.belongsToMany(models.Subject, { through: models.TeachingAssignment, foreignKey: 'subjectTeacherId', as: 'subjectAssign' })
-
-      // Teacher.hasMany(models.TeachingAssignment, { foreignKey: 'subjectTeacherId', as: 'teachingAssignment' })
-      // Teacher.belongsToMany(models.ClassroomSubject, { through: models.TeachingAssignment, foreignKey: 'subjectTeacherId', as: 'assignClassroom'})
+      Teacher.belongsToMany(models.Subject, { through: models.TeachingAssignment, foreignKey: 'subjectTeacherId', as: 'subjectAssigns' })
+      Teacher.belongsToMany(models.Classroom, { through: models.TeachingAssignment, foreignKey: 'subjectTeacherId', as: 'teachingAssigns' })
     }
   }
   Teacher.init({
