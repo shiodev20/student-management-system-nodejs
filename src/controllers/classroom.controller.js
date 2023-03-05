@@ -7,9 +7,7 @@ const {
   studentService,
   subjectService,
 } = require('../services')
-const { Student, Classroom, Year, ClassroomDetail } = require('../models')
 const customError = require('../utils/customError')
-const { Op } = require('sequelize')
 
 function classroomController() {
 
@@ -21,6 +19,7 @@ function classroomController() {
     addHeadTeacherToClassroom,
     addSubjectTeacherToClassroom,
     addStudentToClassroom,
+    deleteStudentFromClassroom,
   } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
@@ -390,8 +389,35 @@ function classroomController() {
     }
   }
 
+  const deleteStudentClassroom = async (req, res, next) => {
+    const { id: classroomId, studentId } = req.params
 
-  const deleteClassroomDelete = async (req, res) => {
+    try {
+      const result = await deleteStudentFromClassroom(classroomId, studentId)
+
+      req.flash('successMsg', `Xóa học sinh ${studentId} lớp học ${classroomId} thành công`)
+      res.redirect(`/lop-hoc/${classroomId}`)
+
+
+    } catch (error) {
+       switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/${classroomId}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/${classroomId}`
+          break;
+      }
+
+      next(err)
+    }
+  }
+
+  const deleteClassroomDelete = async (req, res, next) => {
   }
 
 
@@ -406,6 +432,7 @@ function classroomController() {
     getClassroomSubjectTeacherAssignment,
     postClassroomHeadTeacherAssignment,
     postClassroomSubjectTeacherAssignment,
+    deleteStudentClassroom,
     deleteClassroomDelete,
   }
 }

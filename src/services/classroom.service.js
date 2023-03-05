@@ -197,6 +197,33 @@ function classroomService() {
     }
   }
 
+  const deleteStudentFromClassroom = async (classroomId, studentId) => {
+    try {
+      const classroom = await Classroom.findByPk(classroomId)
+      if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
+      const student = await Student.findByPk(studentId)
+      if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+
+      await classroom.update({ size: classroom.size - 1 })
+      const classroomDetail = await ClassroomDetail.findOne({
+        where: {
+          [Op.and]: [
+            { classroomId: { [Op.eq]: classroomId } },
+            { studentId: { [Op.eq]: studentId }},
+          ]
+        }
+      })
+
+      const result = await classroomDetail.destroy()
+
+      return result
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
+
   return {
     getClassroomById,
     getClassroomByYear,
@@ -205,6 +232,7 @@ function classroomService() {
     addHeadTeacherToClassroom,
     addSubjectTeacherToClassroom,
     addStudentToClassroom,
+    deleteStudentFromClassroom,
   }
 }
 

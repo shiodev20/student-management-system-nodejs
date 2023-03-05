@@ -99,7 +99,7 @@
                 <td><%= student.parentName %></td>
                 <td><%= student.parentPhone %></td>
                 <td>
-                  <div class="is-flex is-flex-wrap-no-wrap">
+                  <div class="is-flex is-flex-wrap-no-wrap is-justify-content-center">
                     <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="button is-info mx-1"><i class='bx bxs-bar-chart-square'></i></a>
                     <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="button is-primary mx-1"><i class='bx bxs-edit-alt' ></i></a>
                     <form class="mx-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">

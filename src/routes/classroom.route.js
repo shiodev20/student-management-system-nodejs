@@ -14,6 +14,7 @@ const {
   postClassroomStudentAssignment,
   postClassroomHeadTeacherAssignment,
   postClassroomSubjectTeacherAssignment,
+  deleteStudentClassroom,
   deleteClassroomDelete,
 } = classroomController()
 
@@ -34,6 +35,8 @@ router.get('/phan-cong-gvbm/:id', [isLogin, isStaff], getClassroomSubjectTeacher
 router.post('/phan-cong-gvbm', [isLogin, isStaff], postClassroomSubjectTeacherAssignment)
 
 router.delete('/xoa-lop-hoc/:id', [isLogin, isStaff], deleteClassroomDelete)
+
+router.delete('/:id/xoa-hoc-sinh/:studentId', [isLogin, isStaff], deleteStudentClassroom)
 
 router.get('/:id', [isLogin, isStaff], getClassroomDetail)
 
