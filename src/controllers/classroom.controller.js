@@ -212,9 +212,10 @@ function classroomController() {
 
   const postClassroomStudentAssignment = async (req, res, next) => {
     const { id: classroomId } = req.params
-    const { studentIds } = req.body
+    let { studentIds } = req.body
 
     try {
+      studentIds = !Array.isArray(studentIds) ? [studentIds] : studentIds
 
       for (const studentId of studentIds) {
         await addStudentToClassroom(classroomId, studentId)

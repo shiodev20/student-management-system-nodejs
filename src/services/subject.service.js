@@ -1,4 +1,4 @@
-const { Subject } = require('../models')
+const { Subject, Teacher } = require('../models')
 const customError = require('../utils/customError')
 
 function subjectService() {
@@ -14,8 +14,24 @@ function subjectService() {
     }
   }
 
+  const getSubjectByTeacher = async (teacherId) => {
+    try {
+      const teacher = await Teacher.findByPk(teacherId)
+      if(!teacher) throw customError(1, `không tìm thấy giáo viên ${teacher}`)
+
+      const result = await teacher.getSubject()
+
+      return result
+
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
+
   return {
-    getSubjectList
+    getSubjectList,
+    getSubjectByTeacher,
   }
 }
 

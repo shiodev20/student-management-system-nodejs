@@ -52,12 +52,12 @@ module.exports = {
 
     await queryInterface.bulkInsert('subjects', [
       { id: 'MH1', name: 'Toán', coefficient: 2 },
-      { id: 'MH2', name: 'Văn', coefficient: 2 },
-      { id: 'MH3', name: 'Lý', coefficient: 1 },
-      { id: 'MH4', name: 'Hóa', coefficient: 1 },
-      { id: 'MH5', name: 'Sinh', coefficient: 1 },
-      { id: 'MH6', name: 'Sử', coefficient: 1 },
-      { id: 'MH7', name: 'Địa', coefficient: 1 },
+      { id: 'MH2', name: 'Ngữ văn', coefficient: 2 },
+      { id: 'MH3', name: 'Vật lý', coefficient: 1 },
+      { id: 'MH4', name: 'Hóa học', coefficient: 1 },
+      { id: 'MH5', name: 'Sinh học', coefficient: 1 },
+      { id: 'MH6', name: 'Lịch sử', coefficient: 1 },
+      { id: 'MH7', name: 'Địa lý', coefficient: 1 },
       { id: 'MH8', name: 'Giáo dục công dân', coefficient: 1 },
       { id: 'MH9', name: 'Ngoại ngữ', coefficient: 1 },
     ], {})
@@ -65,10 +65,10 @@ module.exports = {
 
     await queryInterface.bulkInsert('marktypes', [
       { id: 'LD1', name: 'Miệng', coefficient: 1 },
-      { id: 'LD2', name: '15 phút', coefficient: 1 },
-      { id: 'LD3', name: '45 phút', coefficient: 2 },
-      { id: 'LD4', name: 'Thi học kỳ', coefficient: 3 },
-      { id: 'LD5', name: 'Trung bình môn', coefficient: null },
+      { id: 'LD2', name: '15p', coefficient: 1 },
+      { id: 'LD3', name: '45p', coefficient: 2 },
+      { id: 'LD4', name: 'Thi HK', coefficient: 3 },
+      { id: 'LD5', name: 'TBM', coefficient: null },
     ], {})
     console.log('done ', 'marktypes');
 

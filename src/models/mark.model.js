@@ -20,8 +20,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Mark.init({
+    id: {
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+    },
     mark: {
       type: DataTypes.DECIMAL(3, 1),
+      defaultValue: 0,
       allowNull: false
     }
   }, {

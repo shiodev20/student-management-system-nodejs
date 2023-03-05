@@ -11,8 +11,8 @@
             <div class="field sm-input">
               <label class="label">Năm học</label>
               <div class="control">
-                <input type="text" name="year" value="NH2122" hidden>
-                <input class="input" type="text" value="2021-2022" readonly>
+                <input type="text" name="year" value="<%= currentYear.id %>" hidden>
+                <input class="input" type="text" value="<%= currentYear.name %>" readonly>
               </div>
             </div>
           </div>
@@ -21,8 +21,8 @@
             <div class="field sm-input">
               <label class="label">Học kỳ</label>
               <div class="control">
-                <input type="text" name="semester" value="HK1" hidden>
-                <input class="input" type="text" value="Học kỳ 1" readonly>
+                <input type="text" name="semester" value="<%= currentSemester.id %>" hidden>
+                <input class="input" type="text" value="<%= currentSemester.name %>" readonly>
               </div>
             </div>
           </div>
@@ -31,8 +31,8 @@
             <div class="field sm-input">
               <label class="label">Lớp</label>
               <div class="control">
-                <input type="text" name="classroom" value="10A12122" hidden>
-                <input class="input" type="text" value="10A1" readonly>
+                <input type="text" name="classroom" value="<%= classroom.id %>" hidden>
+                <input class="input" type="text" value="<%= classroom.name %>" readonly>
               </div>
             </div>
           </div>
@@ -41,8 +41,8 @@
             <div class="field sm-input">
               <label class="label">Môn học</label>
               <div class="control">
-                <input type="text" name="subject" value="MH1" hidden>
-                <input class="input" type="text" value="Toán" readonly>
+                <input type="text" name="subject" value="<%= subject.id %>" hidden>
+                <input class="input" type="text" value="<%= subject.name %>" readonly>
               </div>
             </div>
           </div>
@@ -58,27 +58,44 @@
               <thead>
                 <tr>
                   <th>STT</th>
-                  <th>Mã học sinh</th>
+                  <th style="width: 130px;">Mã học sinh</th>
                   <th>Tên học sinh</th>
-                  <th>Điểm ĐGTX</th>
-                  <th>Điểm 15'</th>
-                  <th>Điểm 45'</th>
-                  <th>Điểm thi</th>
-                  <th>Điểm TB</th>
+                  <% markTypes.forEach(markType => { %>
+                    <th><%= markType.name %></th>
+                  <% }) %>
                 </tr>
               </thead>
       
               <tbody>
-                <tr>
-                  <th>1</th>
-                  <td><input type="text" name="student" value="HS1" hidden>HS1</td>
-                  <td style="width: 250px;">Shio Nguyen</td>
-                  <td><input class="input" type="text" name="" value="10"></td>
-                  <td><input class="input" type="text" name="" value="10"></td>
-                  <td><input class="input" type="text" name="" value="10"></td>
-                  <td><input class="input" type="text" name="" value="10"></td>
-                  <td><input class="input" type="text" value="10" readonly></td>
-                </tr>
+                <% studentMarks.forEach((student, idx) => { %>
+                  <tr>
+                    <th><%= idx + 1 %></th>
+                    <td><input type="text" name="student" value=<%= student.id %>" hidden><%= student.id %></td>
+                    <td style="width: 200px;"><%= student.fullName %></td>
+                    <% markTypes.forEach(markType => { %>
+
+                      <% student.marks.forEach(mark => { %>
+
+                        <% if(mark.markTypeId == markType.id) { %>
+                          
+                          <% if(markType.id === markTypes[markTypes.length - 1].id) { %>
+                            <td>
+                              <input class="input" type="text" value="<%= mark.mark %>" readonly>
+                            </td>
+                          <% } else { %>
+                            <td>
+                              <input class="input" type="text" name="" value="<%= mark.mark %>">
+                            </td>
+                          <% } %>
+
+                        <% } %>
+
+                      <% }) %>
+
+                    <% }) %>
+                    
+                  </tr>
+                <% }) %>
               </tbody>
             </table>
           </div>

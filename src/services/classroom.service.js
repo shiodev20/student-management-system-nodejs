@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { Classroom, Teacher, Subject, Student, TeachingAssignment, ClassroomDetail } = require('../models')
+const { Classroom, Teacher, Subject, Student, TeachingAssignment, ClassroomDetail, MarkType, Mark, Semester } = require('../models')
 const { generateClassroomId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
@@ -215,7 +215,26 @@ function classroomService() {
       if (!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
 
       await classroom.update({ size: classroom.size + 1 })
-      
+
+      const semesters = await Semester.findAll()
+      const markTypes = await MarkType.findAll()
+      const subjects = await Subject.findAll()
+
+      for (const semester of semesters) {
+        for(const markType of markTypes) {
+          for(const subject of subjects) {
+            await Mark.create({
+              yearId: classroom.yearId,
+              semesterId: semester.id,
+              classroomId: classroom.id,
+              subjectId: subject.id,
+              studentId: student.id,
+              markTypeId: markType.id
+            })
+          }
+        }
+      }
+
       const result = await ClassroomDetail.create({
         classroomId: classroom.id,
         studentId: student.id,

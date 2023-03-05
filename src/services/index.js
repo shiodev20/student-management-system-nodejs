@@ -7,6 +7,8 @@ const gradeService = require('./grade.service')
 const ruleService = require('./rule.service')
 const subjectService = require('./subject.service')
 const teacherService = require('./teacher.service')
+const markTypeService = require('./markType.service')
+const markService = require('./mark.service')
 
 module.exports = {
   authService,
@@ -18,4 +20,6 @@ module.exports = {
   ruleService,
   subjectService,
   teacherService,
+  markTypeService,
+  markService,
 }
