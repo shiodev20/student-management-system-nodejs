@@ -109,7 +109,30 @@ function studentService() {
 
       const gradeBefore = await Grade.findByPk(gradeBeforeId)
 
+      const assignedStudents = await Student.findAll({
+        attributes: ['id'],
+        include: {
+          model: Classroom,
+          as: 'classrooms',
+          through: { attributes: [] },
+          where: {
+            [Op.and]: [
+              { gradeId: { [Op.eq]: gradeId } },
+              { yearId: { [Op.eq]: yearId }},
+            ]
+          }
+        }
+      })
+
+      const assignedStudentIds = []
+
+      assignedStudents.forEach(student => assignedStudentIds.push(student.id))
+
+      
       const result = await Student.findAll({
+        where: {
+          id: { [Op.notIn]: assignedStudentIds }
+        },
         include: {
           model: Classroom,
           as: 'classrooms',
@@ -122,7 +145,6 @@ function studentService() {
           }
         }
       })
-
 
       return result
       

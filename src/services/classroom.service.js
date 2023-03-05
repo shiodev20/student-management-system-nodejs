@@ -1,12 +1,12 @@
 const { Op } = require('sequelize')
-const { Classroom, Teacher, TeachingAssignment, Subject } = require('../models')
+const { Classroom, Teacher, Subject, Student, TeachingAssignment, ClassroomDetail } = require('../models')
 const { generateClassroomId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
 function classroomService() {
 
   const getClassroomById = async (id) => {
-    
+
     try {
       const result = await Classroom.findOne({
         where: { id: { [Op.eq]: id } },
@@ -15,12 +15,12 @@ function classroomService() {
           as: 'headTeacher',
         },
       })
-      
-      if(!result) throw customError(1, `Không tìm thấy lớp ${id}`)
+
+      if (!result) throw customError(1, `Không tìm thấy lớp ${id}`)
 
       return result
     } catch (error) {
-      if(error.code != 0) throw error
+      if (error.code != 0) throw error
       throw customError()
     }
   }
@@ -39,12 +39,12 @@ function classroomService() {
       throw customError()
     }
   }
-  
+
   const getSubjectTeacherByClassroom = async (classroomId) => {
     try {
       const classroom = await Classroom.findByPk(classroomId)
 
-      if(!classroom) throw customError(1, `Không tìm thấy lớp ${classroomId}`)
+      if (!classroom) throw customError(1, `Không tìm thấy lớp ${classroomId}`)
 
       const result = []
 
@@ -54,16 +54,16 @@ function classroomService() {
         const subject = await item.getSubject()
         const subjectTeacher = await item.getSubjectTeacher()
 
-        result.push({subject, subjectTeacher})
+        result.push({ subject, subjectTeacher })
       }))
 
       result.sort((a, b) => {
         return Number(a.subject.id.substring(2)) - Number(b.subject.id.substring(2))
       })
-      
+
       return result
     } catch (error) {
-      if(error.code != 0) throw error
+      if (error.code != 0) throw error
       throw customError()
     }
   }
@@ -73,7 +73,7 @@ function classroomService() {
       const classroomId = generateClassroomId(classroom.yearId, classroom.name)
       const isContainClassroom = await Classroom.findByPk(classroomId)
 
-      if(isContainClassroom) throw customError(1, 'Lớp học đã tồn tại')
+      if (isContainClassroom) throw customError(1, 'Lớp học đã tồn tại')
 
       const result = await Classroom.create({
         id: classroomId,
@@ -93,7 +93,7 @@ function classroomService() {
 
       return result
     } catch (error) {
-      if(error.code != 0) throw error
+      if (error.code != 0) throw error
       throw customError()
     }
   }
@@ -101,20 +101,20 @@ function classroomService() {
   const addHeadTeacherToClassroom = async (classroomId, headTeacherId) => {
     try {
       const classroom = await Classroom.findByPk(classroomId)
-      if(!classroom) throw customError(1, `Không tìm lấy lớp học ${classroomId}`)
+      if (!classroom) throw customError(1, `Không tìm lấy lớp học ${classroomId}`)
 
       const headTeacher = await Teacher.findByPk(headTeacherId)
-      if(!headTeacher) throw customError(1, `Không tìm thấy giáo viên ${headTeacherId}`)
+      if (!headTeacher) throw customError(1, `Không tìm thấy giáo viên ${headTeacherId}`)
 
       // Xóa GVCN cũ khỏi "TeachingAssignemnt" (Nếu có)
-      if(classroom.headTeacherId) {
+      if (classroom.headTeacherId) {
         const oldHeadTeacher = await Teacher.findByPk(classroom.headTeacherId)
-  
+
         const oldteachingAssingment = await TeachingAssignment.findOne({
           where: {
             [Op.and]: [
               { classroomId: { [Op.eq]: classroomId } },
-              { subjectId: { [Op.eq]: oldHeadTeacher.subjectId }}
+              { subjectId: { [Op.eq]: oldHeadTeacher.subjectId } }
             ]
           }
         })
@@ -126,7 +126,7 @@ function classroomService() {
         where: {
           [Op.and]: [
             { classroomId: { [Op.eq]: classroomId } },
-            { subjectId: { [Op.eq]: headTeacher.subjectId }}
+            { subjectId: { [Op.eq]: headTeacher.subjectId } }
           ]
         }
       })
@@ -137,7 +137,7 @@ function classroomService() {
 
       return result
     } catch (error) {
-      if(error.code != 0) throw error
+      if (error.code != 0) throw error
       throw customError()
     }
   }
@@ -145,13 +145,13 @@ function classroomService() {
   const addSubjectTeacherToClassroom = async (classroomId, { subjectId, teacherId }) => {
     try {
       const classroom = await getClassroomById(classroomId)
-      if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+      if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
 
       const subject = await Subject.findByPk(subjectId)
-      if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+      if (!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
 
       const teacher = await Teacher.findByPk(teacherId)
-      if(!teacher) throw customError(1, `Không tìm thấy giáo viên ${teacherId}`)
+      if (!teacher) throw customError(1, `Không tìm thấy giáo viên ${teacherId}`)
 
       const teachingAssignment = await TeachingAssignment.findOne({
         where: {
@@ -163,12 +163,37 @@ function classroomService() {
       })
 
       const result = await teachingAssignment.update({ subjectTeacherId: teacherId })
-      
+
       return result
 
     } catch (error) {
-      if(error.code != 0) throw error
+      if (error.code != 0) throw error
       throw customError
+    }
+  }
+
+  const addStudentToClassroom = async (classroomId, studentId) => {
+    try {
+
+      const classroom = await Classroom.findByPk(classroomId)
+      if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
+      const student = await Student.findByPk(studentId)
+      if (!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+
+      await classroom.update({ size: classroom.size + 1 })
+      
+      const result = await ClassroomDetail.create({
+        classroomId: classroom.id,
+        studentId: student.id,
+      })
+
+
+      return result
+
+    } catch (error) {
+      if (error.code != 0) throw error
+      throw customError()
     }
   }
 
@@ -179,6 +204,7 @@ function classroomService() {
     addClassroom,
     addHeadTeacherToClassroom,
     addSubjectTeacherToClassroom,
+    addStudentToClassroom,
   }
 }
 

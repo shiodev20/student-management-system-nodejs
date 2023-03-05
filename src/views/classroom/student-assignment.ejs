@@ -89,7 +89,7 @@
                 <td><%= student.formatDob %></td>
                 <td><%= student.classrooms ? student.classrooms[0].name : 'Đầu cấp' %></td>
                 <td class="has-text-centered">
-                  <input type="checkbox" name="studentId" value="<%= student.id %>" style="width: 20px; height: 20px;">
+                  <input type="checkbox" name="studentIds" value="<%= student.id %>" style="width: 20px; height: 20px;">
                 </td>
               </tr>
             <% }) %>

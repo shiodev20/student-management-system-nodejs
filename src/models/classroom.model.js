@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
       // Classroom.belongsToMany(models.Subject, { through: models.ClassroomSubject, foreignKey: 'classroomId', as: 'subjects' })
       // Classroom.hasMany(models.ClassroomSubject, { foreignKey: 'classroomId', as: 'classroomSubjects' })
-
+      Classroom.hasMany(models.ClassroomDetail, { foreignKey: 'classroomId', as: 'classroomDetails' })
       Classroom.hasMany(models.TeachingAssignment, { foreignKey: 'classroomId', as: 'teachingAssignments' })
 
       Classroom.belongsToMany(models.Subject, { through: models.TeachingAssignment, foreignKey: 'classroomId', as: 'subjects' })

@@ -1,24 +1,26 @@
-const { 
-  classroomService, 
-  yearService, 
-  gradeService, 
-  semesterService, 
-  teacherService, 
+const {
+  classroomService,
+  yearService,
+  gradeService,
+  semesterService,
+  teacherService,
   studentService,
   subjectService,
 } = require('../services')
-const { Student, Classroom, Year } = require('../models')
+const { Student, Classroom, Year, ClassroomDetail } = require('../models')
 const customError = require('../utils/customError')
+const { Op } = require('sequelize')
 
 function classroomController() {
 
-  const { 
-    getClassroomById, 
-    getClassroomByYear, 
+  const {
+    getClassroomById,
+    getClassroomByYear,
     getSubjectTeacherByClassroom,
-    addClassroom, 
-    addHeadTeacherToClassroom ,
+    addClassroom,
+    addHeadTeacherToClassroom,
     addSubjectTeacherToClassroom,
+    addStudentToClassroom,
   } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
@@ -140,7 +142,7 @@ function classroomController() {
 
   const getClassroomDetail = async (req, res, next) => {
     const { id } = req.params
-   
+
     try {
       const classroom = await getClassroomById(id)
       const currentYear = await getCurrentYear()
@@ -176,13 +178,14 @@ function classroomController() {
   }
 
 
-  const getClassroomStudentAssignment = async (req, res) => {
+  const getClassroomStudentAssignment = async (req, res, next) => {
     const { id } = req.params
 
     try {
       const classroom = await getClassroomById(id)
       const noClassroomAssignStudents = await getNoClassAssignmentStudents(classroom.gradeId, classroom.yearId)
-      
+
+
       res.render('classroom/student-assignment', {
         documentTitle: `Lập danh sách lớp ${id}`,
         classroom,
@@ -208,8 +211,36 @@ function classroomController() {
   }
 
 
-  const postClassroomStudentAssignment = async (req, res) => {
-    console.log(req.body);
+  const postClassroomStudentAssignment = async (req, res, next) => {
+    const { id: classroomId } = req.params
+    const { studentIds } = req.body
+
+    try {
+
+      for (const studentId of studentIds) {
+        await addStudentToClassroom(classroomId, studentId)
+      }
+
+      req.flash('successMsg', `Thêm học sinh vào lớp ${classroomId} thành công`)
+      res.redirect(`/lop-hoc/lap-danh-sach-lop-hoc/${classroomId}`)
+
+    } catch (error) {
+      switch (error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/lap-danh-sach-lop-hoc/${classroomId}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `/lop-hoc/lap-danh-sach-lop-hoc/${classroomId}`
+          break;
+      }
+
+      next(err)
+    }
+
   }
 
 
@@ -249,13 +280,13 @@ function classroomController() {
     const { classroomId, headTeacherId } = req.body
 
     try {
-      if(!classroomId || !headTeacherId) {
+      if (!classroomId || !headTeacherId) {
         throw customError(1, 'Vui lòng chọn giáo viện cần phân lớp')
       }
 
       const result = await addHeadTeacherToClassroom(classroomId, headTeacherId)
 
-      if(result) {
+      if (result) {
         req.flash('successMsg', 'Cập nhật GVCN thành công')
         res.redirect(`/lop-hoc/phan-cong-gvcn/${classroomId}`)
       }
@@ -303,7 +334,7 @@ function classroomController() {
       })
 
     } catch (error) {
-        switch (error.code) {
+      switch (error.code) {
         case 0:
           err.type = 'errorMsg'
           err.message = error.message
@@ -328,7 +359,7 @@ function classroomController() {
       const subjectTeachingAssignment = []
 
       for (const key in data) {
-        if(data[key] != '') {
+        if (data[key] != '') {
           const item = { subjectId: key, teacherId: data[key] }
           subjectTeachingAssignment.push(item)
         }

@@ -11,9 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      ClassroomDetail.belongsTo(models.Classroom, { foreignKey: 'classroomId', as: 'classroom' })
+      ClassroomDetail.belongsTo(models.Student, { foreignKey: 'studentId', as: 'student'})
     }
   }
   ClassroomDetail.init({
+    id: {
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+    }
   }, {
     sequelize,
     timestamps: false,
