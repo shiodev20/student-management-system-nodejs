@@ -105,24 +105,12 @@
                 <tbody>
                   <% students.forEach((student, idx)=> { %>
                     <tr>
-                      <th>
-                        <%= idx + 1 %>
-                      </th>
-                      <td>
-                        <%= student.id %>
-                      </td>
-                      <td>
-                        <%= student.fullName %>
-                      </td>
-                      <td>
-                        <%= student.formatDob %>
-                      </td>
-                      <td>
-                        <%= student.genderText %>
-                      </td>
-                      <td>
-                        <%= student.address %>
-                      </td>
+                      <th><%= idx + 1 %></th>
+                      <td><%= student.id %></td>
+                      <td><%= student.fullName %></td>
+                      <td><%= student.formatDob %></td>
+                      <td><%= student.genderText %></td>
+                      <td><%= student.address %></td>
                       <td>
                         <div class="is-flex is-flex-wrap-no-wrap is-justify-content-center">
                           <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>"

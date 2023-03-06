@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     mark: {
       type: DataTypes.DECIMAL(3, 1),
       defaultValue: 0,
-      allowNull: false
+      allowNull: false,
     }
   }, {
     sequelize,

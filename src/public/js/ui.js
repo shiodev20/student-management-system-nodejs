@@ -138,15 +138,17 @@ const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
       })
     }
     else {
+      let defaultClassSize = Number(classSize.value)
+
       assignStudentInputs.forEach(input => {
+
         input.addEventListener('change', () => {
           let count = 0
-          
           assignStudentInputs.forEach(item => {
-            if(item.checked) return count += 1
+            if(item.checked) count += 1
           })
-      
-          classSize.value = count
+
+          classSize.value = defaultClassSize + count
       
           if(Number(classSize.value) >= Number(classSizeMax.innerHTML)) {
             assignStudentInputs.forEach(item => {
@@ -157,7 +159,7 @@ const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
               if(!item.checked) item.disabled = false
             })
           }
-      
+          
         })
       
       })
