@@ -390,6 +390,7 @@ function classroomController() {
     }
   }
 
+
   const deleteStudentClassroom = async (req, res, next) => {
     const { id: classroomId, studentId } = req.params
 
@@ -418,6 +419,7 @@ function classroomController() {
     }
   }
 
+  
   const deleteClassroomDelete = async (req, res, next) => {
   }
 

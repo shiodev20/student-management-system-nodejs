@@ -15,7 +15,7 @@ function markController() {
   const { getClassroomById } = classroomService()
   const { getSubjectByTeacher } = subjectService()
   const { getMarkTypeList } = markTypeService()
-  const { getMarksOfClassroomBySubject, addMarks, } = markService()
+  const { getMarksOfClassroomBySubject, addMarks, updateAvgMark } = markService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -61,9 +61,11 @@ function markController() {
   }
 
   const postMarkAdd = async (req, res, next) => {
-    const { studentIds, LD1, LD2, LD3, LD4, ...partials } = req.body
+    let { studentIds, LD1, LD2, LD3, LD4, ...partials } = req.body
 
     try {
+      studentIds = !Array.isArray(studentIds) ? [studentIds] : studentIds
+
       const markTypes = await getMarkTypeList()
 
       const data = []
@@ -74,17 +76,19 @@ function markController() {
         let markTypeOfInput = []
 
         for (const key in req.body) {
-          if (key === markType.id) markTypeOfInput = req.body[key]
+          if (key === markType.id) markTypeOfInput = !Array.isArray(req.body[key]) ? [req.body[key]] : req.body[key]
         }
 
         studentIds.forEach((studentId, idx) => {
-          if(Number(markTypeOfInput[idx]) < 0) throw customError(1, 'Điểm nhập không được bé hơn 0')
+          const formatMark = Math.round(markTypeOfInput[idx] * 10) / 10 
+
+          if(formatMark < 0) throw customError(1, 'Điểm nhập không được bé hơn 0')
 
           const temp = { ...partials }
 
           temp.studentId = studentId
           temp.markTypeId = markType.id
-          temp.mark = Number(markTypeOfInput[idx])
+          temp.mark = formatMark
 
           data.push(temp)
         })
@@ -114,8 +118,24 @@ function markController() {
 
   }
 
+  const getMarkAvgCalculate = async (req, res, next) => {
+    const { id } = req.params
+    const { year, semester, subject } = req.query
+
+    try {
+      const result = await updateAvgMark(year, semester, id, subject)
+
+      req.flash('successMsg', `Tính điểm trung bình lớp ${id} thành công`)
+      res.redirect(`/diem/nhap-diem/${id}`)
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return {
     getMarkAdd,
+    getMarkAvgCalculate,
     postMarkAdd,
   }
 }

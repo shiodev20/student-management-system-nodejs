@@ -257,6 +257,17 @@ function classroomService() {
       const student = await Student.findByPk(studentId)
       if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
 
+      const studentMarkRecords = await Mark.findAll({
+        where: {
+          [Op.and]: [
+            { classroomId: { [Op.eq]: classroom.id } },
+            { studentId:{ [Op.eq]: student.id } }
+          ]
+        }
+      })
+
+      await Promise.all(studentMarkRecords.map(async record => await record.destroy()))
+
       await classroom.update({ size: classroom.size - 1 })
       const classroomDetail = await ClassroomDetail.findOne({
         where: {
