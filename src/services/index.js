@@ -9,6 +9,8 @@ const subjectService = require('./subject.service')
 const teacherService = require('./teacher.service')
 const markTypeService = require('./markType.service')
 const markService = require('./mark.service')
+const accountService = require('./account.service')
+const roleService = require('./role.service')
 
 module.exports = {
   authService,
@@ -22,4 +24,6 @@ module.exports = {
   teacherService,
   markTypeService,
   markService,
+  accountService,
+  roleService,
 }

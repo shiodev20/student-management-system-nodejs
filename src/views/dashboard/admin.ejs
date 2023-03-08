@@ -30,7 +30,7 @@
             <th>STT</th>
             <th>Mã tài khoản</th>
             <th>Tên đăng nhập</th>
-            <th>Mật khẩu</th>
+            <th>Tên người dùng</th>
             <th>Vai trò</th>
             <th>Trạng thái</th>
             <th>Lựa chọn</th>
@@ -43,8 +43,9 @@
               <th><%= idx + 1 %></th>
               <td><%= account.id %></td>
               <td><%= account.username %></td>
-              <td style="max-width: 150px; overflow: auto;"><%= account.password %></td>
-              <td><%= account.roleId %></td>
+              <td style="max-width: 150px; overflow: auto;"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
+              <td><%= account.role.name %></td>
+
               <% if(account.status) { %>
                 <td class="has-text-centered">
                   <input class="account-active-input" style="width: 15px; height: 15px;"  type="checkbox" checked>
@@ -54,6 +55,7 @@
                   <input class="account-active-input" style="width: 15px; height: 15px;"  type="checkbox">
                 </td>
               <% } %>
+
               <td class="has-text-centered">
                 <% if(account.status) { %>
                   <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST" style="display: inline-block;" >

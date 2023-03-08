@@ -8,13 +8,14 @@ const studentRouter = require('./student.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
-const { yearService, semesterService, classroomService } = require('../services')
+const { yearService, semesterService, classroomService, accountService } = require('../services')
 
 const initialRoutes = (app) => {
 
   const { getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
   const { getClassroomsBySubjectTeacher } = classroomService()
+  const { getAccountList } = accountService()
 
   app.get('/', [isLogin], async (req, res) => {
 
@@ -37,7 +38,12 @@ const initialRoutes = (app) => {
         break;
 
       case 'VT3':
-        res.render('dashboard/admin', { documentTitle: 'Trang chủ' })
+        const accounts = await getAccountList()
+        
+        res.render('dashboard/admin', { 
+          documentTitle: 'Trang chủ',
+          accounts,
+        })
         break;
 
       default:

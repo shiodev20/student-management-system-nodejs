@@ -15,14 +15,14 @@
             <div class="field">
               <label class="label">Mã tài khoản</label>
               <div class="control">
-                <input class="input" type="text" name="accountId" value="TK1" readonly>
+                <input class="input" type="text" name="accountId" value="<%= account.id %>" readonly>
               </div>
             </div>
 
             <div class="field">
               <label class="label">Tên đăng nhập</label>
               <div class="control">
-                <input class="input" type="text" name="username" value="NV1" readonly>
+                <input class="input" type="text" name="username" value="<%= account.username %>" readonly>
               </div>
             </div>
           </div>
@@ -33,16 +33,23 @@
           <div class="field-body">
             <div class="field" style="flex: 1;">
               <label class="label">Mật khẩu</label>
-              <input class="input" type="text" name="password" value="123456">
+              <input class="input" type="text" name="password" value="<%= account.password %>">
             </div>
 
             <div class="field" style="flex: 1;">
               <label class="label">Vai trò</label>
               <div class="select" style="width: 100%;">
                 <select name="role" style="width: 100%;">
-                  <option value="VT1" selected>Giáo vụ</option>
-                  <option value="VT2">Giáo viên</option>
-                  <option value="VT3">Quản trị viên</option>
+                  <% roles.forEach(role => { %>
+
+                    <% if(role.id == account.roleId) { %>
+                      <option value="<%= role.id %>" selected><%= role.name %></option>
+                    <% } else { %>
+                      <option value="<%= role.id %>"><%= role.name %></option>
+                    <% } %>
+
+                  <% }) %>
+                  
                 </select>
               </div>
             </div>

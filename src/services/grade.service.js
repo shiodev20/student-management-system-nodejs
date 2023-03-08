@@ -8,7 +8,7 @@ function gradeService() {
 			const result = await Grade.findAll()
 			return result
 
-		} catch (err) {
+		} catch (error) {
 			throw customError()
 		}
 	}
