@@ -20,6 +20,7 @@ function classroomController() {
     addSubjectTeacherToClassroom,
     addStudentToClassroom,
     deleteStudentFromClassroom,
+    deleteClassroom,
   } = classroomService()
   const { getYearList, getCurrentYear } = yearService()
   const { getCurrentSemester } = semesterService()
@@ -421,6 +422,18 @@ function classroomController() {
 
   
   const deleteClassroomDelete = async (req, res, next) => {
+    const { id } = req.params
+
+    try {
+      // Dùng modal check xem lớp đã có học sinh hay chưa
+      const result = await deleteClassroom(id)
+
+      return res.json(result)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 
 

@@ -1,4 +1,4 @@
-const { studentService, yearService, semesterService, ruleService } = require('../services')
+const { studentService, yearService, semesterService, ruleService, markService, classroomService } = require('../services')
 const customError = require('../utils/customError')
 
 function studentController() {
@@ -11,9 +11,11 @@ function studentController() {
     updateStudent,
     deleteStudent,
   } = studentService()
-  const { getCurrentYear } = yearService()
-  const { getCurrentSemester } = semesterService()
+  const { getClassroomByStudent } = classroomService()
+  const { getCurrentYear, getYearList } = yearService()
+  const { getCurrentSemester, getSemesterList } = semesterService()
   const { getRuleList, checkStudentAge } = ruleService()
+  const { getMarksOfStudent } = markService()
 
   const err = { type: '', message: '', url: '' }
 
@@ -197,10 +199,44 @@ function studentController() {
     }
   }
 
-  const getStudentResult = async (req, res) => {
-    res.render('student/result', {
-      documentTitle: 'Kết quả học tập',
-    })
+  const getStudentResult = async (req, res, next) => {
+    const { id } = req.params
+    const { year, semester } = req.query
+
+    try {
+      const years = await getYearList()
+      const semesters = await getSemesterList()
+      const student = await getStudentById(id)
+      const classroom = await getClassroomByStudent(id, year)
+      const studentResult = await getMarksOfStudent(id, year, semester)
+
+      res.render('student/result', {
+        documentTitle: 'Kết quả học tập',
+        selectedYear: year,
+        selectedSemester: semester,
+        years,
+        semesters,
+        student,
+        classroom,
+        studentResult,
+      })
+
+    } catch (error) {
+      switch(error.code) {
+        case 0:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `hoc-sinh/ket-qua-hoc-tap/${id}`
+          break;
+        case 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = `hoc-sinh/ket-qua-hoc-tap/${id}`
+          break;
+      }
+    
+      next(err)
+    }
   }
 
   const getStudentSearch = async (req, res, next) => {

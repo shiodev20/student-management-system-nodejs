@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       Account.hasOne(models.Teacher, { foreignKey: 'accountId', as: 'teacher' })
 
       Account.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' })
-      // Account.belongsTo(models.Role)
     }
   }
   Account.init({

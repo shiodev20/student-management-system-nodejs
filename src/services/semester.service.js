@@ -4,6 +4,18 @@ const customError = require('../utils/customError')
 
 function SemesterService() {
 
+  const getSemesterList = async () => {
+    try {
+      const result = await Semester.findAll()
+
+      return result
+
+    } catch (error) {
+      if(error.code != 0) throw error
+      throw customError()
+    }
+  }
+
   const getCurrentSemester = async () => {
     try {
       const result = await Semester.findOne({
@@ -17,6 +29,7 @@ function SemesterService() {
   }
 
   return {
+    getSemesterList,
     getCurrentSemester,
   }
 }

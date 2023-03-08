@@ -48,6 +48,39 @@ function markService() {
     }
   }
 
+  const getMarksOfStudent = async (studentId, yearId, semesterId) => {
+    try {
+      const student = await Student.findByPk(studentId)
+      if (!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+
+      const year = await Year.findByPk(yearId)
+      if (!year) throw customError(1, `Không tìm thấy năm học ${yaerId}`)
+
+      const semester = await Semester.findByPk(semesterId)
+      if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+
+      const studentResult = await Subject.findAll({
+        include: {
+          model: Mark,
+          as: 'marks',
+          where: {
+            [Op.and]: [
+              { yearId: {[Op.eq]: year.id } },
+              { semesterId: {[Op.eq]: semester.id } },
+              { studentId: {[Op.eq]: student.id } },
+            ]
+          }
+        }
+      })
+
+      return studentResult
+
+    } catch (error) {
+      if (error.coe != 0) throw error
+      throw customError()
+    }
+  }
+
   const addMarks = async (data) => {
     try {
       const result = await Promise.all(data.map(async item => {
@@ -65,8 +98,6 @@ function markService() {
         })
 
         if (item.mark < 0) throw customError(1, 'Điểm nhập không được bé hơn 0')
-
-        console.log(item.mark);
 
         if (mark.mark != item.mark) await mark.update({ mark: item.mark })
       }))
@@ -96,8 +127,6 @@ function markService() {
       const markTypes = await MarkType.findAll()
       const sumOfCoefficient = markTypes.reduce((total, item) => total + item.coefficient, 0)
 
-      // const studentMarks = await getMarksOfClassroomBySubject(classroom.id, semester.id, subject.id)
-
       const studentMarks = await Student.findAll({
         include: [
           {
@@ -123,8 +152,6 @@ function markService() {
           }
         ]
       })
-
-      // return studentMarks
 
       const result = await Promise.all(studentMarks.map(async student => {
         let sumOfMark = 0
@@ -161,6 +188,7 @@ function markService() {
 
   return {
     getMarksOfClassroomBySubject,
+    getMarksOfStudent,
     addMarks,
     updateAvgMark,
   }

@@ -1,5 +1,16 @@
 const { Op } = require('sequelize')
-const { Classroom, Teacher, Subject, Student, TeachingAssignment, ClassroomDetail, MarkType, Mark, Semester } = require('../models')
+const {
+  Classroom,
+  Teacher,
+  Subject,
+  Student,
+  TeachingAssignment,
+  ClassroomDetail,
+  MarkType,
+  Mark,
+  Semester,
+  Year
+} = require('../models')
 const { generateClassroomId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
@@ -40,6 +51,36 @@ function classroomService() {
     }
   }
 
+  const getClassroomByStudent = async (studentId, yearId) => {
+    try {
+      const student = await Student.findByPk(studentId)
+      if (!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+
+      const year = await Year.findByPk(yearId)
+      if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+
+      const result = await Classroom.findOne({
+        where: {
+          yearId: { [Op.eq]: year.id },
+        },
+        include: {
+          model: Student,
+          as: 'students',
+          attributes: [],
+          through: { attributes: [] },
+          where: {
+           id: { [Op.eq]: student.id }
+          }
+        }
+      })
+
+      return result
+    } catch (error) {
+      if (error != 0) throw error
+      throw customError()
+    }
+  }
+
   const getSubjectTeacherByClassroom = async (classroomId) => {
     try {
       const classroom = await Classroom.findByPk(classroomId)
@@ -71,7 +112,7 @@ function classroomService() {
   const getClassroomsBySubjectTeacher = async (subjectTeacherId, yearId) => {
     try {
       const subjectTeacher = await Teacher.findByPk(subjectTeacherId)
-      if(!subjectTeacher) throw customError(1, `Không tìm thấy giáo viên ${subjectTeacherId}`)
+      if (!subjectTeacher) throw customError(1, `Không tìm thấy giáo viên ${subjectTeacherId}`)
 
       const result = await Classroom.findAll({
         where: {
@@ -90,13 +131,13 @@ function classroomService() {
             model: Teacher,
             as: 'headTeacher'
           }
-         ]
+        ]
       })
 
       return result
 
     } catch (error) {
-      if(error.code != 0) throw error
+      if (error.code != 0) throw error
       throw customError()
     }
   }
@@ -221,8 +262,8 @@ function classroomService() {
       const subjects = await Subject.findAll()
 
       for (const semester of semesters) {
-        for(const markType of markTypes) {
-          for(const subject of subjects) {
+        for (const markType of markTypes) {
+          for (const subject of subjects) {
             await Mark.create({
               yearId: classroom.yearId,
               semesterId: semester.id,
@@ -252,16 +293,16 @@ function classroomService() {
   const deleteStudentFromClassroom = async (classroomId, studentId) => {
     try {
       const classroom = await Classroom.findByPk(classroomId)
-      if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+      if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
 
       const student = await Student.findByPk(studentId)
-      if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+      if (!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
 
       const studentMarkRecords = await Mark.findAll({
         where: {
           [Op.and]: [
             { classroomId: { [Op.eq]: classroom.id } },
-            { studentId:{ [Op.eq]: student.id } }
+            { studentId: { [Op.eq]: student.id } }
           ]
         }
       })
@@ -273,7 +314,7 @@ function classroomService() {
         where: {
           [Op.and]: [
             { classroomId: { [Op.eq]: classroomId } },
-            { studentId: { [Op.eq]: studentId }},
+            { studentId: { [Op.eq]: studentId } },
           ]
         }
       })
@@ -281,6 +322,21 @@ function classroomService() {
       const result = await classroomDetail.destroy()
 
       return result
+    } catch (error) {
+      if (error.code != 0) throw error
+      throw customError()
+    }
+  }
+
+  const deleteClassroom = async (id) => {
+    try {
+      const classroom = await getClassroomById(id)
+
+      const students = await classroom.getStudents()
+
+      return students
+
+
     } catch (error) {
       if(error.code != 0) throw error
       throw customError()
@@ -290,6 +346,7 @@ function classroomService() {
   return {
     getClassroomById,
     getClassroomByYear,
+    getClassroomByStudent,
     getClassroomsBySubjectTeacher,
     getSubjectTeacherByClassroom,
     addClassroom,
@@ -297,6 +354,7 @@ function classroomService() {
     addSubjectTeacherToClassroom,
     addStudentToClassroom,
     deleteStudentFromClassroom,
+    deleteClassroom,
   }
 }
 

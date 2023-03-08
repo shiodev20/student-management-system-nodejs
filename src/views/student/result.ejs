@@ -12,7 +12,7 @@
             <div class="field sm-input">
               <label class="label">Mã học sinh</label>
               <div class="control">
-                <input class="input" type="text" value="HS1" readonly>
+                <input class="input" type="text" value="<%= student.id %>" readonly>
               </div>
             </div>
           </div>
@@ -21,7 +21,7 @@
             <div class="field sm-input">
               <label class="label">Họ tên</label>
               <div class="control">
-                <input class="input" type="text" value="Shio Nguyen" readonly>
+                <input class="input" type="text" value="<%= student.fullName %>" readonly>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
             <div class="field sm-input">
               <label class="label">Lớp</label>
               <div class="control">
-                <input style="width: 100px;" class="input" type="text" value="10A1" readonly>
+                <input style="width: 100px;" class="input" type="text" value="<%= classroom.name %>" readonly>
               </div>
             </div>
           </div>
@@ -40,9 +40,15 @@
               <label class="label">Năm học</label>
               <div class="select">
                 <select name="year">
-                  <option value="NH2122" selected>2021-2022</option>
-                  <option value="NH2122">2021-2022</option>
-                  <option value="NH2122">2021-2022</option>
+                  <% years.forEach(year => { %>
+
+                    <% if(year.id == selectedYear) { %>
+                      <option value="<%= year.id %>" selected><%= year.name %></option>
+                    <% } else { %>
+                      <option value="<%= year.id %>"><%= year.name %></option>
+                    <% } %>
+
+                  <% }) %>
                 </select>
               </div>
             </div>
@@ -53,8 +59,15 @@
               <label class="label">Học kỳ</label>
               <div class="select">
                 <select name="semester">
-                  <option value="HK1" selected>Học kỳ 1</option>
-                  <option value="HK2">Học kỳ 2</option>
+                  <% semesters.forEach(semester => { %>
+
+                    <% if(semester.id == selectedSemester) { %>
+                      <option value="<%= semester.id %>" selected><%= semester.name %></option>
+                    <% } else { %>
+                      <option value="<%= semester.id %>"><%= semester.name %></option>
+                    <% } %>
+
+                  <% }) %>
                 </select>
               </div>
             </div>
@@ -68,13 +81,22 @@
       </form>
   
       <hr>
-  
+      <p>Lựa chọn:</p>
+
+      <div class="is-flex is-flex-wrap-wrap">
+
+        <div class="flex-item my-3 mr-3">
+          <a href="" class="button is-info">In bảng điểm</a>
+        </div>
+
+        
+      </div>
     </div>
   </section>
   
   <section>
     <div class="l-container">
-      <div class="table-container">
+      <div class="table-container mb-6">
         <table class="table is-fullwidth is-hoverable is-bordered">
           <thead>
             <tr>
@@ -89,15 +111,15 @@
           </thead>
     
           <tbody>
-            <tr>
-              <th>1</th>
-              <td style="width: 200px;">Toán</td>
-              <td><input class="input sm-input" type="text" value="10" readonly></td>
-              <td><input class="input" type="text" value="10" readonly></td>
-              <td><input class="input" type="text" value="10" readonly></td>
-              <td><input class="input" type="text" value="10" readonly></td>
-              <td><input class="input" type="text" value="10" readonly></td>
-            </tr>
+            <% studentResult.forEach((subject, idx) => { %>
+              <tr>
+                <th><%= idx + 1 %></th>
+                <td style="width: 200px;"><%= subject.name %></td>
+                <% subject.marks.forEach(mark => { %>
+                  <td><input class="input" type="text" value="<%= mark.mark %>" readonly></td>
+                <% }) %>
+              </tr>
+            <%})%>
           </tbody>
         </table>
       </div>

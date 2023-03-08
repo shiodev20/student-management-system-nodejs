@@ -96,7 +96,7 @@ function markController() {
 
       const result = await addMarks(data)
 
-      req.flash('successMsg', 'Nhập điểm thành công')
+      req.flash('successMsg', `Nhập điểm lớp ${partials.classroomId} thành công`)
       res.redirect(`/diem/nhap-diem/${partials.classroomId}`)
 
     } catch (error) {

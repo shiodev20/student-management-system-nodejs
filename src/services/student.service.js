@@ -13,6 +13,7 @@ function studentService() {
 
       return result
     } catch (error) {
+      if(error.code != 0) throw error
       throw customError()
     }
   }
@@ -20,9 +21,12 @@ function studentService() {
   const getStudentById = async (id) => {
     try {
       const result = await Student.findByPk(id)
+      if(!result) throw customError(1, `Không tìm thấy học sinh ${id}`)
 
       return result
+      
     } catch (error) {
+      if(error.code != 0) throw error
       throw customError()
     }
   }

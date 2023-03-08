@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       // Subject.belongsToMany(models.Classroom, { through: models.ClassroomSubject, foreignKey: 'subjectId', as: 'classrooms' })
 
       Subject.hasMany(models.TeachingAssignment, { foreignKey: 'subjectId', as: 'teachingAssignment' })
-
+      Subject.hasMany(models.Mark, { foreignKey: 'subjectId', as: 'marks' })
       Subject.belongsToMany(models.Classroom, { through: models.TeachingAssignment, foreignKey: 'subjectId', as: 'classrooms' })
       Subject.belongsToMany(models.Teacher, { through: models.TeachingAssignment, foreignKey: 'subjectId', as: 'subjectTeacher' })
 
