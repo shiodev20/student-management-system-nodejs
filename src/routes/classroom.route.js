@@ -1,8 +1,4 @@
 const router = require('express').Router()
-
-const classroomController = require('../controllers/classroom.controller')
-const { isLogin, isStaff } = require('../middlewares/auth.middleware')
-
 const { 
   getClassroomDashboard, 
   getClassroomDetail, 
@@ -14,9 +10,11 @@ const {
   postClassroomStudentAssignment,
   postClassroomHeadTeacherAssignment,
   postClassroomSubjectTeacherAssignment,
-  deleteStudentClassroom,
+  deleteStudentClassroomDelete,
   deleteClassroomDelete,
-} = classroomController()
+} = require('../controllers/classroom.controller')
+const { isLogin, isStaff } = require('../middlewares/auth.middleware')
+
 
 router.get('/mo-lop-hoc', [isLogin, isStaff], getClassroomAdd)
 
@@ -36,7 +34,7 @@ router.post('/phan-cong-gvbm', [isLogin, isStaff], postClassroomSubjectTeacherAs
 
 router.delete('/xoa-lop-hoc/:id', [isLogin, isStaff], deleteClassroomDelete)
 
-router.delete('/:id/xoa-hoc-sinh/:studentId', [isLogin, isStaff], deleteStudentClassroom)
+router.delete('/:id/xoa-hoc-sinh/:studentId', [isLogin, isStaff], deleteStudentClassroomDelete)
 
 router.get('/:id', [isLogin, isStaff], getClassroomDetail)
 

@@ -1,8 +1,4 @@
 const router = require('express').Router()
-
-const { isLogin, isStaff } = require('../middlewares/auth.middleware')
-const studentController = require('../controllers/student.controller')
-
 const { 
   getStudentDashboard, 
   getStudentResult, 
@@ -12,8 +8,8 @@ const {
   getStudentAdd,
   postStudentAdd,
   getStudentUpdate
-} = studentController()
-
+} = require('../controllers/student.controller')
+const { isLogin, isStaff } = require('../middlewares/auth.middleware')
 
 
 router.get('/tiep-nhan-hoc-sinh', [isLogin, isStaff], getStudentAdd)

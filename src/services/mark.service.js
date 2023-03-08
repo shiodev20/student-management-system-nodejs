@@ -1,197 +1,179 @@
 const { Op } = require('sequelize')
-const { Year, Mark, Classroom, Student, Semester, Subject, MarkType } = require('../models')
+const { Mark, Classroom, Student, Subject, MarkType } = require('../models')
 const customError = require('../utils/customError')
 
-function markService() {
+const yearService = require('./year.service')
+const semesterService = require('./semester.service')
+const subjectService = require('./subject.service')
+const classroomService = require('./classroom.service')
+const studentService = require('./student.service')
+const markTypeService = require('./markType.service')
 
-  const getMarksOfClassroomBySubject = async (classroomId, semesterId, subjectId) => {
+const getMarksOfClassroomBySubject = async (classroomId, semesterId, subjectId) => {
 
-    try {
-      const classroom = await Classroom.findByPk(classroomId)
-      if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+  try {
+    const semester = await semesterService.getSemesterById(semesterId)
+    const classroom = await classroomService.getClassroomById(classroomId)
+    const subject = await subjectService.getSubjectById(subjectId)
 
-      const semester = await Semester.findByPk(semesterId)
-      if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
-
-
-      const subject = await Subject.findByPk(subjectId)
-      if (!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
-
-
-      const result = await Student.findAll({
-        include: [
-          {
-            model: Classroom,
-            as: 'classrooms',
-            through: { attributes: [] },
-            attributes: [],
-            where: {
-              id: classroom.id
-            }
-          },
-          {
-            model: Mark,
-            as: 'marks',
-            where: {
-              semesterId: semester.id,
-              subjectId: subject.id,
-            }
+    const result = await Student.findAll({
+      include: [
+        {
+          model: Classroom,
+          as: 'classrooms',
+          through: { attributes: [] },
+          attributes: [],
+          where: {
+            id: classroom.id
           }
-        ]
-      })
-
-      return result
-
-    } catch (error) {
-      if (error.code != 0) throw error
-      throw customError()
-    }
-  }
-
-  const getMarksOfStudent = async (studentId, yearId, semesterId) => {
-    try {
-      const student = await Student.findByPk(studentId)
-      if (!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
-
-      const year = await Year.findByPk(yearId)
-      if (!year) throw customError(1, `Không tìm thấy năm học ${yaerId}`)
-
-      const semester = await Semester.findByPk(semesterId)
-      if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
-
-      const studentResult = await Subject.findAll({
-        include: {
+        },
+        {
           model: Mark,
           as: 'marks',
           where: {
-            [Op.and]: [
-              { yearId: {[Op.eq]: year.id } },
-              { semesterId: {[Op.eq]: semester.id } },
-              { studentId: {[Op.eq]: student.id } },
-            ]
+            semesterId: semester.id,
+            subjectId: subject.id,
           }
         }
-      })
+      ]
+    })
 
-      return studentResult
+    return result
 
-    } catch (error) {
-      if (error.coe != 0) throw error
-      throw customError()
-    }
-  }
-
-  const addMarks = async (data) => {
-    try {
-      const result = await Promise.all(data.map(async item => {
-        const mark = await Mark.findOne({
-          where: {
-            [Op.and]: [
-              { yearId: { [Op.eq]: item.yearId } },
-              { semesterId: { [Op.eq]: item.semesterId } },
-              { classroomId: { [Op.eq]: item.classroomId } },
-              { subjectId: { [Op.eq]: item.subjectId } },
-              { studentId: { [Op.eq]: item.studentId } },
-              { markTypeId: { [Op.eq]: item.markTypeId } },
-            ]
-          }
-        })
-
-        if (item.mark < 0) throw customError(1, 'Điểm nhập không được bé hơn 0')
-
-        if (mark.mark != item.mark) await mark.update({ mark: item.mark })
-      }))
-
-      return result
-
-    } catch (error) {
-      if (error.code != 0) throw error
-      throw customError()
-    }
-  }
-
-  const updateAvgMark = async (yearId, semesterId, classroomId, subjectId) => {
-    try {
-      const year = await Year.findByPk(yearId)
-      if (!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
-
-      const semester = await Semester.findByPk(semesterId)
-      if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
-
-      const classroom = await Classroom.findByPk(classroomId)
-      if (!classroom) throw customError(1, `Không tìm thấy năm học ${classroomId}`)
-
-      const subject = await Subject.findByPk(subjectId)
-      if (!subject) throw customError(1, `Không tìm thấy năm học ${subjectId}`)
-
-      const markTypes = await MarkType.findAll()
-      const sumOfCoefficient = markTypes.reduce((total, item) => total + item.coefficient, 0)
-
-      const studentMarks = await Student.findAll({
-        include: [
-          {
-            model: Classroom,
-            as: 'classrooms',
-            through: { attributes: [] },
-            attributes: [],
-            where: {
-              id: classroom.id
-            }
-          },
-          {
-            model: Mark,
-            as: 'marks',
-            where: {
-              semesterId: semester.id,
-              subjectId: subject.id,
-            },
-            include: {
-              model: MarkType,
-              as: 'markType'
-            }
-          }
-        ]
-      })
-
-      const result = await Promise.all(studentMarks.map(async student => {
-        let sumOfMark = 0
-
-        student.marks.forEach(mark => {
-          sumOfMark += Number(mark.mark) * mark.markType.coefficient
-        })
-
-        const avgMark = sumOfMark / sumOfCoefficient
-
-        const mark = await Mark.findOne({
-          where: {
-            [Op.and]: [
-              { yearId: { [Op.eq]: year.id } },
-              { semesterId: { [Op.eq]: semester.id } },
-              { classroomId: { [Op.eq]: classroom.id } },
-              { subjectId: { [Op.eq]: subject.id } },
-              { studentId: { [Op.eq]: student.id } },
-              { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id } },
-            ]
-          }
-        })
-
-        await mark.update({ mark: avgMark })
-      }))
-
-      return result
-
-    } catch (error) {
-      if (error.code != 0) throw error
-      throw customError()
-    }
-  }
-
-  return {
-    getMarksOfClassroomBySubject,
-    getMarksOfStudent,
-    addMarks,
-    updateAvgMark,
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
   }
 }
 
-module.exports = markService
+const getMarksOfStudent = async (studentId, yearId, semesterId) => {
+  try {
+    const student = await studentService.getStudentById(studentId)
+    const year = await yearService.getYearById(yearId)
+    const semester = await semesterService.getSemesterById(semesterId)
+
+    const studentResult = await Subject.findAll({
+      include: {
+        model: Mark,
+        as: 'marks',
+        where: {
+          [Op.and]: [
+            { yearId: { [Op.eq]: year.id } },
+            { semesterId: { [Op.eq]: semester.id } },
+            { studentId: { [Op.eq]: student.id } },
+          ]
+        }
+      }
+    })
+
+
+    return studentResult
+
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
+const addMarks = async (data) => {
+  try {
+    const result = await Promise.all(data.map(async item => {
+      const mark = await Mark.findOne({
+        where: {
+          [Op.and]: [
+            { yearId: { [Op.eq]: item.yearId } },
+            { semesterId: { [Op.eq]: item.semesterId } },
+            { classroomId: { [Op.eq]: item.classroomId } },
+            { subjectId: { [Op.eq]: item.subjectId } },
+            { studentId: { [Op.eq]: item.studentId } },
+            { markTypeId: { [Op.eq]: item.markTypeId } },
+          ]
+        }
+      })
+
+      if (item.mark < 0) throw customError(1, 'Điểm không được bé hơn 0')
+
+      if (mark.mark != item.mark) await mark.update({ mark: item.mark })
+    }))
+
+    return result
+
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
+const updateAvgMark = async (yearId, semesterId, classroomId, subjectId) => {
+  try {
+    const year = await yearService.getYearById(yearId)
+    const semester = await semesterService.getSemesterById(semesterId)
+    const classroom = await classroomService.getClassroomById(classroomId)
+    const subject = await subjectService.getSubjectById(subjectId)
+    const markTypes = await markTypeService.getMarkTypeList()
+
+    const sumOfCoefficient = markTypes.reduce((total, item) => total + item.coefficient, 0)
+
+    const studentMarks = await Student.findAll({
+      include: [
+        {
+          model: Classroom,
+          as: 'classrooms',
+          through: { attributes: [] },
+          attributes: [],
+          where: {
+            id: classroom.id
+          }
+        },
+        {
+          model: Mark,
+          as: 'marks',
+          where: {
+            semesterId: semester.id,
+            subjectId: subject.id,
+          },
+          include: {
+            model: MarkType,
+            as: 'markType'
+          }
+        }
+      ]
+    })
+
+    const result = await Promise.all(studentMarks.map(async student => {
+      let sumOfMark = 0
+
+      student.marks.forEach(mark => {
+        sumOfMark += Number(mark.mark) * mark.markType.coefficient
+      })
+
+      const avgMark = sumOfMark / sumOfCoefficient
+
+      const mark = await Mark.findOne({
+        where: {
+          [Op.and]: [
+            { yearId: { [Op.eq]: year.id } },
+            { semesterId: { [Op.eq]: semester.id } },
+            { classroomId: { [Op.eq]: classroom.id } },
+            { subjectId: { [Op.eq]: subject.id } },
+            { studentId: { [Op.eq]: student.id } },
+            { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id } },
+          ]
+        }
+      })
+
+      await mark.update({ mark: avgMark })
+    }))
+
+    return result
+
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
+exports.getMarksOfClassroomBySubject = getMarksOfClassroomBySubject
+exports.getMarksOfStudent = getMarksOfStudent
+exports.addMarks = addMarks
+exports.updateAvgMark = updateAvgMark

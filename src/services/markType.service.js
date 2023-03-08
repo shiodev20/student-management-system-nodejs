@@ -1,21 +1,15 @@
 const { MarkType } = require('../models')
 const customError = require('../utils/customError')
 
-function markTypeService() {
+const getMarkTypeList = async () => {
+	try {
+		const result = await MarkType.findAll()
+		return result
 
-	const getMarkTypeList = async () => {
-		try {
-			const result = await MarkType.findAll()
-			return result
-
-		} catch (err) {
-			throw customError()
-		}
-	}
-
-	return {
-		getMarkTypeList
+	} catch (err) {
+		if(error.code != 0) throw error
+		throw customError()
 	}
 }
 
-module.exports = markTypeService
+exports.getMarkTypeList = getMarkTypeList

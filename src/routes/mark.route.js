@@ -1,9 +1,7 @@
 const router = require('express').Router()
-
+const { getMarkAdd, getMarkAvgCalculate, postMarkAdd } = require('../controllers/mark.controller')
 const { isLogin, isTeacher } = require('../middlewares/auth.middleware')
-const markController = require('../controllers/mark.controller')
 
-const { getMarkAdd, getMarkAvgCalculate, postMarkAdd } = markController()
 
 router.get('/nhap-diem/:id', [isLogin, isTeacher], getMarkAdd)
 

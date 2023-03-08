@@ -1,13 +1,11 @@
 const router = require('express').Router()
-
-const reportController = require('../controllers/report.controller')
-
 const {
   getReportClassroomSubject, 
   getReportDashboard, 
   getReportSubject, 
   getReportSemeter 
-} = reportController()
+} = require('../controllers/report.controller')
+
 
 router.get('/tong-ket-diem-mon-hoc-cua-lop', getReportClassroomSubject)
 

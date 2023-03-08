@@ -12,11 +12,6 @@ const { yearService, semesterService, classroomService, accountService } = requi
 
 const initialRoutes = (app) => {
 
-  const { getCurrentYear } = yearService()
-  const { getCurrentSemester } = semesterService()
-  const { getClassroomsBySubjectTeacher } = classroomService()
-  const { getAccountList } = accountService()
-
   app.get('/', [isLogin], async (req, res) => {
 
     switch (req.session.user.role) {
@@ -25,9 +20,9 @@ const initialRoutes = (app) => {
         break;
 
       case 'VT2':
-        const currentYear = await getCurrentYear()
-        const currentSemester = await getCurrentSemester()
-        const classrooms = await getClassroomsBySubjectTeacher(req.session.user.id, currentYear.id)
+        const currentYear = await yearService.getCurrentYear()
+        const currentSemester = await semesterService.getCurrentSemester()
+        const classrooms = await classroomService.getClassroomsBySubjectTeacher(req.session.user.id, currentYear.id)
 
         res.render('dashboard/teacher', { 
           documentTitle: 'Trang chủ', 
@@ -38,7 +33,7 @@ const initialRoutes = (app) => {
         break;
 
       case 'VT3':
-        const accounts = await getAccountList()
+        const accounts = await accountService.getAccountList()
         
         res.render('dashboard/admin', { 
           documentTitle: 'Trang chủ',

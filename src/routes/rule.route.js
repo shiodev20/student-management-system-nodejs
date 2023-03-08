@@ -1,8 +1,7 @@
 const router = require('express').Router()
 
-const ruleController = require('../controllers/rule.controller')
+const { getRuleDashboard, getRuleUpdate, putRuleUpdate } = require('../controllers/rule.controller')
 
-const { getRuleDashboard, getRuleUpdate, putRuleUpdate } = ruleController()
 
 router.get('/cap-nhat-quy-dinh', getRuleUpdate)
 

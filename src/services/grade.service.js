@@ -1,21 +1,15 @@
 const { Grade } = require('../models')
 const customError = require('../utils/customError')
 
-function gradeService() {
+const getGradeList = async () => {
+	try {
+		const result = await Grade.findAll()
+		return result
 
-	const getGradeList = async () => {
-		try {
-			const result = await Grade.findAll()
-			return result
-
-		} catch (error) {
-			throw customError()
-		}
-	}
-
-	return {
-		getGradeList
+	} catch (error) {
+		if(error.code != 0) throw error
+		throw customError()
 	}
 }
 
-module.exports = gradeService
+exports.getGradeList = getGradeList

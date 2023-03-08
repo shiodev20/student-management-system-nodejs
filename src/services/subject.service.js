@@ -1,38 +1,46 @@
-const { Subject, Teacher } = require('../models')
+const { Subject } = require('../models')
 const customError = require('../utils/customError')
 
-function subjectService() {
+const teacherService = require('./teacher.service')
 
-  const getSubjectList = async () => {
-    try {
-      const result = await Subject.findAll()
-      return result
+const getSubjectList = async () => {
+  try {
+    const result = await Subject.findAll()
+    return result
 
-    } catch (error) { 
-      if (error.code != 0) throw error
-      throw customError()
-    }
-  }
-
-  const getSubjectByTeacher = async (teacherId) => {
-    try {
-      const teacher = await Teacher.findByPk(teacherId)
-      if(!teacher) throw customError(1, `không tìm thấy giáo viên ${teacher}`)
-
-      const result = await teacher.getSubject()
-
-      return result
-
-    } catch (error) {
-      if(error.code != 0) throw error
-      throw customError()
-    }
-  }
-
-  return {
-    getSubjectList,
-    getSubjectByTeacher,
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
   }
 }
 
-module.exports = subjectService
+const getSubjectById = async (id) => {
+  try {
+    const result = await Subject.findByPk(id)
+    if (!result) throw customError(1, `không tìm thấy môn học ${id}`)
+
+    return result
+
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
+const getSubjectByTeacher = async (teacherId) => {
+  try {
+    const teacher = await teacherService.getTeacherById(teacherId)
+
+    const result = await teacher.getSubject()
+
+    return result
+
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
+exports.getSubjectList = getSubjectList
+exports.getSubjectById = getSubjectById
+exports.getSubjectByTeacher = getSubjectByTeacher

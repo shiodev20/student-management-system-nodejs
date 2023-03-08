@@ -1,52 +1,31 @@
-const { Op } = require('sequelize')
-const { Account, Employee, Teacher } = require('../models')
 const customError = require('../utils/customError')
 
-function authService() {
+const teacherService = require('./teacher.service')
+const accountService = require('./account.service')
+const employeeService = require('./employee.service')
 
-  const findAccountByUsername = async (username) => {
-    try {
-      const result = await Account.findOne({
-        where: { username: { [Op.eq]: username } }
-      })
-  
-      return result
-    } catch (error) {
-      throw customError()
+const getUserInfo = async (accountId) => {
+  try {
+    let user = await employeeService.getEmployeeByAccount(accountId)
+
+    if (!user) {
+      user = await teacherService.getTeacherByAccount(accountId)
     }
-  }
 
-  const getUserInfo = async (accountId) => {
-    try {
-      let user = await Employee.findOne({
-        where: { accountId: { [Op.eq]: accountId } }
-      })
+    const account = await accountService.getAccountById(accountId)
 
-      if (!user) {
-        user = await Teacher.findOne({
-          where: { accountId: { [Op.eq]: accountId } }
-        })
-      }
-
-      const account = await Account.findByPk(accountId)
-
-      const result = {
-        id: user.id,
-        fullName: user.fullName,
-        role: account.roleId
-      }
-
-      return result
-    } catch (error) {
-      throw customError()
+    const result = {
+      id: user.id,
+      fullName: user.fullName,
+      role: account.roleId
     }
-  }
 
-  return {
-    findAccountByUsername,
-    getUserInfo,
-  }
+    return result
 
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
 }
 
-module.exports = authService
+exports.getUserInfo = getUserInfo

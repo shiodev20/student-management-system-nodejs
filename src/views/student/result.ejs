@@ -30,7 +30,7 @@
             <div class="field sm-input">
               <label class="label">Lớp</label>
               <div class="control">
-                <input style="width: 100px;" class="input" type="text" value="<%= classroom.name %>" readonly>
+                <input style="width: 100px;" class="input" type="text" value="<%= classroom ? classroom.name : null %>" readonly>
               </div>
             </div>
           </div>
@@ -109,18 +109,20 @@
               <th>Điểm TBM</th>
             </tr>
           </thead>
-    
-          <tbody>
-            <% studentResult.forEach((subject, idx) => { %>
-              <tr>
-                <th><%= idx + 1 %></th>
-                <td style="width: 200px;"><%= subject.name %></td>
-                <% subject.marks.forEach(mark => { %>
-                  <td><input class="input" type="text" value="<%= mark.mark %>" readonly></td>
-                <% }) %>
-              </tr>
-            <%})%>
-          </tbody>
+          
+          <% if(studentResult.length > 0) { %>
+            <tbody>
+              <% studentResult.forEach((subject, idx) => { %>
+                <tr>
+                  <th><%= idx + 1 %></th>
+                  <td style="width: 200px;"><%= subject.name %></td>
+                  <% subject.marks.forEach(mark => { %>
+                    <td><input class="input" type="text" value="<%= mark.mark %>" readonly></td>
+                  <% }) %>
+                </tr>
+              <%})%>
+            </tbody>
+          <% } %>
         </table>
       </div>
     
