@@ -3,14 +3,27 @@ const customError = require('../utils/customError')
 
 const err = { type: '', message: '', url: '' }
 
-const getAccountAdd = async (req, res, next) => {
+const getNoAccountAdd = async (req, res, next) => {
   try {
     const noAccountEmplList = await accountService.getNoAccountEmplList()
+
+    res.render('account/noAccountAdd', {
+      documentTitle: 'Tạo tài khoản',
+      noAccountEmplList,
+    })
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const getAccountAdd = async (req, res, next) => {
+  console.log(req.params.id);
+  try {
     const roles = await roleService.getRoleList()
 
     res.render('account/add', {
       documentTitle: 'Tạo tài khoản',
-      noAccountEmplList,
       roles,
     })
     
@@ -22,6 +35,8 @@ const getAccountAdd = async (req, res, next) => {
 const postAccountAdd = async (req, res, next) => {
   const { accountId, username, password, role } = req.body
   try {
+    if(!accountId || !username || !password || !role) throw customError(2, ``)
+
     const account = {
       id: accountId,
       username,
@@ -35,14 +50,13 @@ const postAccountAdd = async (req, res, next) => {
     res.redirect('/tai-khoan/tao-tai-khoan')
 
   } catch (error) {
-    console.log(error);
-    // switch (error.code) {
-    //   case 1, 0:
-    //     err.type = 'error'
-    //     err.message = error.message
-    //     err.url = `tai-khoan/tao-tai-khoan`
-    //     break;
-    // }
+    switch (error.code) {
+      case 1, 0:
+        err.type = 'error'
+        err.message = error.message
+        err.url = `tai-khoan/tao-tai-khoan`
+        break;
+    }
   }
 }
 
@@ -129,6 +143,7 @@ const deleteAccountDelete = async (req, res, next) => {
 }
 
 module.exports = {
+  getNoAccountAdd,
   getAccountAdd,
   postAccountAdd,
   getAccountUpdate,
