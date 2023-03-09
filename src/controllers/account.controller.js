@@ -1,5 +1,6 @@
 const { accountService, roleService } = require('../services')
 const customError = require('../utils/customError')
+const { generateId } = require('../utils/generateId')
 
 const err = { type: '', message: '', url: '' }
 
@@ -18,24 +19,37 @@ const getNoAccountAdd = async (req, res, next) => {
 }
 
 const getAccountAdd = async (req, res, next) => {
-  console.log(req.params.id);
+  const { id } = req.params;
   try {
     const roles = await roleService.getRoleList()
+    const accountId = generateId('TK')
 
     res.render('account/add', {
       documentTitle: 'Tạo tài khoản',
       roles,
+      accountId,
+      username: id,
     })
     
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 1, 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `tai-khoan/tao-tai-khoan/${id}`
+      break;
+    }
   }
 }
 
 const postAccountAdd = async (req, res, next) => {
+  const { id } = req.params
   const { accountId, username, password, role } = req.body
+  
   try {
-    if(!accountId || !username || !password || !role) throw customError(2, ``)
+    if(!accountId || !username || !password || !role) {
+      throw customError(2, `Vui lòng nhập đầy đủ thông tin`)
+    }
 
     const account = {
       id: accountId,
@@ -47,16 +61,23 @@ const postAccountAdd = async (req, res, next) => {
     const result = await accountService.addAccount(account)
 
     req.flash('successMsg', `Cấp tài khoản cho nhân viên ${username} thành công`)
-    res.redirect('/tai-khoan/tao-tai-khoan')
+    res.redirect('/tai-khoan/danh-sach-chua-cap-tai-khoan')
 
   } catch (error) {
     switch (error.code) {
       case 1, 0:
-        err.type = 'error'
+        err.type = 'errorMsg'
         err.message = error.message
-        err.url = `tai-khoan/tao-tai-khoan`
+        err.url = `/tai-khoan/tao-tai-khoan/${id}`
+        break;
+      case 2:
+        err.type = 'formMsg'
+        err.message = error.message
+        err.url = `/tai-khoan/tao-tai-khoan/${id}`
         break;
     }
+
+    next(err)
   }
 }
 

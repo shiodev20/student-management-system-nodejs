@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const { Student, Classroom, Year, Grade, ClassroomDetail } = require('../models')
-const { generateStudentId } = require('../utils/generateId')
+const { generateStudentId, generateId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
 const classroomService = require('./classroom.service')
@@ -161,11 +161,11 @@ const getNoClassAssignmentStudents = async (gradeId, yearId) => {
 
 const addStudent = async (student) => {
   try {
-    const lastStudent = await Student.findOne({
-      order: [['enrollDate', 'DESC']]
-    })
+    // const lastStudent = await Student.findOne({
+    //   order: [['enrollDate', 'DESC']]
+    // })
 
-    const studentId = generateStudentId(lastStudent.id)
+    const studentId = generateId('HS')
 
     const result = await Student.create({
       id: studentId,

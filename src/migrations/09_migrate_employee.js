@@ -37,7 +37,7 @@ module.exports = {
         allowNull: false
       },
       accountId: {
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
       }
     });
   },

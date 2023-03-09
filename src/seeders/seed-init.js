@@ -74,7 +74,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('students', [
       {
-        id: "HS1",
+        id: "HS000001",
         firstName: "Leona",
         lastName: "Yoseloff",
         gender: 0,
@@ -85,7 +85,7 @@ module.exports = {
         enrollDate: '2023-01-13 07:27:39'
       },
       {
-        id: "HS2",
+        id: "HS000002",
         firstName: "John",
         lastName: "Doe",
         gender: 1,
@@ -96,7 +96,7 @@ module.exports = {
         enrollDate: '2023-01-13 08:27:39'
       },
       {
-        id: "HS3",
+        id: "HS000003",
         firstName: "skylie",
         lastName: "Bayept",
         gender: 0,
@@ -107,7 +107,7 @@ module.exports = {
         enrollDate: '2023-01-13 09:27:39'
       },
       {
-        id: "HS4",
+        id: "HS000004",
         firstName: "Tim",
         lastName: "Parkle",
         gender: 1,
@@ -118,7 +118,7 @@ module.exports = {
         enrollDate: '2023-01-13 10:27:39'
       },
       {
-        id: "HS5",
+        id: "HS000005",
         firstName: "Grenville",
         lastName: "Neate",
         gender: 1,
@@ -129,7 +129,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:27:39'
       },
       {
-        id: "HS6",
+        id: "HS000006",
         firstName: "Ilyssa",
         lastName: "Andreas",
         gender: 0,
@@ -140,7 +140,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:28:39'
       },
       {
-        id: "HS7",
+        id: "HS000007",
         firstName: "Sari",
         lastName: "Reijmers",
         gender: 0,
@@ -151,7 +151,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:29:39'
       },
       {
-        id: "HS8",
+        id: "HS000008",
         firstName: "Saunderson",
         lastName: "Kopje",
         gender: 1,
@@ -162,7 +162,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:30:39'
       },
       {
-        id: "HS9",
+        id: "HS000009",
         firstName: "Bertie",
         lastName: "Huckett",
         gender: 1,
@@ -173,7 +173,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:31:39'
       },
       {
-        id: "HS10",
+        id: "HS000010",
         firstName: "Kerwinn",
         lastName: "Vedyaev",
         gender: 1,
@@ -184,7 +184,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:32:39'
       },
       {
-        id: "HS11",
+        id: "HS000011",
         firstName: "Bobby",
         lastName: "Ysson",
         gender: 1,
@@ -195,7 +195,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:33:39'
       },
       {
-        id: "HS12",
+        id: "HS000012",
         firstName: "Ewart",
         lastName: "Measen",
         gender: 0,
@@ -206,7 +206,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:34:39'
       },
       {
-        id: "HS13",
+        id: "HS000013",
         firstName: "Carly",
         lastName: "Cartwright",
         gender: 0,
@@ -217,7 +217,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:35:39'
       },
       {
-        id: "HS14",
+        id: "HS000014",
         firstName: "Orville",
         lastName: "Essery",
         gender: 1,
@@ -228,7 +228,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:36:39'
       },
       {
-        id: "HS15",
+        id: "HS000015",
         firstName: "Lydia",
         lastName: "Strettle",
         gender: 0,
@@ -239,7 +239,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:37:39'
       },
       {
-        id: "HS16",
+        id: "HS000016",
         firstName: "Bobine",
         lastName: "Throughton",
         gender: 1,
@@ -250,7 +250,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:38:39'
       },
       {
-        id: "HS17",
+        id: "HS000017",
         firstName: "Anna",
         lastName: "Carriage",
         gender: 0,
@@ -261,7 +261,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:39:39'
       },
       {
-        id: "HS18",
+        id: "HS000018",
         firstName: "Serge",
         lastName: "Shoppee",
         gender: 0,
@@ -272,7 +272,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:40:39'
       },
       {
-        id: "HS19",
+        id: "HS000019",
         firstName: "Nicholas",
         lastName: "Yakushkin",
         gender: 1,
@@ -283,7 +283,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:41:39'
       },
       {
-        id: "HS20",
+        id: "HS000020",
         firstName: "Tremayne",
         lastName: "Hendron",
         gender: 1,
@@ -294,7 +294,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:42:39'
       },
       {
-        id: "HS21",
+        id: "HS000021",
         firstName: "Darcee",
         lastName: "Brickham",
         gender: 1,
@@ -305,7 +305,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:43:39'
       },
       {
-        id: "HS22",
+        id: "HS000022",
         firstName: "Abdul",
         lastName: "Jahns",
         gender: 0,
@@ -316,7 +316,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:44:39'
       },
       {
-        id: "HS23",
+        id: "HS000023",
         firstName: "Harold",
         lastName: "Pavie",
         gender: 1,
@@ -327,7 +327,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:45:39'
       },
       {
-        id: "HS24",
+        id: "HS000024",
         firstName: "Berna",
         lastName: "Greaterex",
         gender: 0,
@@ -338,7 +338,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:46:39'
       },
       {
-        id: "HS25",
+        id: "HS000025",
         firstName: "Jayme",
         lastName: "Darrington",
         gender: 1,
@@ -349,7 +349,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:47:39'
       },
       {
-        id: "HS26",
+        id: "HS000026",
         firstName: "Liv",
         lastName: "Dunkerley",
         gender: 0,
@@ -360,7 +360,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:48:39'
       },
       {
-        id: "HS27",
+        id: "HS000027",
         firstName: "Ruthy",
         lastName: "Cirlos",
         gender: 1,
@@ -371,7 +371,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:49:39'
       },
       {
-        id: "HS28",
+        id: "HS000028",
         firstName: "Richard",
         lastName: "Davis",
         gender: 1,
@@ -382,7 +382,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:50:39'
       },
       {
-        id: "HS29",
+        id: "HS000029",
         firstName: "Cortney",
         lastName: "Hamly",
         gender: 0,
@@ -393,7 +393,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:51:39'
       },
       {
-        id: "HS30",
+        id: "HS000030",
         firstName: "Atlanta",
         lastName: "Jachimczak",
         gender: 1,
@@ -404,7 +404,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:52:39'
       },
       {
-        id: "HS31",
+        id: "HS000031",
         firstName: "Zorana",
         lastName: "Showl",
         gender: 0,
@@ -415,7 +415,7 @@ module.exports = {
         enrollDate: '2023-01-13 11:53:39'
       },
       {
-        id: "HS32",
+        id: "HS000032",
         firstName: "Rogerio",
         lastName: "Huxton",
         gender: 1,
@@ -430,40 +430,40 @@ module.exports = {
 
     await queryInterface.bulkInsert('accounts', [
       {
-        id: 'TK1',
-        username: 'NV1',
+        id: 'TK000001',
+        username: 'NV000001',
         password: '$2b$10$9uT8hlVXwLU6ZnGgu46RtuGS5rJLTZmzPjjIGUov4CEe4ALWt2u..',
         status: 1,
         roleId: 'VT1',
         createdAt: '2023-01-13 11:31:39'
       },
       {
-        id: 'TK2',
-        username: 'NV2',
+        id: 'TK000002',
+        username: 'NV000002',
         password: '$2b$10$dqPTEcwSnZT/oXaXzMOCb.UB.Ork4eVe4gxk8lg4kf8UVuPtwoS6O',
         status: 1,
         roleId: 'VT1',
         createdAt: '2023-01-13 11:32:39'
       },
       {
-        id: 'TK3',
-        username: 'NV4',
+        id: 'TK000003',
+        username: 'NV000004',
         password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
         roleId: 'VT3',
         createdAt: '2023-01-13 11:33:39'
       },
       {
-        id: 'TK4',
-        username: 'GV1',
+        id: 'TK000004',
+        username: 'GV000001',
         password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
         roleId: 'VT2',
         createdAt: '2023-01-13 11:34:39'
       },
       {
-        id: 'TK5',
-        username: 'GV2',
+        id: 'TK000005',
+        username: 'GV000002',
         password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
         status: 1,
         roleId: 'VT2',
@@ -474,7 +474,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('employees', [
       {
-        id: "NV1",
+        id: "NV00001",
         firstName: "Leona",
         lastName: "Yoseloff",
         gender: 0,
@@ -482,10 +482,10 @@ module.exports = {
         address: "23580 La Follette Street",
         email: "lyoseloff0@princeton.edu",
         phone: "3759552263",
-        accountId: 'TK1',
+        accountId: 'TK000001',
       },
       {
-        id: "NV2",
+        id: "NV000002",
         firstName: "Kristal",
         lastName: "Tomek",
         gender: 0,
@@ -493,10 +493,10 @@ module.exports = {
         address: "891 Lillian Trail",
         email: "ktomek1@google.com",
         phone: "4872961506",
-        accountId: 'TK2',
+        accountId: 'TK000002',
       },
       {
-        id: "NV3",
+        id: "NV000003",
         firstName: "Si",
         lastName: "Aldhouse",
         gender: 1,
@@ -507,7 +507,7 @@ module.exports = {
         accountId: null,
       },
       {
-        id: "NV4",
+        id: "NV000004",
         firstName: "Noak",
         lastName: "Haslin",
         gender: 1,
@@ -515,10 +515,10 @@ module.exports = {
         address: "77 Becker Alley",
         email: "nhaslin3@fc2.com",
         phone: "3105964100",
-        accountId: 'TK3',
+        accountId: 'TK000003',
       },
       {
-        id: "NV5",
+        id: "NV000005",
         firstName: "Syd",
         lastName: "Georgeau",
         gender: 1,
@@ -533,7 +533,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('teachers', [
       {
-        id: 'GV1',
+        id: 'GV000001',
         firstName: 'Vasilis',
         lastName: 'Kimbly',
         gender: 0,
@@ -542,10 +542,10 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '5484261865',
         subjectId: 'MH1',
-        accountId: 'TK4'
+        accountId: 'TK000004'
       },
       {
-        id: 'GV2',
+        id: 'GV000002',
         firstName: 'Marcellina',
         lastName: 'Michel',
         gender: 1,
@@ -554,10 +554,10 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1762753746',
         subjectId: 'MH1',
-        accountId: 'TK5'
+        accountId: 'TK000005'
       },
       {
-        id: 'GV3',
+        id: 'GV000003',
         firstName: 'Annis',
         lastName: 'Whinney',
         gender: 1,
@@ -569,7 +569,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV4',
+        id: 'GV000004',
         firstName: 'Carmen',
         lastName: 'Feighney',
         gender: 0,
@@ -581,7 +581,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV5',
+        id: 'GV000005',
         firstName: 'Ronnica',
         lastName: 'Riolfi',
         gender: 0,
@@ -593,7 +593,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV6',
+        id: 'GV000006',
         firstName: 'Anetta',
         lastName: 'Pendreigh',
         gender: 1,
@@ -605,7 +605,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV7',
+        id: 'GV000007',
         firstName: 'Mitchell',
         lastName: 'Becerro',
         gender: 1,
@@ -617,7 +617,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV8',
+        id: 'GV000008',
         firstName: 'Mendel',
         lastName: 'Boribal',
         gender: 0,
@@ -629,7 +629,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV9',
+        id: 'GV000009',
         firstName: 'Leola',
         lastName: 'Starmer',
         gender: 1,
@@ -641,7 +641,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV10',
+        id: 'GV000010',
         firstName: 'Clive',
         lastName: 'Rubinchik',
         gender: 1,
@@ -653,7 +653,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV11',
+        id: 'GV000011',
         firstName: 'Abel',
         lastName: 'Powlesland',
         gender: 1,
@@ -665,7 +665,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV12',
+        id: 'GV000012',
         firstName: 'Marja',
         lastName: 'Matuszewski',
         gender: 0,
@@ -677,7 +677,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV13',
+        id: 'GV000013',
         firstName: 'Almeria',
         lastName: 'Vest',
         gender: 1,
@@ -689,7 +689,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV14',
+        id: 'GV000014',
         firstName: 'Minnaminnie',
         lastName: 'Oldrey',
         gender: 0,
@@ -701,7 +701,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV15',
+        id: 'GV000015',
         firstName: 'Fredra',
         lastName: 'Siege',
         gender: 1,
@@ -713,7 +713,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV16',
+        id: 'GV000016',
         firstName: 'Tynan',
         lastName: 'Rowlett',
         gender: 0,
@@ -725,7 +725,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV17',
+        id: 'GV000017',
         firstName: 'Othilia',
         lastName: 'Wofenden',
         gender: 0,
@@ -737,7 +737,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV18',
+        id: 'GV000018',
         firstName: 'Grace',
         lastName: 'Larham',
         gender: 1,
@@ -749,7 +749,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV19',
+        id: 'GV000019',
         firstName: 'Bastien',
         lastName: 'Franklen',
         gender: 1,
@@ -761,7 +761,7 @@ module.exports = {
         accountId: null
       },
       {
-        id: 'GV20',
+        id: 'GV000020',
         firstName: 'Bastien',
         lastName: 'Franklen',
         gender: 1,

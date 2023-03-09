@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   Teacher.init({
     id: {
       primaryKey: true,
-      type: DataTypes.STRING(6),
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     firstName: {

@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.createTable('teachers', {
       id: {
         primaryKey: true,
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
         allowNull: false,
       },
       firstName: {
@@ -37,7 +37,7 @@ module.exports = {
         allowNull: false
       },
       accountId: {
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
       },
       subjectId: {
         type: Sequelize.STRING(6),

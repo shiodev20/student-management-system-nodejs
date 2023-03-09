@@ -7,7 +7,9 @@
     <div class="box form-content">
       <p class="form-title">Cấp tài khoản</p>
 
-      <form action="/tai-khoan/cap-nhat-tai-khoan?_method=PUT" method="POST">
+      <form action="/tai-khoan/tao-tai-khoan/<%= username %>" method="POST">
+
+        <%- include ('../partials/form-message') %>
 
         <div class="field is-horizontal">
           <div class="field-body">
@@ -15,14 +17,14 @@
             <div class="field">
               <label class="label">Mã tài khoản</label>
               <div class="control">
-                <input class="input" type="text" name="accountId" value="1" readonly>
+                <input class="input" type="text" name="accountId" value="<%= accountId %>" readonly>
               </div>
             </div>
 
             <div class="field">
               <label class="label">Tên đăng nhập</label>
               <div class="control">
-                <input class="input" type="text" name="username" value="1" readonly>
+                <input class="input" type="text" name="username" value="<%= username %>" readonly>
               </div>
             </div>
           </div>
@@ -33,7 +35,7 @@
           <div class="field-body">
             <div class="field" style="flex: 1;">
               <label class="label">Mật khẩu</label>
-              <input class="input" type="text" name="password" value="1">
+              <input class="input" type="text" name="password" value="">
             </div>
 
             <div class="field" style="flex: 1;">

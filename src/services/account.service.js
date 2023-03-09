@@ -71,13 +71,16 @@ const getNoAccountEmplList = async () => {
 
 const addAccount = async ({ id, username, password, roleId }) => {
   try {
+    const account = await Account.findByPk(id)
+    if(account) throw customError(1, `Tài khoản ${id} đã tồn tại`)
+
     const role = await roleService.getRoleById(roleId)
     const hashPassword = await bcrypt.hash(password, 10)
 
     let empl = await Teacher.findByPk(username)
     if(!empl) empl = await Employee.findByPk(username)
 
-    const account = await Account.create({
+    const result = await Account.create({
       id,
       username,
       password: hashPassword,
@@ -85,10 +88,10 @@ const addAccount = async ({ id, username, password, roleId }) => {
     })
 
     await empl.update({
-      accountId: account.id
+      accountId: result.id
     })
 
-    return account
+    return result
 
   } catch (error) {
     if(error.code != 0) throw error

@@ -5,11 +5,11 @@ module.exports = {
     await queryInterface.createTable('accounts', {
       id: {
         primaryKey: true,
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
         allowNull: false,
       },
       username: {
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
         unique: true,
         allowNull: false,
       },
