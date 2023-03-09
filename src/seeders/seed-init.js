@@ -434,50 +434,40 @@ module.exports = {
         username: 'NV1',
         password: '$2b$10$9uT8hlVXwLU6ZnGgu46RtuGS5rJLTZmzPjjIGUov4CEe4ALWt2u..',
         status: 1,
-        roleId: 'VT1'
+        roleId: 'VT1',
+        createdAt: '2023-01-13 11:31:39'
       },
       {
         id: 'TK2',
         username: 'NV2',
         password: '$2b$10$dqPTEcwSnZT/oXaXzMOCb.UB.Ork4eVe4gxk8lg4kf8UVuPtwoS6O',
         status: 1,
-        roleId: 'VT1'
+        roleId: 'VT1',
+        createdAt: '2023-01-13 11:32:39'
       },
       {
         id: 'TK3',
-        username: 'NV3',
-        password: '$2b$10$VukYajXX4rPwtFc7uWwGyex31bE5FqRPi9OuENafHqJ6EFaKsnp3K',
-        status: 1,
-        status: 0,
-        roleId: 'VT1'
-      },
-      {
-        id: 'TK4',
         username: 'NV4',
         password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
-        roleId: 'VT3'
+        roleId: 'VT3',
+        createdAt: '2023-01-13 11:33:39'
       },
       {
-        id: 'TK5',
-        username: 'NV5',
-        password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
-        status: 1,
-        roleId: 'VT3'
-      },
-      {
-        id: 'TK6',
+        id: 'TK4',
         username: 'GV1',
         password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
-        roleId: 'VT2'
+        roleId: 'VT2',
+        createdAt: '2023-01-13 11:34:39'
       },
       {
-        id: 'TK7',
+        id: 'TK5',
         username: 'GV2',
         password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
         status: 1,
-        roleId: 'VT2'
+        roleId: 'VT2',
+        createdAt: '2023-01-13 11:35:39'
       }
     ], {})
     console.log('done ', 'accounts');
@@ -514,7 +504,7 @@ module.exports = {
         address: "10324 Bashford Circle",
         email: "saldhouse2@hao123.com",
         phone: "6299830993",
-        accountId: 'TK3',
+        accountId: null,
       },
       {
         id: "NV4",
@@ -525,7 +515,7 @@ module.exports = {
         address: "77 Becker Alley",
         email: "nhaslin3@fc2.com",
         phone: "3105964100",
-        accountId: 'TK4',
+        accountId: 'TK3',
       },
       {
         id: "NV5",
@@ -536,7 +526,7 @@ module.exports = {
         address: "6 Lotheville Pass",
         email: "sgeorgeau4@linkedin.com",
         phone: "1095019190",
-        accountId: 'TK5',
+        accountId: null,
       }
     ])
     console.log('done ', 'employees');
@@ -552,7 +542,7 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '5484261865',
         subjectId: 'MH1',
-        accountId: 'TK6'
+        accountId: 'TK4'
       },
       {
         id: 'GV2',
@@ -564,7 +554,7 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1762753746',
         subjectId: 'MH1',
-        accountId: 'TK7'
+        accountId: 'TK5'
       },
       {
         id: 'GV3',

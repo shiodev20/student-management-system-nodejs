@@ -1,29 +1,14 @@
- const authService = require('./auth.service')
- const semesterService = require('./semester.service')
- const yearService = require('./year.service')
- const studentService = require('./student.service')
- const classroomService = require('./classroom.service')
- const gradeService = require('./grade.service')
- const ruleService = require('./rule.service')
- const subjectService = require('./subject.service')
- const teacherService = require('./teacher.service')
- const markTypeService = require('./markType.service')
- const markService = require('./mark.service')
- const accountService = require('./account.service')
- const roleService = require('./role.service')
-
-module.exports = {
-  authService,
-  semesterService,
-  yearService,
-  gradeService,
-  studentService,
-  classroomService,
-  ruleService,
-  subjectService,
-  teacherService,
-  markTypeService,
-  markService,
-  accountService,
-  roleService,
-}
+ exports.authService = require('./auth.service')
+ exports.semesterService = require('./semester.service')
+ exports.yearService = require('./year.service')
+ exports.studentService = require('./student.service')
+ exports.classroomService = require('./classroom.service')
+ exports.gradeService = require('./grade.service')
+ exports.ruleService = require('./rule.service')
+ exports.subjectService = require('./subject.service')
+ exports.teacherService = require('./teacher.service')
+ exports.employeeService = require('./employee.service')
+ exports.markTypeService = require('./markType.service')
+ exports.markService = require('./mark.service')
+ exports.accountService = require('./account.service')
+ exports.roleService = require('./role.service')

@@ -22,6 +22,10 @@ module.exports = {
         defaultValue: 1,
         allowNull: false,
       },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
+      },
       roleId: {
         type: Sequelize.STRING(6),
         allowNull: false,

@@ -7,10 +7,7 @@ const employeeService = require('./employee.service')
 const getUserInfo = async (accountId) => {
   try {
     let user = await employeeService.getEmployeeByAccount(accountId)
-
-    if (!user) {
-      user = await teacherService.getTeacherByAccount(accountId)
-    }
+    if (!user) user = await teacherService.getTeacherByAccount(accountId)
 
     const account = await accountService.getAccountById(accountId)
 

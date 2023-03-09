@@ -87,39 +87,19 @@ const handleNotification = (notification) => {
   }
 }
 
-
 /**
- * Account modal
+ *  Modal
  */
-const accountAddBtns = document.querySelectorAll('.add-account-btn')
-const accountAddFormModal = document.querySelector('#account-add-form-modal')
-const accountAddFormModalClose = document.querySelector('#account-add-form-modal .modal-close')
-const accountUsernameInput = document.querySelector('#account-add-form input[name="username"]')
+const modal = document.querySelector('#modal')
+const modalCloseBtn = document.querySelector('#modal .modal-close')
 
-
-const handleModal = (accountAddBtns, accountAddFormModal, accountAddFormModalClose, accountUsernameInput) => {
-
-  if(
-    accountAddBtns &&
-    accountAddFormModal &&
-    accountAddFormModalClose &&
-    accountUsernameInput
-  ) {
-    accountAddBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const accountId = btn.parentNode.parentNode.children[0].innerHTML
-        accountUsernameInput.value = accountId
-        accountAddFormModal.classList.add('is-active')
-      })
-    })
-    
-    accountAddFormModalClose.addEventListener('click', () => {
-      accountAddFormModal.classList.remove('is-active')
+const handleModal = (modal, modalCloseBtn) => {
+  if(modal && modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', () => {
+      modal.classList.remove('is-active')
     })
   }
-  
 }
-
 
 /**
  * Check class size
@@ -171,6 +151,6 @@ const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
 handleTab(tabItems, paneItems)
 handleMobileNavbar(navbarToggleBtn, navbarMenu)
 handleNotification(notification)
-handleModal(accountAddBtns, accountAddFormModal, accountAddFormModalClose, accountUsernameInput)
+handleModal(modal, modalCloseBtn)
 handleCheckClassSize(classSize, classSizeMax, assignStudentInputs)
 disableAccountActiveInputClick(accountActiveInputs)

@@ -162,7 +162,6 @@ const getNoClassAssignmentStudents = async (gradeId, yearId) => {
 const addStudent = async (student) => {
   try {
     const lastStudent = await Student.findOne({
-      attributes: ['id'],
       order: [['enrollDate', 'DESC']]
     })
 

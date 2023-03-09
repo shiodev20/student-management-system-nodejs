@@ -20,7 +20,7 @@ const postLogin = async (req, res, next) => {
 
     const account = await accountService.getAccountByUsername(username)
 
-    if (!account) {
+    if (!account || !account.status) {
       throw customError(2, 'Tài khoản không tồn tại hoặc bị vô hiệu hóa')
     }
 
