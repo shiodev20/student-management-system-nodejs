@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
       },
       headTeacherId: {
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
       }
     });
   },

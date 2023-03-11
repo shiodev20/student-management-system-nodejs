@@ -26,11 +26,11 @@ router.post('/lap-danh-sach-lop-hoc/:id', [isLogin, isStaff], postClassroomStude
 
 router.get('/phan-cong-gvcn/:id', [isLogin, isStaff], getClassroomHeadTeacherAssignment)
 
-router.post('/phan-cong-gvcn', [isLogin, isStaff], postClassroomHeadTeacherAssignment)
+router.post('/phan-cong-gvcn/:id', [isLogin, isStaff], postClassroomHeadTeacherAssignment)
 
 router.get('/phan-cong-gvbm/:id', [isLogin, isStaff], getClassroomSubjectTeacherAssignment)
 
-router.post('/phan-cong-gvbm', [isLogin, isStaff], postClassroomSubjectTeacherAssignment)
+router.post('/phan-cong-gvbm/:id', [isLogin, isStaff], postClassroomSubjectTeacherAssignment)
 
 router.delete('/xoa-lop-hoc/:id', [isLogin, isStaff], deleteClassroomDelete)
 

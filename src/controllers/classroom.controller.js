@@ -218,7 +218,8 @@ const getClassroomHeadTeacherAssignment = async (req, res, next) => {
 
 
 const postClassroomHeadTeacherAssignment = async (req, res, next) => {
-  const { classroomId, headTeacherId } = req.body
+  const { id: classroomId } = req.params
+  const { headTeacherId } = req.body
 
   try {
     if (!classroomId || !headTeacherId) {
@@ -244,12 +245,17 @@ const postClassroomHeadTeacherAssignment = async (req, res, next) => {
 }
 
 
-const getClassroomSubjectTeacherAssignment = async (req, res) => {
+const getClassroomSubjectTeacherAssignment = async (req, res, next) => {
   const { id } = req.params
 
   try {
     const classroom = await classroomService.getClassroomById(id)
     const teachersBySubjects = await teacherService.getAllTeachersByAllSubjects()
+
+    // return res.json({
+    //   classroom,
+    //   teachersBySubjects
+    // })
 
     res.render('classroom/subjectTeacher-assignment', {
       documentTitle: 'Phân công giáo viên bộ môn',
@@ -272,7 +278,8 @@ const getClassroomSubjectTeacherAssignment = async (req, res) => {
 
 
 const postClassroomSubjectTeacherAssignment = async (req, res, next) => {
-  const { classroomId, ...data } = req.body
+  const { id: classroomId } = req.params
+  const { ...data } = req.body
 
   try {
     const subjectTeachingAssignment = []

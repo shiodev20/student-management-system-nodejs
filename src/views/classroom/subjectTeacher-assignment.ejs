@@ -1,6 +1,113 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
+
+
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
+
+  <div class="main-panel">
+
+    <div class="content-wrapper">
+      
+      <div class="row">
+
+        <div class="col-12 grid-margin">
+          <form action="/lop-hoc/phan-cong-gvbm/<%= classroom.id %>" method="POST">
+
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">Phân công giáo viên bộ môn</div>
+  
+                <div class="row">
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Mã lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.id %>" readonly>
+                  </div>
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Năm học</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.yearId %>" readonly>
+                  </div>
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Khối lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.gradeId %>" readonly>
+                  </div>
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.name %>" readonly>
+                  </div> 
+
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Sĩ số</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.size %>" readonly>
+                  </div> 
+                  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Giáo viên chủ nhiệm</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
+                  </div>
+                </div>
+                
+                <hr>
+
+                <button type="submit" class="btn btn-primary mb-4">Cập nhất</button>
+              
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>STT</th>
+                        <th>Mã môn học</th>
+                        <th>Môn học</th>
+                        <th>Giáo viên</th>
+                      </tr>
+                    </thead>
+
+                    <tfoot class="table-primary">
+                      <tr>
+                        <th>STT</th>
+                        <th>Mã môn học</th>
+                        <th>Môn học</th>
+                        <th>Giáo viên</th>
+                      </tr>
+                    </tfoot>
+                    
+                    <tbody>
+                      <% teachersBySubjects.forEach((item, idx) => { %>
+                        <% if(classroom.headTeacher.subjectId !== item.subject.id) { %>
+                          <tr>
+                            <th><%= idx + 1 %></th>
+                            <td><%= item.subject.id %></td>
+                            <td><%= item.subject.name %></td>
+                            <td>
+                              <select name="<%= item.subject.id %>" class="form-control form-control-sm">
+                                <option value="">Chọn</option>
+                                <% item.teachers.forEach(teacher => { %>
+                                  <option value="<%= teacher.id %>"><%= teacher.fullName %></option>
+                                <% }) %>
+                              </select>
+                            </td>
+                          </tr>
+                        <% } %>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+  
+
+          </form>
+        </div>
+
+      </div>
+
+
 
   <section class="section">
   
@@ -92,3 +199,4 @@
   </section>
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>

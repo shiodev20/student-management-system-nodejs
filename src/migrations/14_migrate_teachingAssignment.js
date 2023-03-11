@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false,
       },
       subjectTeacherId: {
-        type: Sequelize.STRING(6),
+        type: Sequelize.STRING(10),
       }
     });
   },

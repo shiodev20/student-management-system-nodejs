@@ -1,89 +1,116 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
 
-  <section class="section">
-  
-    <div class="l-container">
-  
-      <form action="/lop-hoc/phan-cong-gvcn" method="POST">
-        <div class="is-flex is-flex-wrap-wrap">
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Mã lớp</label>
-              <div class="control">
-                <input class="input" name="classroomId" type="text" value="<%= classroom.id %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Khối</label>
-              <div class="control">
-                <input class="input" type="text" value="<%= classroom.gradeId %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Tên lớp</label>
-              <div class="control">
-                <input class="input" type="text" value="<%= classroom.name %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Giáo viên chủ nhiệm</label>
-              <div class="control">
-                <input class="input" type="text" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3 is-align-self-flex-end">
-            <button class="button is-info">Cập nhật</button>
-          </div>
-        </div>
-  
-        <table class="table">
-          <table class="table is-hoverable is-fullwidth is-bordered">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Mã giáo viên</th>
-                <th>Họ tên giáo viên</th>
-                <th>Giới tính</th>
-                <th>Môn giảng dạy</th>
-                <th class="has-text-centered">Lựa chọn</th>
-              </tr>
-            </thead>
-            
-            <tbody>
-              <% noAssignmentHeadTeacherList.forEach((teacher, idx) => { %>
-                <tr>
-                  <th><%= idx + 1 %></th>
-                  <td><%= teacher.id %></td>
-                  <td><%= teacher.fullName %></td>
-                  <td><%= teacher.genderText %></td>
-                  <td><%= teacher.subject.name %></td>
-                  <td class="has-text-centered">
-                    <input type="radio" name="headTeacherId" value="<%= teacher.id %>">
-                  </td>
-                </tr>
-              <% }) %>
 
-            </tbody>
-    
-          </table>
-        </table>          
-      </form>
-    </div>
+<div class="container-fluid page-body-wrapper">
   
-  </section>
+<%- include('../partials/sidebar') %>
+
+  <div class="main-panel">
+
+    <div class="content-wrapper">
+
+      <div class="row">
+
+        <div class="col-12 grid-margin">
+          <form action="/lop-hoc/phan-cong-gvcn/<%= classroom.id %>" method="POST">
+
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">Phân công giáo viên chủ nhiệm</div>
+  
+                <div class="row">
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Mã lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.id %>" readonly>
+                  </div>
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Năm học</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.yearId %>" readonly>
+                  </div>
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Khối lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.gradeId %>" readonly>
+                  </div>
+  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.name %>" readonly>
+                  </div> 
+
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Sĩ số</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.size %>" readonly>
+                  </div> 
+                  
+                  <div class="col-md-4 col-sm-12 mb-4">
+                    <label for="info">Giáo viên chủ nhiệm</label>
+                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
+                  </div>
+                </div>
+                
+                <hr>
+
+                <button type="submit" class="btn btn-primary mb-4">Cập nhất</button>
+              
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>STT</th>
+                        <th>Mã giáo viên</th>
+                        <th>Họ tên giáo viên</th>
+                        <th>Giới tính</th>
+                        <th>Môn giảng dạy</th>
+                        <th>Lựa chọn</th>
+                      </tr>
+                    </thead>
+  
+                    <tfoot class="table-primary">
+                      <tr>
+                        <th>STT</th>
+                        <th>Mã giáo viên</th>
+                        <th>Họ tên giáo viên</th>
+                        <th>Giới tính</th>
+                        <th>Môn giảng dạy</th>
+                        <th>Lựa chọn</th>
+                      </tr>
+                    </tfoot>
+
+                    <tbody>
+                      <% noAssignmentHeadTeacherList.forEach((teacher, idx) => { %>
+                        <tr>
+                          <th><%= idx + 1 %></th>
+                          <td><%= teacher.id %></td>
+                          <td><%= teacher.fullName %></td>
+                          <td><%= teacher.genderText %></td>
+                          <td><%= teacher.subject.name %></td>
+                          <td class="d-flex justify-content-center">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="headTeacherId" value="<%= teacher.id %>">
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                      <% }) %>
+        
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+  
+
+          </form>
+        </div>
+
+      </div>
+
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>
