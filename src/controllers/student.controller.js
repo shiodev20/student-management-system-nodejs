@@ -119,6 +119,8 @@ const putStudentUpdate = async (req, res, next) => {
   const { id } = req.params
 
   try {
+    console.log(req.body);
+
     if (
       !req.body.firstName ||
       !req.body.lastName ||
@@ -154,20 +156,21 @@ const putStudentUpdate = async (req, res, next) => {
     return res.redirect(`/hoc-sinh/cap-nhat-hoc-sinh/${id}`)
 
   } catch (error) {
-    switch (error.code) {
-      case 0, 1:
-        err.type = 'errorMsg'
-        err.message = error.message
-        err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
-        break;
-      case 1:
-        err.type = 'errorMsg'
-        err.message = error.message
-        err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
-        break;
-    }
+    console.log(error);
+    // switch (error.code) {
+    //   case 0, 1:
+    //     err.type = 'errorMsg'
+    //     err.message = error.message
+    //     err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+    //     break;
+    //   case 1:
+    //     err.type = 'errorMsg'
+    //     err.message = error.message
+    //     err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+    //     break;
+    // }
 
-    next(err)
+    // next(err)
   }
 }
 

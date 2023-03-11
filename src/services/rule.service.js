@@ -7,6 +7,7 @@ const getRuleList = async () => {
     const result = await Rule.findOne()
     return result
   } catch (error) {
+    if(error.code != 0) throw error
     throw customError()
   }
 }

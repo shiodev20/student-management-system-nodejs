@@ -1,103 +1,119 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
 
-<section class="section">
-  <div class="form-container">
-    <div class="box form-content">
-      <p class="form-title">Tiếp nhận học sinh</p>
+<div class="container-fluid page-body-wrapper">
+  
+  <%- include('../partials/sidebar') %>
+  
+    <div class="main-panel">
+  
+      <div class="content-wrapper">
 
-      <%- include('../partials/form-message') %>
-      <form action="/hoc-sinh/tiep-nhan-hoc-sinh" method="POST">
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Tiếp nhận học sinh</h4>
+                <form action="/hoc-sinh/tiep-nhan-hoc-sinh" method="POST" class="form-sample">
 
-        <div class="field is-horizontal">
+                  <div class="row">
 
-          <div class="field-body">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="firstName">Họ</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="firstName" name="firstName">
+                        </div>
+                      </div>
+                    </div>
 
-            <div class="field">
-              <label class="label">Họ</label>
-              <div class="control">
-                <input class="input" type="text" name="firstName">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="lastName">Tên</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="lastName" name="lastName">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="dob">Ngày sinh</label>
+                        <div class="col-sm-9">
+                          <input type="date" class="form-control" id="dob" name="dob">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="gender">Giới tính</label>
+                        <div class="col-sm-9">
+                          <select class="form-control" name="gender" id="gender">
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="row">
+
+                    <div class="col">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="address">Địa chỉ</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="email">Email</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="parentName">Họ tên phụ huynh</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="parentName" name="parentName">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="parentPhone">SĐT phụ huynh</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="parentPhone" name="parentPhone">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <button type="submit" class="btn btn-primary ml-auto">Tiếp nhận</button>
+                </form>
               </div>
+
             </div>
-
-            <div class="field">
-              <label class="label">Tên</label>
-              <div class="control">
-                <input class="input" type="text" name="lastName">
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="field is-horizontal">
-
-          <div class="field-body">
-
-            <div class="field" style="flex: 1;">
-              <label class="label">Ngày sinh</label>
-              <input class="input" type="date" name="dob">
-            </div>
-
-            <div class="field" style="flex: 1;">
-              <label class="label">Giới tính</label>
-              <div class="select" style="width: 100%;">
-                <select name="gender" style="width: 100%;">
-                  <option value="1">Nam</option>
-                  <option value="0">Nữ</option>
-                </select>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="field">
-          <label class="label">Địa chỉ</label>
-          <div class="control">
-            <input class="input" type="text" name="address">
           </div>
         </div>
-
-        <!-- <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input class="input" type="text" name="email">
-          </div>
-        </div> -->
-
-        <div class="field is-horizontal">
-
-          <div class="field-body">
-
-            <div class="field">
-              <label class="label">Họ tên phụ huynh</label>
-              <div class="control">
-                <input class="input" type="text" name="parentName">
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">SĐT phụ huynh</label>
-              <div class="control">
-                <input class="input" type="tel" name="parentPhone">
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-        
-        <div class="has-text-right">
-          <button type="submit" class="button is-primary">Tiếp nhận</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-</section>
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>

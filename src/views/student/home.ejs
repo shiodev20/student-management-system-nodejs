@@ -48,61 +48,15 @@
                 </div>
 
                 <div>
-                  <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary mb-2">
-                    <button class="btn btn-success">
-                      <i class='ti-plus'></i> <span>Tiếp nhận học sinh</span>
+                  <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary">
+                    <button class="btn btn-primary btn-icon-text">
+                      <i class='fa-solid fa-user-plus btn-icon-prepend'></i>Tiếp nhận học sinh
                     </button>
                   </a>
                 </div>
 
               </div>
 
-              <!-- <section class="section">
-    
-                <div class="container">
-                  <div class="is-flex is-justify-content-space-between is-flex-wrap-wrap">
-                    <div class="flex-item">
-                      <form action="/hoc-sinh/tim-kiem-hoc-sinh" method="GET">
-                        <div class="is-flex is-flex-wrap-wrap">
-                          
-                          <div class="flex-item m-3">
-                            <div class="field sm-input">
-                              <label class="label">Thông tin</label>
-                              <div class="control">
-                                <input class="input" type="text" name="info">
-                              </div>
-                            </div>
-                          </div>
-                  
-                          <div class="flex-item m-3">
-                            <div class="field sm-input">
-                              <label class="label">Loại tìm kiếm</label>
-                              <div class="select">
-                                <select name="type">
-                                  <option value="0">Mã học sinh</option>
-                                  <option value="1">Tên học sinh</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                    
-                          <div class="flex-item is-align-self-flex-end m-3">
-                            <button type="submit" class="button is-info">Tìm kiếm</button>
-                          </div>
-                    
-                        </div>
-                      </form>
-                    </div>
-          
-                    <div class="flex-item m-3 is-align-self-flex-end">
-                      <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary">
-                        <i class='bx bxs-user-plus icon'></i> <span>Tiếp nhận học sinh</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-          
-              </section> -->
             </div>
           </div>
         </div>
@@ -158,15 +112,15 @@
                           <div class="d-flex">
 
                             <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="mr-1">
-                              <button class="btn btn-info btn-icon"><i class='ti-bar-chart'></i></button>
+                              <button class="btn btn-info btn-icon"><i class='fa-solid fa-chart-simple'></i></button>
                             </a>
 
                             <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="mr-1">
-                              <button class="btn btn-success btn-icon"><i class='ti-pencil'></i></button>
+                              <button class="btn btn-success btn-icon"><i class='fa-solid fa-pen'></i></button>
                             </a>
 
                             <form class="mr-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
-                              <button class="btn btn-danger btn-icon"><i class='ti-trash'></i></button>
+                              <button class="btn btn-danger btn-icon"><i class='fa-solid fa-trash'></i></button>
                             </form>
                           </div>
                         </td>

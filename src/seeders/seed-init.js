@@ -1057,109 +1057,109 @@ module.exports = {
     await queryInterface.bulkInsert('classroomdetails', [
       {
         classroomId: '10A12122',
-        studentId: 'HS1',
+        studentId: 'HS000001',
       },
       {
         classroomId: '10A12122',
-        studentId: 'HS2',
+        studentId: 'HS000002',
       },
       {
         classroomId: '10A12122',
-        studentId: 'HS3',
+        studentId: 'HS000003',
       },
       {
         classroomId: '10A12122',
-        studentId: 'HS4',
+        studentId: 'HS000004',
       },
 
 
       {
         classroomId: '10A22122',
-        studentId: 'HS5',
+        studentId: 'HS000005',
       },
       {
         classroomId: '10A22122',
-        studentId: 'HS6',
+        studentId: 'HS000006',
       },
       {
         classroomId: '10A22122',
-        studentId: 'HS7',
+        studentId: 'HS000007',
       },
       {
         classroomId: '10A22122',
-        studentId: 'HS8',
+        studentId: 'HS000008',
       },
 
 
       {
         classroomId: '11A12122',
-        studentId: 'HS9',
+        studentId: 'HS000009',
       },
       {
         classroomId: '11A12122',
-        studentId: 'HS10',
+        studentId: 'HS000010',
       },
       {
         classroomId: '11A12122',
-        studentId: 'HS11',
+        studentId: 'HS000011',
       },
       {
         classroomId: '11A12122',
-        studentId: 'HS12',
+        studentId: 'HS000012',
       },
 
 
       {
         classroomId: '11A22122',
-        studentId: 'HS13',
+        studentId: 'HS000013',
       },
       {
         classroomId: '11A22122',
-        studentId: 'HS14',
+        studentId: 'HS000014',
       },
       {
         classroomId: '11A22122',
-        studentId: 'HS15',
+        studentId: 'HS000015',
       },
       {
         classroomId: '11A22122',
-        studentId: 'HS16',
+        studentId: 'HS000016',
       },
 
 
       {
         classroomId: '12A12122',
-        studentId: 'HS17',
+        studentId: 'HS000017',
       },
       {
         classroomId: '12A12122',
-        studentId: 'HS18',
+        studentId: 'HS000018',
       },
       {
         classroomId: '12A12122',
-        studentId: 'HS19',
+        studentId: 'HS000019',
       },
       {
         classroomId: '12A12122',
-        studentId: 'HS20',
+        studentId: 'HS000020',
       },
 
 
       {
         classroomId: '12A22122',
-        studentId: 'HS21',
+        studentId: 'HS000021',
       },
       {
         classroomId: '12A22122',
-        studentId: 'HS22',
+        studentId: 'HS000022',
       },
       {
         classroomId: '12A22122',
-        studentId: 'HS23',
+        studentId: 'HS000023',
       },
       {
         classroomId: '12A22122',
-        studentId: 'HS24',
+        studentId: 'HS000024',
       },
     ])
     console.log('done ', 'Classroomdetails');
