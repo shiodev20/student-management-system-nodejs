@@ -3,121 +3,256 @@
 
 <%- include('../partials/navbar') %>
 
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
 
-<section class="section">
+  <div class="main-panel">
 
-  <div class="container">
-    <div class="is-flex is-justify-content-space-between is-flex-wrap-wrap">
-      <div class="flex-item">
-        <form action="/hoc-sinh/tim-kiem-hoc-sinh" method="GET">
-          <div class="is-flex is-flex-wrap-wrap">
-            
-            <div class="flex-item m-3">
-              <div class="field sm-input">
-                <label class="label">Thông tin</label>
-                <div class="control">
-                  <input class="input" type="text" name="info">
+    <div class="content-wrapper">
+
+      <div class="row">
+
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                <div>
+                  <form action="/hoc-sinh/tim-kiem-hoc-sinh" method="GET">
+                    <div class="form-group row">
+
+                      <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="info">Thông tin</label>
+                        <input type="text" id="info" class="form-control form-control-sm" name="info">
+                      </div>
+
+                      <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="type">Loại tìm kiếm</label>
+                        <select class="form-control form-control-sm" id="type" name="type">
+                          <option value="0">Mã học sinh</option>
+                          <option value="1">Tên học sinh</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                        <button type="submit" class="btn btn-info">Tìm kiếm</button>
+                      </div>
+
+                    </div>
+
+                  </form>
                 </div>
+
+                <div class="w-100 d-block d-md-none">
+                  <hr>
+                </div>
+
+                <div>
+                  <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary mb-2">
+                    <button class="btn btn-success">
+                      <i class='ti-plus'></i> <span>Tiếp nhận học sinh</span>
+                    </button>
+                  </a>
+                </div>
+
               </div>
-            </div>
+
+              <!-- <section class="section">
     
-            <div class="flex-item m-3">
-              <div class="field sm-input">
-                <label class="label">Loại tìm kiếm</label>
-                <div class="select">
-                  <select name="type">
-                    <option value="0">Mã học sinh</option>
-                    <option value="1">Tên học sinh</option>
-                  </select>
+                <div class="container">
+                  <div class="is-flex is-justify-content-space-between is-flex-wrap-wrap">
+                    <div class="flex-item">
+                      <form action="/hoc-sinh/tim-kiem-hoc-sinh" method="GET">
+                        <div class="is-flex is-flex-wrap-wrap">
+                          
+                          <div class="flex-item m-3">
+                            <div class="field sm-input">
+                              <label class="label">Thông tin</label>
+                              <div class="control">
+                                <input class="input" type="text" name="info">
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="flex-item m-3">
+                            <div class="field sm-input">
+                              <label class="label">Loại tìm kiếm</label>
+                              <div class="select">
+                                <select name="type">
+                                  <option value="0">Mã học sinh</option>
+                                  <option value="1">Tên học sinh</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                    
+                          <div class="flex-item is-align-self-flex-end m-3">
+                            <button type="submit" class="button is-info">Tìm kiếm</button>
+                          </div>
+                    
+                        </div>
+                      </form>
+                    </div>
+          
+                    <div class="flex-item m-3 is-align-self-flex-end">
+                      <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary">
+                        <i class='bx bxs-user-plus icon'></i> <span>Tiếp nhận học sinh</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+          
+              </section> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 grid-margin">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Mã học sinh</th>
+                      <th>Họ tên học sinh</th>
+                      <th>Ngày sinh</th>
+                      <th>Giới tính</th>
+                      <th>Địa chỉ</th>
+                      <th>Họ tên phụ huynh</th>
+                      <th>SĐT phụ huynh</th>
+                      <th>Lựa chọn</th>
+                    </tr>
+                  </thead>
+                  
+                  <tfoot>
+                    <tr>
+                      <th>STT</th>
+                      <th>Mã học sinh</th>
+                      <th>Họ tên học sinh</th>
+                      <th>Ngày sinh</th>
+                      <th>Giới tính</th>
+                      <th>Địa chỉ</th>
+                      <th>Họ tên phụ huynh</th>
+                      <th>SĐT phụ huynh</th>
+                    
+                      <th>Lựa chọn</th>
+                    </tr>
+                  </tfoot>
+      
+                  <tbody>
+      
+                    <% students.forEach((student, idx) => { %>
+                      <tr>
+                        <th><%= idx + 1 %></th>
+                        <td><%= student.id %></td>
+                        <td><%= student.fullName %></td>
+                        <td><%= student.formatDob %></td>
+                        <td><%= student.genderText %></td>
+                        <td><%= student.address %></td>
+                        <td><%= student.parentName %></td>
+                        <td><%= student.parentPhone %></td>
+                        <td>
+                          <div class="d-flex">
+
+                            <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="mr-1">
+                              <button class="btn btn-info btn-icon"><i class='ti-bar-chart'></i></button>
+                            </a>
+
+                            <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="mr-1">
+                              <button class="btn btn-success btn-icon"><i class='ti-pencil'></i></button>
+                            </a>
+
+                            <form class="mr-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
+                              <button class="btn btn-danger btn-icon"><i class='ti-trash'></i></button>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }) %>
+      
+          
+                  </tbody>
+                </table>
               </div>
             </div>
-      
-            <div class="flex-item is-align-self-flex-end m-3">
-              <button type="submit" class="button is-info">Tìm kiếm</button>
-            </div>
-      
           </div>
-        </form>
+        </div>
+
       </div>
 
-      <div class="flex-item m-3 is-align-self-flex-end">
-        <a href="/hoc-sinh/tiep-nhan-hoc-sinh" class="button is-primary">
-          <i class='bx bxs-user-plus icon'></i> <span>Tiếp nhận học sinh</span>
-        </a>
-      </div>
-    </div>
-  </div>
+   
 
-</section>
-
-  <section class="section">
-    <div class="container">
-      
-      <div class="table-container">
-        <table class="table is-fullwidth is-hoverable is-bordered">
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Mã học sinh</th>
-              <th>Họ tên học sinh</th>
-              <th>Ngày sinh</th>
-              <th>Giới tính</th>
-              <th>Địa chỉ</th>
-              <th>Họ tên phụ huynh</th>
-              <th>SĐT phụ huynh</th>
-            
-              <th>Lựa chọn</th>
-            </tr>
-          </thead>
-          
-          <tfoot>
-            <tr>
-              <th>STT</th>
-              <th>Mã học sinh</th>
-              <th>Họ tên học sinh</th>
-              <th>Ngày sinh</th>
-              <th>Giới tính</th>
-              <th>Địa chỉ</th>
-              <th>Họ tên phụ huynh</th>
-              <th>SĐT phụ huynh</th>
-            
-              <th>Lựa chọn</th>
-            </tr>
-          </tfoot>
-
-          <tbody>
-
-            <% students.forEach((student, idx) => { %>
+    <!-- <section>
+      <div class="container">
+        
+        <div class="table-container">
+          <table class="table is-fullwidth is-hoverable is-bordered">
+            <thead>
               <tr>
-                <th><%= idx + 1 %></th>
-                <td><%= student.id %></td>
-                <td><%= student.fullName %></td>
-                <td><%= student.formatDob %></td>
-                <td><%= student.genderText %></td>
-                <td style="max-width: 150px;"><%= student.address %></td>
-                <td><%= student.parentName %></td>
-                <td><%= student.parentPhone %></td>
-                <td>
-                  <div class="is-flex is-flex-wrap-no-wrap is-justify-content-center">
-                    <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="button is-info mx-1"><i class='bx bxs-bar-chart-square'></i></a>
-                    <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="button is-primary mx-1"><i class='bx bxs-edit-alt' ></i></a>
-                    <form class="mx-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
-                      <button class="button is-danger"><i class='bx bxs-trash-alt'></i></a>
-                    </form>
-                  </div>
-                </td>
+                <th>STT</th>
+                <th>Mã học sinh</th>
+                <th>Họ tên học sinh</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Địa chỉ</th>
+                <th>Họ tên phụ huynh</th>
+                <th>SĐT phụ huynh</th>
+              
+                <th>Lựa chọn</th>
               </tr>
-            <% }) %>
+            </thead>
+            
+            <tfoot>
+              <tr>
+                <th>STT</th>
+                <th>Mã học sinh</th>
+                <th>Họ tên học sinh</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Địa chỉ</th>
+                <th>Họ tên phụ huynh</th>
+                <th>SĐT phụ huynh</th>
+              
+                <th>Lựa chọn</th>
+              </tr>
+            </tfoot>
 
-  
-          </tbody>
-  
-        </table>
+            <tbody>
+
+              <% students.forEach((student, idx) => { %>
+                <tr>
+                  <th><%= idx + 1 %></th>
+                  <td><%= student.id %></td>
+                  <td><%= student.fullName %></td>
+                  <td><%= student.formatDob %></td>
+                  <td><%= student.genderText %></td>
+                  <td style="max-width: 150px;"><%= student.address %></td>
+                  <td><%= student.parentName %></td>
+                  <td><%= student.parentPhone %></td>
+                  <td>
+                    <div class="is-flex is-flex-wrap-no-wrap is-justify-content-center">
+                      <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="button is-info mx-1"><i class='bx bxs-bar-chart-square'></i></a>
+                      <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="button is-primary mx-1"><i class='bx bxs-edit-alt' ></i></a>
+                      <form class="mx-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
+                        <button class="button is-danger"><i class='bx bxs-trash-alt'></i></a>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+
+    
+            </tbody>
+    
+          </table>
+        </div>
+    
       </div>
-  
-    </div>
-  </section>
+    </section> -->
 
 
 <%- include('../partials/footer') %>
