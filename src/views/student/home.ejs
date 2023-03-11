@@ -1,7 +1,6 @@
-
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
+
 
 <div class="container-fluid page-body-wrapper">
   
@@ -184,76 +183,7 @@
 
       </div>
 
-   
 
-    <!-- <section>
-      <div class="container">
-        
-        <div class="table-container">
-          <table class="table is-fullwidth is-hoverable is-bordered">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Mã học sinh</th>
-                <th>Họ tên học sinh</th>
-                <th>Ngày sinh</th>
-                <th>Giới tính</th>
-                <th>Địa chỉ</th>
-                <th>Họ tên phụ huynh</th>
-                <th>SĐT phụ huynh</th>
-              
-                <th>Lựa chọn</th>
-              </tr>
-            </thead>
-            
-            <tfoot>
-              <tr>
-                <th>STT</th>
-                <th>Mã học sinh</th>
-                <th>Họ tên học sinh</th>
-                <th>Ngày sinh</th>
-                <th>Giới tính</th>
-                <th>Địa chỉ</th>
-                <th>Họ tên phụ huynh</th>
-                <th>SĐT phụ huynh</th>
-              
-                <th>Lựa chọn</th>
-              </tr>
-            </tfoot>
-
-            <tbody>
-
-              <% students.forEach((student, idx) => { %>
-                <tr>
-                  <th><%= idx + 1 %></th>
-                  <td><%= student.id %></td>
-                  <td><%= student.fullName %></td>
-                  <td><%= student.formatDob %></td>
-                  <td><%= student.genderText %></td>
-                  <td style="max-width: 150px;"><%= student.address %></td>
-                  <td><%= student.parentName %></td>
-                  <td><%= student.parentPhone %></td>
-                  <td>
-                    <div class="is-flex is-flex-wrap-no-wrap is-justify-content-center">
-                      <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="button is-info mx-1"><i class='bx bxs-bar-chart-square'></i></a>
-                      <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="button is-primary mx-1"><i class='bx bxs-edit-alt' ></i></a>
-                      <form class="mx-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
-                        <button class="button is-danger"><i class='bx bxs-trash-alt'></i></a>
-                      </form>
-                    </div>
-                  </td>
-                </tr>
-              <% }) %>
-
-    
-            </tbody>
-    
-          </table>
-        </div>
-    
-      </div>
-    </section> -->
-
-
+      
 <%- include('../partials/footer') %>
-
+<%- include('../partials/library') %>

@@ -31,6 +31,7 @@ app.use((req, res, next) => {
     res.locals.currentUser = {
       id: req.session.user.id,
       fullName: req.session.user.fullName,
+      role: req.session.user.role
     }
   }
 
