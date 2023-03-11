@@ -66,8 +66,8 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                  <thead>
+                <table class="table table-striped table-hover">
+                  <thead class="table-primary">
                     <tr>
                       <th>STT</th>
                       <th>Mã học sinh</th>
@@ -81,7 +81,7 @@
                     </tr>
                   </thead>
                   
-                  <tfoot>
+                  <tfoot class="table-primary">
                     <tr>
                       <th>STT</th>
                       <th>Mã học sinh</th>
@@ -109,7 +109,7 @@
                         <td><%= student.parentName %></td>
                         <td><%= student.parentPhone %></td>
                         <td>
-                          <div class="d-flex">
+                          <div class="d-flex justify-content-center">
 
                             <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="mr-1">
                               <button class="btn btn-info btn-icon"><i class='fa-solid fa-chart-simple'></i></button>
