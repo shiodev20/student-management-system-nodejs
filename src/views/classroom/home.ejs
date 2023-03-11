@@ -11,6 +11,7 @@
     <div class="content-wrapper">
 
       <div class="row">
+        
 
         <div class="col-12 grid-margin">
 
@@ -22,7 +23,7 @@
                   <form action="/lop-hoc" method="GET">
                     <div class="form-group row">
 
-                      <div class="col-md-6 col-sm-12 mb-2">
+                      <div class="col-md-6 col-sm-12 mb-2 w-50">
                         <label for="year">Năm học</label>
                         <select class="form-control form-control-sm" id="year" name="year">
                           <% years.forEach(year => { %>
@@ -62,6 +63,7 @@
 
             </div>
           </div>
+
         </div>
 
         <div class="col-12 grid-margin">
@@ -109,7 +111,6 @@
                         <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
                         <td>
                           <div class="d-flex justify-content-center">
-
                             <a href="/lop-hoc/<%= classroom.id %>" class="mr-2">
                               <button class="btn btn-info btn-icon"><i class='fa-solid fa-chart-simple'></i></button>
                             </a>
@@ -131,102 +132,6 @@
 
       </div>
 
-
-
-
-
-
-
-      <!-- <section class="section">
-
-        <div class="l-container">
-
-          <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
-            <div class="flex-item m-3">
-              <form action="/lop-hoc" method="GET">
-                <div class="field is-grouped">
-
-                  <div class="control">
-                    <label class="label">Năm học</label>
-                    <div class="control">
-                      <div class="select">
-                        <select name="year">
-                          <% years.forEach(year => { %>
-                            <% if(year.id == selectedYear) { %>
-                              <option selected value="<%= year.id %>"><%= year.name %></option>
-                            <% } else { %>
-                              <option value="<%= year.id %>"><%= year.name %></option>
-                            <% } %>
-                          <% }) %>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="control mt-auto">
-                    <button class="button is-info">Tìm kiếm</button>
-                  </div>
-
-                </div>
-              </form>
-            </div>
-
-            <div class="flex-item is-align-self-flex-end m-3">
-              <a href="/lop-hoc/mo-lop-hoc" class="button is-primary">
-                <i class='bx bxs-user-plus icon'></i> <span>Mở lớp</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <section class="section">
-        <div class="l-container">
-
-          <div class="table-container">
-            <table class="table is-fullwidth is-hoverable is-bordered">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Mã lớp</th>
-                  <th>Năm học</th>
-                  <th>Khối lớp</th>
-                  <th>Tên lớp</th>
-                  <th>Sỉ số</th>
-                  <th>Giáo viên chủ nhiệm</th>
-                  <th>Lựa chọn</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <% classrooms.forEach((classroom, idx) => { %>
-                  <tr>
-                    <th><%= idx + 1 %></th>
-                    <td><%= classroom.id %></td>
-                    <td><%= classroom.yearId %></td>
-                    <td><%= classroom.gradeId %></td>
-                    <td><%= classroom.name %></td>
-                    <td><%= classroom.size %></td>
-                    <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
-                    <td class="has-text-centered">
-                      <a href="/lop-hoc/<%= classroom.id %>" class="button is-info"><i class='bx bxs-bar-chart-square'></i></a>
-                      <form class="mx-1" style="display: inline-block;"
-                        action="/lop-hoc/xoa-lop-hoc/<%= classroom.id %>?_method=DELETE" method="POST">
-                        <button class="button is-danger"><i class='bx bxs-trash-alt'></i></a>
-                      </form>
-                    </td>
-                  </tr>
-                 <% }) %>
-                 
-              </tbody>
-
-            </table>
-          </div>
-
-        </div>
-      </section> -->
 
 <%- include('../partials/footer') %>
 <%- include('../partials/library') %>

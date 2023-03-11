@@ -136,7 +136,7 @@ const getClassroomsBySubjectTeacher = async (subjectTeacherId, yearId) => {
 const addClassroom = async (classroom) => {
   try {
     const classroomId = generateClassroomId(classroom.yearId, classroom.name)
-    const isContainClassroom = await getClassroomById(classroomId)
+    const isContainClassroom = await Classroom.findByPk(classroomId)
 
     if (isContainClassroom) throw customError(1, 'Lớp học đã tồn tại')
 

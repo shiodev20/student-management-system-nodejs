@@ -81,7 +81,6 @@ const postClassroomAdd = async (req, res, next) => {
     }
 
   } catch (error) {
-
     switch (error.code) {
       case 0, 1:
         err.type = 'errorMsg'
@@ -104,6 +103,7 @@ const getClassroomDetail = async (req, res, next) => {
   const { id } = req.params
 
   try {
+    
     const classroom = await classroomService.getClassroomById(id)
     const currentYear = await yearService.getCurrentYear()
     const currentSemester = await semesterService.getCurrentSemester()

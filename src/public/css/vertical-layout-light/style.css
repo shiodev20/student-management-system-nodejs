@@ -30592,4 +30592,9 @@ div.tagsinput span.tag a {
   }
 }
 
+input:read-only {
+  background-color: #fff !important;
+}
+
+
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

@@ -1,54 +1,84 @@
 <%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
 
-  <%- include('../partials/navbar') %>
 
-    <section class="section">
-      <div class="form-container">
-        <div class="box form-content">
-          <p class="form-title">Mở lớp</p>
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
 
-          <%- include('../partials/form-message') %>
+  <div class="main-panel">
 
-            <form action="/lop-hoc/mo-lop-hoc" method="POST">
+    <div class="content-wrapper">
 
-              <div class="field is-horizontal">
+      <div class="row">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              
+              <div class="card-title">Mở lớp</div>
+              <div>
+                <form action="/" method="POST">
+                  <div class="form-inline">
+                    
+                    <label class="mr-sm-2 mb-2" for="info">Năm học</label>
+                    <input type="text" id="info" name="year" value="<%= currentYear.id %>" readonly hidden>
+                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5" value="<%= currentYear.name %>" readonly>
+  
 
-                <div class="field-body">
+                    <label class="mr-sm-2 mb-2" for="type">Khối lớp</label>
+                    <select class="form-control form-control-sm mb-3 mr-sm-5" id="type" name="grade">
+                      <% grades.forEach(grade=> { %>
+                        <option value="<%= grade.id %>"><%= grade.name %></option>
+                      <% }) %>
+                    </select>
+                    
+                    <label class="mr-sm-2 mb-2" for="info">Số lượng</label>
+                    <input type="number" id="info" class="form-control form-control-sm mb-3 mr-sm-5" value="0">
 
-                  <div class="field" style="flex: 1;">
-                    <label class="label">Năm học</label>
-                    <input type="text" name="year" value="<%= currentYear.id %>" readonly hidden>
-                    <input class="input" type="text" value="<%= currentYear.name %>" readonly>
+                    <button type="submit" class="btn btn-primary mb-3">Mở lớp</button>
+  
                   </div>
+  
+                </form>
+              </div>
 
-                  <div class="field" style="flex: 1;">
-                    <label class="label">Khối lớp</label>
-                    <div class="select" style="width: 100%;">
-                      <select name="grade" style="width: 100%;">
-                        <% grades.forEach(grade=> { %>
-                          <option value="<%= grade.id %>"><%= grade.name %></option>
-                        <% }) %>
-                      </select>
-                    </div>
+              <div class="w-100">
+                <hr>
+              </div>
+
+
+              <div class="card-title">Mở lớp đơn</div>
+              <div>
+                <form action="/lop-hoc/mo-lop-hoc" method="POST">
+                  <div class="form-inline">
+                    
+                    <label class="mr-sm-2 mb-2" for="info">Năm học</label>
+                    <input type="text" id="info" name="year" value="<%= currentYear.id %>" readonly hidden>
+                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5" value="<%= currentYear.name %>" readonly>
+  
+
+                    <label class="mr-sm-2 mb-2" for="type">Khối lớp</label>
+                    <select class="form-control form-control-sm mb-3 mr-sm-5" id="type" name="grade">
+                      <% grades.forEach(grade=> { %>
+                        <option value="<%= grade.id %>"><%= grade.name %></option>
+                      <% }) %>
+                    </select>
+                    
+                    <label class="mr-sm-2 mb-2" for="info">Tên lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5" name="classroomName">
+
+                    <button type="submit" class="btn btn-primary mb-3">Mở lớp</button>
+  
                   </div>
-
-                </div>
-
+  
+                </form>
               </div>
 
-
-              <div class="field">
-                <label class="label">Tên lớp</label>
-                <input class="input" type="text" name="classroomName">
-              </div>
-
-              <div class="has-text-right">
-                <button type="submit" class="button is-primary">Mở lớp</button>
-              </div>
-            </form>
+            </div>
+          </div>
         </div>
       </div>
+    
 
-    </section>
-
-    <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>
+<%- include('../partials/library') %>
