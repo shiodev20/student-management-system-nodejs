@@ -26,4 +26,17 @@
   
     </ul>
   <% } %>
+
+  <% if(currentUser.role == 'VT2') { %>
+    <ul class="nav">
+    
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="menu-icon fa-solid fa-house"></i>
+          <span class="menu-title">Trang chủ</span>
+        </a>
+      </li>
+  
+    </ul>
+  <% } %>
 </nav>
