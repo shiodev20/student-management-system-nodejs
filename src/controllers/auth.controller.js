@@ -39,20 +39,21 @@ const postLogin = async (req, res, next) => {
     })
 
   } catch (error) {
-    switch (error.code) {
-      case 0, 1:
-        err.type = 'errorMsg'
-        err.message = error.message
-        err.url = '/dang-nhap'
-        break;
-      case 2:
-        err.type = 'formMsg'
-        err.message = error.message
-        err.url = '/dang-nhap'
-        break;
-    }
+    console.log(error);
+    // switch (error.code) {
+    //   case 0, 1:
+    //     err.type = 'errorMsg'
+    //     err.message = error.message
+    //     err.url = '/dang-nhap'
+    //     break;
+    //   case 2:
+    //     err.type = 'formMsg'
+    //     err.message = error.message
+    //     err.url = '/dang-nhap'
+    //     break;
+    // }
 
-    next(err)
+    // next(err)
   }
 }
 

@@ -27,7 +27,6 @@ const getTeacherByAccount = async (accountId) => {
     const result = await Teacher.findOne({
       where: { accountId: { [Op.eq]: account.id } }
     })
-    if(!result) throw customError(1, `Không tìm thấy giáo viên`)
     
     return result
 

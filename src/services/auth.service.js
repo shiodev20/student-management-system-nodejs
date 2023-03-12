@@ -8,7 +8,9 @@ const getUserInfo = async (accountId) => {
   try {
     let user = await employeeService.getEmployeeByAccount(accountId)
     if (!user) user = await teacherService.getTeacherByAccount(accountId)
-
+    
+    if(!user) throw customError(1, `Không tìm thấy nhân viên`)
+    
     const account = await accountService.getAccountById(accountId)
 
     const result = {

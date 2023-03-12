@@ -24,7 +24,6 @@ const getEmployeeByAccount = async (accountId) => {
     const result = await Employee.findOne({
       where: { accountId: { [Op.eq]: account.id } }
     })
-    if(!result) throw customError(1, `Không tìm thấy nhân viên`)
 
     return result
 
