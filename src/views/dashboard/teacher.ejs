@@ -20,12 +20,12 @@
 
                 <div class="col-md-3 mb-3">
                   <label for="">Năm học hiện tại</label>
-                  <input type="text" class="form-control form-control-sm" value="<%= currentYear.name %>" readonly>
+                  <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= currentYear.name %>" readonly>
                 </div>
                 
                 <div class="col-md-3 mb-3">
                   <label for="">Học kỳ hiện tại</label>
-                  <input type="text" class="form-control form-control-sm" value="<%= currentSemester.name %>" readonly>
+                  <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= currentSemester.name %>" readonly>
                 </div>
               </div>
 
@@ -40,13 +40,13 @@
 
                   <ul class="nav nav-tabs">
                     <li class="nav-item">
-                      <a class="nav-link active" id="grade10-tab" data-toggle="tab" href="#grade10" role="tab">Khối 10</a>
+                      <a class="nav-link font-weight-bold active" id="grade10-tab" data-toggle="tab" href="#grade10" role="tab">Khối 10</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="grade11-tab" data-toggle="tab" href="#grade11" role="tab">Khối 11</a>
+                      <a class="nav-link font-weight-bold" id="grade11-tab" data-toggle="tab" href="#grade11" role="tab">Khối 11</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="grade12-tab" data-toggle="tab" href="#grade12" role="tab">Khối 12</a>
+                      <a class="nav-link font-weight-bold" id="grade12-tab" data-toggle="tab" href="#grade12" role="tab">Khối 12</a>
                     </li>
                   </ul>
 
@@ -54,7 +54,7 @@
 
                     <div class="tab-pane fade show active" id="grade10">
                       <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table">
                           <thead class="table-primary">
                             <tr>
                               <th>STT</th>
@@ -71,11 +71,11 @@
                             <% classrooms.grade10.forEach((classroom, idx) => { %>
                               <tr>
                                 <th><%= idx + 1 %></th>
-                                <td><%= classroom.id %></td>
-                                <td><%= classroom.gradeId %></td>
-                                <td><%= classroom.name %></td>
-                                <td><%= classroom.size %></td>
-                                <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                                <td class="font-weight-bold"><%= classroom.id %></td>
+                                <td class="font-weight-bold"><%= classroom.gradeId %></td>
+                                <td class="font-weight-bold"><%= classroom.name %></td>
+                                <td class="font-weight-bold"><%= classroom.size %></td>
+                                <td class="font-weight-bold"><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
                                 <td>
                                   <div class="d-flex justify-content-center">
                                     <a href="/diem/nhap-diem/<%= classroom.id %>" class="btn btn-info">Nhập điểm</a>
@@ -90,7 +90,7 @@
 
                     <div class="tab-pane fade" id="grade11">
                       <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-hover">
                           <thead class="table-primary">
                             <tr>
                               <th>STT</th>
@@ -107,11 +107,11 @@
                             <% classrooms.grade11.forEach((classroom, idx) => { %>
                               <tr>
                                 <th><%= idx + 1 %></th>
-                                <td><%= classroom.id %></td>
-                                <td><%= classroom.gradeId %></td>
-                                <td><%= classroom.name %></td>
-                                <td><%= classroom.size %></td>
-                                <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                                <td class="font-weight-bold"><%= classroom.id %></td>
+                                <td class="font-weight-bold"><%= classroom.gradeId %></td>
+                                <td class="font-weight-bold"><%= classroom.name %></td>
+                                <td class="font-weight-bold"><%= classroom.size %></td>
+                                <td class="font-weight-bold"><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
                                 <td>
                                   <div class="d-flex justify-content-center">
                                     <a href="/diem/nhap-diem/<%= classroom.id %>" class="btn btn-info">Nhập điểm</a>
@@ -126,7 +126,7 @@
 
                     <div class="tab-pane fade" id="grade12">
                       <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table">
                           <thead class="table-primary">
                             <tr>
                               <th>STT</th>
@@ -143,11 +143,11 @@
                             <% classrooms.grade12.forEach((classroom, idx) => { %>
                               <tr>
                                 <th><%= idx + 1 %></th>
-                                <td><%= classroom.id %></td>
-                                <td><%= classroom.gradeId %></td>
-                                <td><%= classroom.name %></td>
-                                <td><%= classroom.size %></td>
-                                <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                                <td class="font-weight-bold"><%= classroom.id %></td>
+                                <td class="font-weight-bold"><%= classroom.gradeId %></td>
+                                <td class="font-weight-bold"><%= classroom.name %></td>
+                                <td class="font-weight-bold"><%= classroom.size %></td>
+                                <td class="font-weight-bold"><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
                                 <td>
                                   <div class="d-flex justify-content-center">
                                     <a href="/diem/nhap-diem/<%= classroom.id %>" class="btn btn-info">Nhập điểm</a>

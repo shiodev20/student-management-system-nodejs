@@ -21,32 +21,32 @@
 
                 <div class="col-md-4 col-sm-12 mb-4">
                   <label for="info">Mã lớp</label>
-                  <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.id %>" readonly>
+                  <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.id %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
                   <label for="info">Năm học</label>
-                  <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.yearId %>" readonly>
+                  <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.yearId %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
                   <label for="info">Khối lớp</label>
-                  <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.gradeId %>" readonly>
+                  <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.gradeId %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
                   <label for="info">Lớp</label>
-                  <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.name %>" readonly>
+                  <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.name %>" readonly>
                 </div> 
                 
                 <div class="col-md-4 col-sm-12 mb-4">
                   <label for="info">Sỉ số</label>
-                  <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.size %>" readonly>
+                  <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.size %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
                   <label for="info">Giáo viên chủ nhiệm</label>
-                  <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
+                  <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
                 </div>
               </div>
 
@@ -68,10 +68,10 @@
 
               <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link active" id="studentList-tab" data-toggle="tab" href="#studentList" role="tab">Danh sách lớp học</a>
+                  <a class="nav-link font-weight-bold  active" id="studentList-tab" data-toggle="tab" href="#studentList" role="tab">Danh sách lớp học</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="subjectTeacherList-tab" data-toggle="tab" href="#subjectTeacherList" role="tab" >Danh sách GVBM</a>
+                  <a class="nav-link font-weight-bold " id="subjectTeacherList-tab" data-toggle="tab" href="#subjectTeacherList" role="tab" >Danh sách GVBM</a>
                 </li>
               </ul>
 
@@ -79,6 +79,7 @@
 
                 <div class="tab-pane fade show active" id="studentList">
 
+                  <label>Lựa chọn:</label><br>
                   <a href="/">
                     <button class="btn btn-primary btn-icon-text mb-3">
                       <i class="fa-solid fa-file btn-icon-prepend"></i>In danh sách lớp
@@ -99,27 +100,15 @@
                         </tr>
                       </thead>
                       
-                      <tfoot class="table-primary">
-                        <tr>
-                          <th>STT</th>
-                          <th>Mã học sinh</th>
-                          <th>Họ</th>
-                          <th>Tên</th>
-                          <th>Ngày sinh</th>
-                          <th>Giới tính</th>
-                          <th>Lựa chọn</th>
-                        </tr>
-                      </tfoot>
-          
                       <tbody>
                         <% students.forEach((student, idx)=> { %>
                           <tr>
                             <th><%= idx + 1 %></th>
-                            <td><%= student.id %></td>
-                            <td><%= student.firstName %></td>
-                            <td><%= student.lastName %></td>
-                            <td><%= student.formatDob %></td>
-                            <td><%= student.genderText %></td>
+                            <td class="font-weight-bold"><%= student.id %></td>
+                            <td class="font-weight-bold"><%= student.firstName %></td>
+                            <td class="font-weight-bold"><%= student.lastName %></td>
+                            <td class="font-weight-bold"><%= student.formatDob %></td>
+                            <td class="font-weight-bold"><%= student.genderText %></td>
                             <td>
                               <div class="d-flex justify-content-center">
                                 <a 
@@ -129,7 +118,7 @@
                                   <button class="btn btn-info btn-icon"><i class="fa-solid fa-chart-simple"></i></button>
                                 </a>
     
-                                <form style="display: inline-block;" action="/lop-hoc/<%= classroom.id %>/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
+                                <form action="/lop-hoc/<%= classroom.id %>/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
                                   <button class="btn btn-danger btn-icon"><i class='fa-solid fa-trash'></i></button>
                                 </form>
                               </div>
@@ -155,36 +144,17 @@
                         </tr>
                       </thead>
     
-                      <tfoot class="table-primary">
-                        <tr>
-                          <th>STT</th>
-                          <th>Mã môn học</th>
-                          <th>Môn học</th>
-                          <th>Mã giáo viên</th>
-                          <th>Tên giáo viên</th>
-                        </tr>
-                      </tfoot>
       
                       <tbody>
                         <% subjectTeachers.forEach((item, idx)=> { %>
                           <tr>
-                            <th>
-                              <%= idx + 1 %>
-                            </th>
-                            <td>
-                              <%= item.subject.id %>
-                            </td>
-                            <td>
-                              <%= item.subject.name %>
-                            </td>
+                            <th><%= idx + 1 %></th>
+                            <td class="font-weight-bold"><%= item.subject.id %></td>
+                            <td class="font-weight-bold"><%= item.subject.name %></td>
       
                             <% if(item.subjectTeacher) { %>
-                              <td>
-                                <%= item.subjectTeacher.id %>
-                              </td>
-                              <td>
-                                <%= item.subjectTeacher.fullName %>
-                              </td>
+                              <td class="font-weight-bold"><%= item.subjectTeacher.id %></td>
+                              <td class="font-weight-bold"><%= item.subjectTeacher.fullName %></td>
                               <% } else { %>
                                 <td></td>
                                 <td></td>

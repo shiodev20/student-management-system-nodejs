@@ -20,22 +20,22 @@
 
                     <div class="col-md-4 col-sm-12 mb-2">
                       <label for="info">Mã học sinh</label>
-                      <input type="text" id="info" class="form-control form-control-sm" value="<%= student.id %>" readonly>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= student.id %>" readonly>
                     </div>
                     
                     <div class="col-md-4 col-sm-12 mb-2">
                       <label for="info">Họ và tên</label>
-                      <input type="text" id="info" class="form-control form-control-sm" value="<%= student.fullName %>" readonly>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= student.fullName %>" readonly>
                     </div>
 
                     <div class="col-md-4 col-sm-12 mb-2">
                       <label for="info">Lớp</label>
-                      <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom ? classroom.name : null %>" readonly>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom ? classroom.name : null %>" readonly>
                     </div>
 
                     <div class="col-md-4 col-sm-12 mb-2">
                       <label for="year">Năm học</label>
-                      <select class="form-control form-control-sm" id="year" name="year">
+                      <select class="form-control form-control-sm font-weight-bold" id="year" name="year">
                         <% years.forEach(year => { %>
 
                           <% if(year.id == selectedYear) { %>
@@ -50,7 +50,7 @@
 
                     <div class="col-md-4 col-sm-12 mb-2">
                       <label for="semester">Học kỳ</label>
-                      <select class="form-control form-control-sm" id="semester" name="semester">
+                      <select class="form-control form-control-sm font-weight-bold" id="semester" name="semester">
                         <<% semesters.forEach(semester => { %>
 
                           <% if(semester.id == selectedSemester) { %>
@@ -91,7 +91,8 @@
 
                 <div class="card-title">Bảng điểm</div>
                 <div class="table-responsive">
-                  <table class="table table-striped table-bordered">
+                  <table class="table table-hover">
+
                     <thead class="table-primary">
                       <tr>
                         <th>STT</th>
@@ -102,27 +103,18 @@
                       </tr>
                     </thead>
                     
-                    <tfoot class="table-primary">
-                      <tr>
-                        <th>STT</th>
-                        <th>Môn học</th>
-                        <% markTypes.forEach(markType => { %>
-                          <th><%= markType.name %></th>
-                        <% }) %>
-                      </tr>
-                    </tfoot>
-        
                     <tbody>
                       <% studentResult.forEach((subject, idx) => { %>
                         <tr>
                           <th><%= idx + 1 %></th>
-                          <td><%= subject.name %></td>
+                          <td class="font-weight-bold"><%= subject.name %></td>
                           <% subject.marks.forEach(mark => { %>
-                            <td><input class="form-control form-control-sm" type="text" value="<%= mark.mark %>" readonly></td>
+                            <td><input class="form-control form-control-sm font-weight-bold" type="text" value="<%= mark.mark %>" readonly></td>
                           <% }) %>
                         </tr>
                       <%})%>
                     </tbody>
+
                   </table>
                 </div>
               </div>

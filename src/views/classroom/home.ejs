@@ -12,7 +12,6 @@
 
       <div class="row">
         
-
         <div class="col-12 grid-margin">
 
           <div class="card">
@@ -23,9 +22,9 @@
                   <form action="/lop-hoc" method="GET">
                     <div class="form-group row">
 
-                      <div class="col-md-6 col-sm-12 mb-2 w-50">
+                      <div class="col-md-3 col-sm-12 mb-2">
                         <label for="year">Năm học</label>
-                        <select class="form-control form-control-sm" id="year" name="year">
+                        <select class="form-control form-control-sm font-weight-bold" id="year" name="year">
                           <% years.forEach(year => { %>
                             <% if(year.id == selectedYear) { %>
                               <option selected value="<%= year.id %>"><%= year.name %></option>
@@ -85,30 +84,17 @@
                     </tr>
                   </thead>
                   
-                  <tfoot class="table-primary">
-                    <tr>
-                      <th>STT</th>
-                      <th>Mã lớp</th>
-                      <th>Năm học</th>
-                      <th>Khối lớp</th>
-                      <th>Tên lớp</th>
-                      <th>Sỉ số</th>
-                      <th>Giáo viên chủ nhiệm</th>
-                      <th>Lựa chọn</th>
-                    </tr>
-                  </tfoot>
-      
                   <tbody>
       
                     <% classrooms.forEach((classroom, idx) => { %>
                       <tr>
                         <th><%= idx + 1 %></th>
-                        <td><%= classroom.id %></td>
-                        <td><%= classroom.yearId %></td>
-                        <td><%= classroom.gradeId %></td>
-                        <td><%= classroom.name %></td>
-                        <td><%= classroom.size %></td>
-                        <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                        <td class="font-weight-bold"><%= classroom.id %></td>
+                        <td class="font-weight-bold"><%= classroom.yearId %></td>
+                        <td class="font-weight-bold"><%= classroom.gradeId %></td>
+                        <td class="font-weight-bold"><%= classroom.name %></td>
+                        <td class="font-weight-bold"><%= classroom.size %></td>
+                        <td class="font-weight-bold"><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
                         <td>
                           <div class="d-flex justify-content-center">
                             <a href="/lop-hoc/<%= classroom.id %>" class="mr-2">
