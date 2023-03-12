@@ -1,63 +1,177 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
 
-  <section class="section">
-    <div class="l-container">
-      <div class="is-flex is-flex-wrap-wrap">
+
+<div class="container-fluid page-body-wrapper">
   
-        <div class="flex-item m-3">
-          <div class="field sm-input">
-            <label class="label">Năm học</label>
-            <input class="input" type="text" value="<%= currentYear.name %>" readonly>
+<%- include('../partials/sidebar') %>
+
+  <div class="main-panel">
+
+    <div class="content-wrapper">
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+
+            <div class="card-body">
+
+              <div class="row">
+
+                <div class="col-md-3 mb-3">
+                  <label for="">Năm học hiện tại</label>
+                  <input type="text" class="form-control form-control-sm" value="<%= currentYear.name %>" readonly>
+                </div>
+                
+                <div class="col-md-3 mb-3">
+                  <label for="">Học kỳ hiện tại</label>
+                  <input type="text" class="form-control form-control-sm" value="<%= currentSemester.name %>" readonly>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="row">
+
+                <div class="col">
+
+                  <div class="card-title">Danh sách lớp học đang giảng dạy</div>
+
+
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="grade10-tab" data-toggle="tab" href="#grade10" role="tab">Khối 10</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="grade11-tab" data-toggle="tab" href="#grade11" role="tab">Khối 11</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="grade12-tab" data-toggle="tab" href="#grade12" role="tab">Khối 12</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content">
+
+                    <div class="tab-pane fade show active" id="grade10">
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead class="table-primary">
+                            <tr>
+                              <th>STT</th>
+                              <th>Mã lớp</th>
+                              <th>Khối lớp</th>
+                              <th>Lớp</th>
+                              <th>Sỉ số</th>
+                              <th>Giáo viên chủ nhiệm</th>
+                              <th>Lựa chọn</th>
+                            </tr>
+                          </thead>
+    
+                          <tbody>
+                            <% classrooms.grade10.forEach((classroom, idx) => { %>
+                              <tr>
+                                <th><%= idx + 1 %></th>
+                                <td><%= classroom.id %></td>
+                                <td><%= classroom.gradeId %></td>
+                                <td><%= classroom.name %></td>
+                                <td><%= classroom.size %></td>
+                                <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                    <a href="/diem/nhap-diem/<%= classroom.id %>" class="btn btn-info">Nhập điểm</a>
+                                  </div>
+                                </td>
+                              </tr>
+                            <% }) %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="grade11">
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead class="table-primary">
+                            <tr>
+                              <th>STT</th>
+                              <th>Mã lớp</th>
+                              <th>Khối lớp</th>
+                              <th>Lớp</th>
+                              <th>Sỉ số</th>
+                              <th>Giáo viên chủ nhiệm</th>
+                              <th>Lựa chọn</th>
+                            </tr>
+                          </thead>
+    
+                          <tbody>
+                            <% classrooms.grade11.forEach((classroom, idx) => { %>
+                              <tr>
+                                <th><%= idx + 1 %></th>
+                                <td><%= classroom.id %></td>
+                                <td><%= classroom.gradeId %></td>
+                                <td><%= classroom.name %></td>
+                                <td><%= classroom.size %></td>
+                                <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                    <a href="/diem/nhap-diem/<%= classroom.id %>" class="btn btn-info">Nhập điểm</a>
+                                  </div>
+                                </td>
+                              </tr>
+                            <% }) %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="grade12">
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead class="table-primary">
+                            <tr>
+                              <th>STT</th>
+                              <th>Mã lớp</th>
+                              <th>Khối lớp</th>
+                              <th>Lớp</th>
+                              <th>Sỉ số</th>
+                              <th>Giáo viên chủ nhiệm</th>
+                              <th>Lựa chọn</th>
+                            </tr>
+                          </thead>
+    
+                          <tbody>
+                            <% classrooms.grade12.forEach((classroom, idx) => { %>
+                              <tr>
+                                <th><%= idx + 1 %></th>
+                                <td><%= classroom.id %></td>
+                                <td><%= classroom.gradeId %></td>
+                                <td><%= classroom.name %></td>
+                                <td><%= classroom.size %></td>
+                                <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
+                                <td>
+                                  <div class="d-flex justify-content-center">
+                                    <a href="/diem/nhap-diem/<%= classroom.id %>" class="btn btn-info">Nhập điểm</a>
+                                  </div>
+                                </td>
+                              </tr>
+                            <% }) %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
         </div>
-  
-        <div class="flex-item m-3">
-          <div class="field sm-input">
-            <label class="label">Học kỳ</label>
-            <input class="input" type="text" value="<%= currentSemester.name %>" readonly>
-          </div>
-        </div>
-        
       </div>
-    </div>
-  </section>
 
-
-  <section class="section">
-    <div class="l-container">
-      <table class="table is-hoverable is-fullwidth is-bordered">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Mã lớp</th>
-            <th>Khối lớp</th>
-            <th>Lớp</th>
-            <th>Sỉ số</th>
-            <th>Giáo viên chủ nhiệm</th>
-            <th>Lựa chọn</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <% classrooms.forEach((classroom, idx) => { %>
-            <tr>
-              <th><%= idx + 1 %></th>
-              <td><%= classroom.id %></td>
-              <td><%= classroom.gradeId %></td>
-              <td><%= classroom.name %></td>
-              <td><%= classroom.size %></td>
-              <td><%= classroom.headTeacher ? classroom.headTeacher.fullName : null %></td>
-              <td class="has-text-centered">
-                <a href="/diem/nhap-diem/<%= classroom.id %>" class="button is-info">Nhập điểm</a>
-              </td>
-            </tr>
-          <% }) %>
-        </tbody>
-  
-      </table>
-    </div>
-  </section>
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>

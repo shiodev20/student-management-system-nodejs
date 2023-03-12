@@ -23,7 +23,24 @@ const initialRoutes = (app) => {
       case 'VT2':
         const currentYear = await yearService.getCurrentYear()
         const currentSemester = await semesterService.getCurrentSemester()
-        const classrooms = await classroomService.getClassroomsBySubjectTeacher(req.session.user.id, currentYear.id)
+        const classroomsBySubjectTeacher = await classroomService.getClassroomsBySubjectTeacher(req.session.user.id, currentYear.id)
+
+        const classrooms = { grade10: [], grade11: [], grade12: [] }
+
+        classroomsBySubjectTeacher.forEach(classroom => {
+          switch (classroom.gradeId) {
+            case 'KH10':
+              classrooms.grade10.push(classroom)
+              break;
+            case 'KH11':
+              classrooms.grade11.push(classroom)
+              break;
+            case 'KH12':
+            classrooms.grade12.push(classroom)
+            break;
+           
+          }
+        })
 
         res.render('dashboard/teacher', { 
           documentTitle: 'Trang chủ', 
