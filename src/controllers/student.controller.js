@@ -1,4 +1,12 @@
-const { studentService, yearService, semesterService, ruleService, markService, classroomService } = require('../services')
+const { 
+  studentService, 
+  yearService, 
+  semesterService, 
+  ruleService, 
+  markService, 
+  classroomService,
+  markTypeService,
+} = require('../services')
 const customError = require('../utils/customError')
 
 
@@ -181,9 +189,12 @@ const getStudentResult = async (req, res, next) => {
   try {
     const years = await yearService.getYearList()
     const semesters = await semesterService.getSemesterList()
+    const markTypes = await markTypeService.getMarkTypeList()
     const student = await studentService.getStudentById(id)
     const classroom = await classroomService.getClassroomByStudent(id, year)
     const studentResult = await markService.getMarksOfStudent(id, year, semester)
+
+    // return res.json(studentResult)
 
     res.render('student/result', {
       documentTitle: 'Kết quả học tập',
@@ -191,6 +202,7 @@ const getStudentResult = async (req, res, next) => {
       selectedSemester: semester,
       years,
       semesters,
+      markTypes,
       student,
       classroom,
       studentResult,

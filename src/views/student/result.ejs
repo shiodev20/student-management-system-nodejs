@@ -96,11 +96,9 @@
                       <tr>
                         <th>STT</th>
                         <th>Môn học</th>
-                        <th>Điểm ĐGTX</th>
-                        <th>Điểm 15'</th>
-                        <th>Điểm 45'</th>
-                        <th>Điểm thi</th>
-                        <th>Điểm TBM</th>
+                        <% markTypes.forEach(markType => { %>
+                          <th><%= markType.name %></th>
+                        <% }) %>
                       </tr>
                     </thead>
                     
@@ -108,11 +106,9 @@
                       <tr>
                         <th>STT</th>
                         <th>Môn học</th>
-                        <th>Điểm ĐGTX</th>
-                        <th>Điểm 15'</th>
-                        <th>Điểm 45'</th>
-                        <th>Điểm thi</th>
-                        <th>Điểm TBM</th>
+                        <% markTypes.forEach(markType => { %>
+                          <th><%= markType.name %></th>
+                        <% }) %>
                       </tr>
                     </tfoot>
         
@@ -120,9 +116,9 @@
                       <% studentResult.forEach((subject, idx) => { %>
                         <tr>
                           <th><%= idx + 1 %></th>
-                          <td style="width: 200px;"><%= subject.name %></td>
+                          <td><%= subject.name %></td>
                           <% subject.marks.forEach(mark => { %>
-                            <td><input class="input" type="text" value="<%= mark.mark %>" readonly></td>
+                            <td><input class="form-control form-control-sm" type="text" value="<%= mark.mark %>" readonly></td>
                           <% }) %>
                         </tr>
                       <%})%>
