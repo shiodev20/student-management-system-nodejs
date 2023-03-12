@@ -31,7 +31,7 @@ const getMarkAdd = async (req, res, next) => {
       case 0, 1:
         err.type = 'errorMsg'
         err.message = error.message
-        err.url = `/lop-hoc/${classroomId}`
+        err.url = `/lop-hoc/${id}`
         break;
     }
 
@@ -73,7 +73,7 @@ const postMarkAdd = async (req, res, next) => {
       })
     })
 
-    const result = await addMarks(data)
+    const result = await markService.addMarks(data)
 
     req.flash('successMsg', `Nhập điểm lớp ${partials.classroomId} thành công`)
     res.redirect(`/diem/nhap-diem/${partials.classroomId}`)

@@ -1,123 +1,143 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
 
-  <section class="section">
-    <div class="l-container">
-      <form action="/diem/nhap-diem" method="POST">
-        <div class="is-flex is-flex-wrap-wrap">
-  
-          <div class="flex-item my-3 mr-3">
-            <div class="field sm-input">
-              <label class="label">Năm học</label>
-              <div class="control">
-                <input type="text" name="yearId" value="<%= currentYear.id %>" hidden>
-                <input class="input" type="text" value="<%= currentYear.name %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Học kỳ</label>
-              <div class="control">
-                <input type="text" name="semesterId" value="<%= currentSemester.id %>" hidden>
-                <input class="input" type="text" value="<%= currentSemester.name %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Lớp</label>
-              <div class="control">
-                <input type="text" name="classroomId" value="<%= classroom.id %>" hidden>
-                <input class="input" type="text" value="<%= classroom.name %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Môn học</label>
-              <div class="control">
-                <input type="text" name="subjectId" value="<%= subject.id %>" hidden>
-                <input class="input" type="text" value="<%= subject.name %>" readonly>
-              </div>
-            </div>
-          </div>
-  
-          <div class="flex-item my-3 is-align-self-flex-end">
-            <button type="submit" class="button is-info">Cập nhật</button>
-          </div>
-        </div>
-        
-        <hr>
-        <p>Lựa chọn:</p>
 
-        <div class="is-flex is-flex-wrap-wrap">
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
 
-          <div class="flex-item my-3 mr-3">
-            <a href="/diem/nhap-diem/<%= classroom.id %>/tinh-diem-trung-binh?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>&subject=<%= subject.id %>" class="button is-info">Tính điểm trung bình</a>
-          </div>
+  <div class="main-panel">
 
-          <div class="flex-item my-3 mr-3">
-            <a href="/" class="button is-info">In bảng điểm</a>
-          </div>
-        </div>
+    <div class="content-wrapper">
 
+      <div class="row">
 
-        <div class="mt-4 mb-6">
-          <div class="table-container">
-            <table class="table is-fullwidth is-hoverable is-bordered">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th style="width: 130px;">Mã học sinh</th>
-                  <th>Tên học sinh</th>
-                  <% markTypes.forEach(markType => { %>
-                    <th><%= markType.name %></th>
-                  <% }) %>
-                </tr>
-              </thead>
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">Nhập điểm lớp học <%= classroom.id %></div>
+              <form action="/diem/nhap-diem" method="POST">
+                <div class="form-group row">
+
+                  <div class="col-md-4 col-sm-12 mb-3">
+                    <label>Năm học</label>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" name="yearId" value="<%= currentYear.id %>" readonly hidden>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= currentYear.name %>" readonly>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 mb-3">
+                    <label>Học kỳ</label>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" name="semesterId" value="<%= currentSemester.id %>" readonly hidden>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= currentSemester.name %>" readonly>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 mb-3">
+                    <label>Môn học nhập điểm</label>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" name="subjectId" value="<%= subject.id %>" readonly hidden>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= subject.name %>" readonly>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 mb-3">
+                    <label>Mã Lớp học</label>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" name="classroomId" value="<%= classroom.id %>" readonly>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 mb-3">
+                    <label>Lớp học</label>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= classroom.name %>" readonly>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 mb-3">
+                    <label>Giáo viên chủ nhiệm</label>
+                    <input type="text" class="form-control form-control-sm font-weight-bold" value="<%= classroom.headTeacher ? classroom.headTeacher.name : null %>" readonly>
+                  </div>
+                  
+                  <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                    <button type="submit" class="btn btn-info">Cập nhật</button>
+                  </div>
+
+                </div>
+
+                <hr>
+
+                <div class="card-title">Bảng điểm</div>
+
+                <label>Lựa chọn:</label><br>
+
+                <a 
+                  href="/diem/nhap-diem/<%= classroom.id %>/tinh-diem-trung-binh?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>&subject=<%= subject.id %>" 
+                  class="btn btn-info btn-icon-text mb-3"
+                  >
+                  <i class="fa-solid fa-calculator btn-icon-prepend"></i>Tính điểm trung bình
+                </a>
+                
+                <span class="d-none d-sm-inline">|</span>
+
+                <a href="/" class="btn btn-primary btn-icon-text mb-3">
+                  <i class="fa-solid fa-file btn-icon-prepend"></i>In bảng điểm
+                </a>
+
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>STT</th>
+                        <th>Mã học sinh</th>
+                        <th>Họ</th>
+                        <th>Tên</th>
+                        <% markTypes.forEach(markType => { %>
+                          <th><%= markType.name %></th>
+                        <% }) %>
+                      </tr>
+                    </thead>
+            
+                    <tbody>
+                      <% studentMarks.forEach((student, idx) => { %>
+                        <tr>
+                          <th><%= idx + 1 %></th>
+                          <td><input type="text" name="studentIds" value="<%= student.id %>" hidden><%= student.id %></td>
+                          <td><%= student.firstName %></td>
+                          <td><%= student.lastName %></td>
+                          <% markTypes.forEach(markType => { %>
       
-              <tbody>
-                <% studentMarks.forEach((student, idx) => { %>
-                  <tr>
-                    <th><%= idx + 1 %></th>
-                    <td><input type="text" name="studentIds" value="<%= student.id %>" hidden><%= student.id %></td>
-                    <td style="width: 200px;"><%= student.fullName %></td>
-                    <% markTypes.forEach(markType => { %>
-
-                      <% student.marks.forEach(mark => { %>
-
-                        <% if(mark.markTypeId == markType.id) { %>
+                            <% student.marks.forEach(mark => { %>
+      
+                              <% if(mark.markTypeId == markType.id) { %>
+                                
+                                <% if(markType.id === markTypes[markTypes.length - 1].id) { %>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" value="<%= mark.mark %>" readonly>
+                                  </td>
+                                <% } else { %>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="<%= markType.id %>" value="<%= mark.mark %>">
+                                  </td>
+                                <% } %>
+      
+                              <% } %>
+      
+                            <% }) %>
+      
+                          <% }) %>
                           
-                          <% if(markType.id === markTypes[markTypes.length - 1].id) { %>
-                            <td>
-                              <input class="input" type="text" value="<%= mark.mark %>" readonly>
-                            </td>
-                          <% } else { %>
-                            <td>
-                              <input class="input" type="text" name="<%= markType.id %>" value="<%= mark.mark %>">
-                            </td>
-                          <% } %>
-
-                        <% } %>
-
+                        </tr>
                       <% }) %>
+                    </tbody>
+                  </table>
+                </div>
 
-                    <% }) %>
-                    
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
+
+
+              </form>
+
+
+
+            </div>
           </div>
         </div>
-      </form>
-    </div>
-  
-  </section>
+
+      </div>
+
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>
