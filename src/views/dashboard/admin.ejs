@@ -1,88 +1,99 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
 
-<section class="section">
 
-  <div class="l-container">
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
 
-    <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+  <div class="main-panel">
 
-      <div class="flex-item is-align-self-flex-end m-3">
-        <a href="/tai-khoan/danh-sach-chua-cap-tai-khoan" class="button is-primary">
-          <i class='bx bxs-user-plus icon'></i> <span>Cấp tài khoản</span>
-        </a>
+    <div class="content-wrapper">
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            
+            <div class="card-body">
+
+              <div class="row">
+
+                <div class="col">
+                  <a href="/tai-khoan/danh-sach-chua-cap-tai-khoan" class="btn btn-primary">Cấp tài khoản</a>
+                </div>
+
+              </div>
+
+              <hr>
+
+              <div class="row">
+                <div class="col">
+                  <div class="card-title">Danh sách tài khoản</div>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="table-primary">
+                        <tr>
+                          <th>STT</th>
+                          <th>Mã tài khoản</th>
+                          <th>Tên đăng nhập</th>
+                          <th>Tên người dùng</th>
+                          <th>Vai trò</th>
+                          <th>Trạng thái</th>
+                          <th>Lựa chọn</th>
+                        </tr>
+                      </thead>
+                      
+                      <tbody>
+                        <% accounts.forEach((account, idx) => { %>
+                          <tr>
+                            <th><%= idx + 1 %></th>
+                            <td class="font-weight-bold"><%= account.id %></td>
+                            <td class="font-weight-bold"><%= account.username %></td>
+                            <td class="font-weight-bold"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
+                            <td class="font-weight-bold"><%= account.role.name %></td>
+              
+                            <td>
+                              <% if(account.status) { %>
+                                <label class="badge badge-success">Còn hiệu lực</label>
+                              <% } else {%>
+                                <label class="badge badge-danger">Vô hiệu hóa</label>
+                              <% } %>
+                            </td>
+                                
+                            <td class="d-flex justify-content-center">
+                              <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST">
+                                <button class="btn btn-info btn-icon mr-1">
+                                  <i class="fa-solid fa-rotate"></i>
+                                </button>
+                              </form>
+                
+                              <a href="/tai-khoan/cap-nhat-tai-khoan/<%= account.id %>">
+                                <button class="btn btn-success btn-icon mr-1">
+                                  <i class='fa-solid fa-pencil'></i>
+                                </button>
+                              </a>
+                              
+                              <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger btn-icon mr-1">
+                                  <i class='fa-solid fa-trash'></i>
+                                </button>
+                              </form>
+                            </td>
+                          </tr>
+                        <% }) %>
+              
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
 
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section">
-  <div class="l-container">
-    
-    <div class="table-container">
-      <table class="table is-fullwidth is-hoverable is-bordered">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Mã tài khoản</th>
-            <th>Tên đăng nhập</th>
-            <th>Tên người dùng</th>
-            <th>Vai trò</th>
-            <th>Trạng thái</th>
-            <th>Lựa chọn</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <% accounts.forEach((account, idx) => { %>
-            <tr>
-              <th><%= idx + 1 %></th>
-              <td><%= account.id %></td>
-              <td><%= account.username %></td>
-              <td style="max-width: 150px; overflow: auto;"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
-              <td><%= account.role.name %></td>
-
-              <% if(account.status) { %>
-                <td class="has-text-centered">
-                  <input class="account-active-input" style="width: 15px; height: 15px;"  type="checkbox" checked>
-                </td>
-              <% } else {%>
-                <td class="has-text-centered">
-                  <input class="account-active-input" style="width: 15px; height: 15px;"  type="checkbox">
-                </td>
-              <% } %>
-
-              <td class="has-text-centered">
-                <% if(account.status) { %>
-                  <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST" style="display: inline-block;" >
-                    <button class="button is-warning"><i class='bx bx-x'></i></button>
-                  </form>
-                <% } else {%>
-                  <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST" style="display: inline-block;" >
-                    <button class="button is-info"><i class='bx bx-check'></i></button>
-                  </form>
-                <% } %>
-                
-  
-                <a href="/tai-khoan/cap-nhat-tai-khoan/<%= account.id %>" class="button is-primary"><i class='bx bxs-edit-alt' ></i></a>
-                
-                <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST" style="display: inline-block;" >
-                  <button class="button is-danger"><i class='bx bxs-trash-alt'></i></button>
-                </form>
-              </td>
-            </tr>
-          <% }) %>
-
-        </tbody>
-
-      </table>
-    </div>
-
-  </div>
-</section>
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>
