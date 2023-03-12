@@ -9,7 +9,7 @@ const apiRouter = require('./api.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
-const { yearService, semesterService, classroomService, accountService } = require('../services')
+const { yearService, semesterService, classroomService, accountService, roleService } = require('../services')
 
 const initialRoutes = (app) => {
 
@@ -52,10 +52,12 @@ const initialRoutes = (app) => {
 
       case 'VT3':
         const accounts = await accountService.getAccountList()
-        
+        const roles = await roleService.getRoleList()
+
         res.render('dashboard/admin', {
           documentTitle: 'Trang chủ',
           accounts,
+          roles,
         })
         break;
 

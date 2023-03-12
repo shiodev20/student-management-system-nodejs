@@ -1,66 +1,111 @@
 <%- include('../partials/head') %>
-
 <%- include('../partials/navbar') %>
 
-<section class="section">
-  <div class="form-container">
-    <div class="box form-content">
-      <p class="form-title">Cấp tài khoản</p>
 
-      <form action="/tai-khoan/tao-tai-khoan/<%= username %>" method="POST">
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
 
-        <%- include ('../partials/form-message') %>
+  <div class="main-panel">
 
-        <div class="field is-horizontal">
-          <div class="field-body">
+    <div class="content-wrapper">
 
-            <div class="field">
-              <label class="label">Mã tài khoản</label>
-              <div class="control">
-                <input class="input" type="text" name="accountId" value="<%= accountId %>" readonly>
+      <div class="row">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                <form action="/" method="GET">
+                  <div class="form-group row">
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="info">Thông tin</label>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" name="info">
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="type">Loại tìm kiếm</label>
+                      <select class="form-control form-control-sm font-weight-bold" id="type" name="type">
+                        <option value="1">Mã nhân viên</option>
+                        <option value="1">Tên nhân viên</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                      <button type="submit" class="btn btn-info">Tìm kiếm</button>
+                    </div>
+
+                  </div>
+
+                </form>
+
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">Tên đăng nhập</label>
-              <div class="control">
-                <input class="input" type="text" name="username" value="<%= username %>" readonly>
+              <hr>
+
+              <div class="row">
+
+                <div class="col">
+                  <div class="card-title">Danh sách nhân viên</div>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="table-primary">
+                        <tr>
+                          <th>STT</th>
+                          <th>Mã nhân viên</th>
+                          <th>Tên nhân viên</th>
+                          <th>Email</th>
+                          <th>Số điện thoại</th>
+                          <th>Lựa chọn</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% noAccountEmplList.forEach((empl, idx)=> { %>
+                          <tr>
+                            <td><%= idx + 1 %></td>
+                            <td class="font-weight-bold"><%= empl.id %></td>
+                            <td class="font-weight-bold"><%= empl.fullName %></td>
+                            <td class="font-weight-bold"><%= empl.email %></td>
+                            <td class="font-weight-bold"><%= empl.phone %></td>
+                            <td>
+                              <form action="/tai-khoan/tao-tai-khoan/<%= empl.id %>" method="POST">
+                                <div class="row">
+                                  <div class="col mb-2">
+                                    <select class="form-control form-control-sm font-weight-bold" name="role">
+                                      <option value="" selected>Lựa chọn</option>
+                                      <% roles.forEach(role => { %>
+                                        <option value="<%= role.id %>"><%= role.name %></option>
+                                      <% }) %>
+                                    </select>
+                                  </div>
+
+                                  <div class="col">
+                                    <button class="btn btn-primary">Cấp tài khoản</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </td>
+                          </tr>
+                          <% }) %>
+                      </tbody>
+                      
+                     
+                    </table>
+                  </div>
+                </div
+                >
               </div>
             </div>
           </div>
         </div>
 
-        <div class="field is-horizontal">
+      </div>
 
-          <div class="field-body">
-            <div class="field" style="flex: 1;">
-              <label class="label">Mật khẩu</label>
-              <input class="input" type="text" name="password" value="">
-            </div>
 
-            <div class="field" style="flex: 1;">
-              <label class="label">Vai trò</label>
-              <div class="select" style="width: 100%;">
-                <select name="role" style="width: 100%;">
-                  <% roles.forEach(role => { %>
-                      <option value="<%= role.id %>"><%= role.name %></option>
-                  <% }) %>
-                  
-                </select>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-        
-        <div class="has-text-right">
-          <button type="submit" class="button is-primary">Cấp tài khoản</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-</section>
+   
 
 <%- include('../partials/footer') %>
+<%- include('../partials/library') %>

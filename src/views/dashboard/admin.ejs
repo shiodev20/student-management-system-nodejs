@@ -11,15 +11,48 @@
     <div class="content-wrapper">
 
       <div class="row">
-        <div class="col">
+
+        <div class="col-12 grid-margin">
           <div class="card">
-            
             <div class="card-body">
 
-              <div class="row">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-                <div class="col">
-                  <a href="/tai-khoan/danh-sach-chua-cap-tai-khoan" class="btn btn-primary">Cấp tài khoản</a>
+                <form action="/" method="GET">
+                  <div class="form-group row">
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="info">Thông tin</label>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" name="info">
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="type">Loại tìm kiếm</label>
+                      <select class="form-control form-control-sm font-weight-bold" id="type" name="type">
+                        <option value="0">Mã tài khoản</option>
+                        <option value="1">Mã nhân viên</option>
+                        <option value="1">Tên nhân viên</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                      <button type="submit" class="btn btn-info">Tìm kiếm</button>
+                    </div>
+
+                  </div>
+
+                </form>
+
+                <div class="w-100 d-block d-md-none">
+                  <hr>
+                </div>
+
+                <div>
+                  <a href="/tai-khoan/tao-tai-khoan" class="button is-primary">
+                    <button class="btn btn-primary btn-icon-text">
+                      <i class='fa-solid fa-user-plus btn-icon-prepend'></i>Cấp tài khoản
+                    </button>
+                  </a>
                 </div>
 
               </div>
@@ -27,6 +60,7 @@
               <hr>
 
               <div class="row">
+
                 <div class="col">
                   <div class="card-title">Danh sách tài khoản</div>
 
@@ -51,7 +85,27 @@
                             <td class="font-weight-bold"><%= account.id %></td>
                             <td class="font-weight-bold"><%= account.username %></td>
                             <td class="font-weight-bold"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
-                            <td class="font-weight-bold"><%= account.role.name %></td>
+                            <td>
+                              <form action="/tai-khoan/cap-nhat-vai-tro/<%= account.id %>?_method=PUT" method="POST">
+                                <div class="input-group">
+                                  <select class="form-control form-control-sm font-weight-bold" name="role">
+                                    <% roles.forEach(role => { %>
+                                      <% if(role.id === account.roleId) { %>
+                                        <option value="<%= role.id %>" selected><%= role.name %></option>
+                                      <% } else { %>
+                                        <option value="<%= role.id %>"><%= role.name %></option>
+                                      <% } %>
+                                    <% }) %>
+                                  </select>
+                                  <div class="input-group-append">
+                                    <button class="btn btn-success btn-icon mr-1">
+                                      <i class='fa-solid fa-pencil'></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                              
+                            </td>
               
                             <td>
                               <% if(account.status) { %>
@@ -62,18 +116,21 @@
                             </td>
                                 
                             <td class="d-flex justify-content-center">
+                              
                               <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST">
                                 <button class="btn btn-info btn-icon mr-1">
                                   <i class="fa-solid fa-rotate"></i>
                                 </button>
                               </form>
                 
-                              <a href="/tai-khoan/cap-nhat-tai-khoan/<%= account.id %>">
-                                <button class="btn btn-success btn-icon mr-1">
-                                  <i class='fa-solid fa-pencil'></i>
-                                </button>
-                              </a>
                               
+
+                              <form action="/tai-khoan/reset-mat-khau/<%= account.id %>?_method=PUT" method="POST">
+                                <button class="btn btn-warning btn-icon mr-1">
+                                  <i class='fa-solid fa-key'></i>
+                                </button>
+                              </form>
+
                               <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST">
                                 <button class="btn btn-danger btn-icon mr-1">
                                   <i class='fa-solid fa-trash'></i>
@@ -86,12 +143,13 @@
                       </tbody>
                     </table>
                   </div>
-                </div>
+                </div
+                >
               </div>
             </div>
-
           </div>
         </div>
+
       </div>
 
 

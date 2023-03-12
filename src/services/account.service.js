@@ -69,13 +69,13 @@ const getNoAccountEmplList = async () => {
   }
 }
 
-const addAccount = async ({ id, username, password, roleId }) => {
+const addAccount = async ({ id, username, roleId }) => {
   try {
     const account = await Account.findByPk(id)
     if(account) throw customError(1, `Tài khoản ${id} đã tồn tại`)
 
     const role = await roleService.getRoleById(roleId)
-    const hashPassword = await bcrypt.hash(password, 10)
+    const hashPassword = await bcrypt.hash('qwerty', 10)
 
     let empl = await Teacher.findByPk(username)
     if(!empl) empl = await Employee.findByPk(username)
@@ -144,6 +144,36 @@ const updateAccountStatus = async (id) => {
   }
 }
 
+const updateAccountRole = async (id, roleId) => {
+  try {
+    const account = await getAccountById(id)
+    const role = await roleService.getRoleById(roleId)
+
+    const result = await account.update({ roleId: role.id })
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
+const resetAccountPassword = async (id) => {
+  try {
+    const account = await getAccountById(id)
+    const hashPassword = await bcrypt.hash('123456', 10)
+
+    const result = await account.update({ password: hashPassword })
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 const deleteAccount = async (id) => {
   try {
     const account = await getAccountById(id)
@@ -170,4 +200,6 @@ exports.getNoAccountEmplList = getNoAccountEmplList
 exports.addAccount = addAccount
 exports.updateAccount = updateAccount
 exports.updateAccountStatus = updateAccountStatus
+exports.updateAccountRole = updateAccountRole
+exports.resetPassword = resetAccountPassword
 exports.deleteAccount = deleteAccount

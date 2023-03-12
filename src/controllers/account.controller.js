@@ -4,31 +4,16 @@ const { generateId } = require('../utils/generateId')
 
 const err = { type: '', message: '', url: '' }
 
-const getNoAccountAdd = async (req, res, next) => {
-  try {
-    const noAccountEmplList = await accountService.getNoAccountEmplList()
-
-    res.render('account/noAccountAdd', {
-      documentTitle: 'Tạo tài khoản',
-      noAccountEmplList,
-    })
-    
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 const getAccountAdd = async (req, res, next) => {
-  const { id } = req.params;
   try {
+    const noAccountEmplList = await accountService.getNoAccountEmplList()
     const roles = await roleService.getRoleList()
-    const accountId = generateId('TK')
 
     res.render('account/add', {
       documentTitle: 'Tạo tài khoản',
+      noAccountEmplList,
       roles,
-      accountId,
-      username: id,
     })
     
   } catch (error) {
@@ -36,105 +21,107 @@ const getAccountAdd = async (req, res, next) => {
       case 1, 0:
         err.type = 'errorMsg'
         err.message = error.message
-        err.url = `tai-khoan/tao-tai-khoan/${id}`
+        err.url = `tai-khoan/tao-tai-khoan`
       break;
     }
   }
 }
 
 const postAccountAdd = async (req, res, next) => {
-  const { id } = req.params
-  const { accountId, username, password, role } = req.body
+  const { id: username } = req.params
+  const { role } = req.body
   
   try {
-    if(!accountId || !username || !password || !role) {
-      throw customError(2, `Vui lòng nhập đầy đủ thông tin`)
+    if(!role) {
+      throw customError(2, `Vui lòng chọn quyền tài tài khoản`)
     }
+
+    const accountId = generateId('TK')
 
     const account = {
       id: accountId,
       username,
-      password,
       roleId: role
     }
-    
+
     const result = await accountService.addAccount(account)
 
     req.flash('successMsg', `Cấp tài khoản cho nhân viên ${username} thành công`)
-    res.redirect('/tai-khoan/danh-sach-chua-cap-tai-khoan')
+    res.redirect('/tai-khoan/tao-tai-khoan')
 
   } catch (error) {
-    switch (error.code) {
-      case 1, 0:
-        err.type = 'errorMsg'
-        err.message = error.message
-        err.url = `/tai-khoan/tao-tai-khoan/${id}`
-        break;
-      case 2:
-        err.type = 'formMsg'
-        err.message = error.message
-        err.url = `/tai-khoan/tao-tai-khoan/${id}`
-        break;
-    }
+    console.log(error);
+    // switch (error.code) {
+    //   case 1, 0:
+    //     err.type = 'errorMsg'
+    //     err.message = error.message
+    //     err.url = `/tai-khoan/tao-tai-khoan/${id}`
+    //     break;
+    //   case 2:
+    //     err.type = 'formMsg'
+    //     err.message = error.message
+    //     err.url = `/tai-khoan/tao-tai-khoan/${id}`
+    //     break;
+    // }
 
-    next(err)
+    // next(err)
   }
 }
 
-const getAccountUpdate = async (req, res, next) => {
-  const { id } = req.params
+// const getAccountUpdate = async (req, res, next) => {
+//   const { id } = req.params
 
-  try {
-    const account = await accountService.getAccountById(id)
-    const roles = await roleService.getRoleList()
+//   try {
+//     const account = await accountService.getAccountById(id)
+//     const roles = await roleService.getRoleList()
 
-    res.render('account/update', {
-      documentTitle: 'Cập nhật tài khoản',
-      account,
-      roles,
-    })
+//     res.render('account/update', {
+//       documentTitle: 'Cập nhật tài khoản',
+//       account,
+//       roles,
+//     })
 
-  } catch (error) {
-    switch (error.code) {
-      case 0, 1:
-        err.type = 'errorMsg'
-        err.message = error.message
-        err.url = '/'
-        break;
-    }
+//   } catch (error) {
+//     switch (error.code) {
+//       case 0, 1:
+//         err.type = 'errorMsg'
+//         err.message = error.message
+//         err.url = '/'
+//         break;
+//     }
 
-    next(err)
-  }
-}
+//     next(err)
+//   }
+// }
 
-const putAccountUpdate = async (req, res, next) => {
-  const { accountId, username, password, role } = req.body
+// const putAccountUpdate = async (req, res, next) => {
+//   const { accountId, username, password, role } = req.body
 
-  try {
-    if (!accountId || !username || !password || !role) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
+//   try {
+//     if (!accountId || !username || !password || !role) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
 
-    const result = await accountService.updateAccount({
-      id: accountId,
-      username,
-      password,
-      roleId: role
-    })
+//     const result = await accountService.updateAccount({
+//       id: accountId,
+//       username,
+//       password,
+//       roleId: role
+//     })
     
-    req.flash('successMsg', `Cập nhật tài khoản ${accountId} thành công`)
-    res.redirect(`/tai-khoan/cap-nhat-tai-khoan/${accountId}`)
+//     req.flash('successMsg', `Cập nhật tài khoản ${accountId} thành công`)
+//     res.redirect(`/tai-khoan/cap-nhat-tai-khoan/${accountId}`)
 
-  } catch (error) {
-    switch (error.code) {
-      case 0, 1:
-        err.type = 'errorMsg'
-        err.message = error.message
-        err.url = `/tai-khoan/cap-nhat-tai-khoan/${accountId}`
-        break;
-    }
+//   } catch (error) {
+//     switch (error.code) {
+//       case 0, 1:
+//         err.type = 'errorMsg'
+//         err.message = error.message
+//         err.url = `/tai-khoan/cap-nhat-tai-khoan/${accountId}`
+//         break;
+//     }
 
-    next(err)
-  }
-}
+//     next(err)
+//   }
+// }
 
 const putAccountUpdateStatus = async (req, res, next) => {
   const { id } = req.params
@@ -145,6 +132,34 @@ const putAccountUpdateStatus = async (req, res, next) => {
     res.redirect('/')
 
     
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const putAccountResetPassword = async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+    const result = await accountService.resetPassword(id)
+
+    req.flash('successMsg', ``)
+    res.redirect('/')
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const putAccountUpdateRole = async (req, res, next) => {
+  const { id } = req.params
+  const { role } = req.body
+  try {
+    const result = await accountService.updateAccountRole(id, role)
+
+    req.flash('successMsg', ``)
+    res.redirect('/')
+
   } catch (error) {
     console.log(error);
   }
@@ -164,11 +179,10 @@ const deleteAccountDelete = async (req, res, next) => {
 }
 
 module.exports = {
-  getNoAccountAdd,
   getAccountAdd,
   postAccountAdd,
-  getAccountUpdate,
-  putAccountUpdate,
   putAccountUpdateStatus,
+  putAccountResetPassword,
+  putAccountUpdateRole,
   deleteAccountDelete
 }
