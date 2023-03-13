@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.STRING(1000),
         allowNull: false,
       },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       parentName: {
         type: Sequelize.STRING,
         allowNull: false

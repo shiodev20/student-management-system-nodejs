@@ -38,6 +38,9 @@ module.exports = {
       },
       accountId: {
         type: Sequelize.STRING(10),
+      },
+      roleId: {
+        type: Sequelize.STRING(10),
       }
     });
   },

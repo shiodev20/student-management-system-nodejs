@@ -39,18 +39,14 @@ module.exports = (sequelize, DataTypes) => {
     dob: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      // get() {
-      //   const rawDob = new Date(this.getDataValue('dob'))
-      //   const day = rawDob.getDate() < 10 ? `0${rawDob.getDate()}` : rawDob.getDate()
-      //   const month = rawDob.getMonth() + 1 < 10 ? `0${rawDob.getMonth() + 1}` : rawDob.getMonth() + 1
-      //   const year  = rawDob.getFullYear()
-
-      //   return `${day}-${month}-${year}`
-      // }
     },
     address: {
       type: DataTypes.STRING(1000),
       allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     parentName: {
       type: DataTypes.STRING,

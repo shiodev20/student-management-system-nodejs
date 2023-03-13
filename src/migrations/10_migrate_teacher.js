@@ -39,6 +39,10 @@ module.exports = {
       accountId: {
         type: Sequelize.STRING(10),
       },
+      roleId: {
+        type: Sequelize.STRING(10),
+        allowNull: false,
+      },
       subjectId: {
         type: Sequelize.STRING(6),
         allowNull: false,

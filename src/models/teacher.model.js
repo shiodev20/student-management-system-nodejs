@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Teacher.hasMany(models.Classroom, { foreignKey: 'headTeacherId', as: 'getHeadingClassroom' })
 
       Teacher.belongsTo(models.Account, { foreignKey: 'accountId', as: 'account' })
+      Teacher.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' })
       Teacher.belongsTo(models.Subject, { foreignKey: 'subjectId', as: 'subject' })
 
       Teacher.hasMany(models.TeachingAssignment, { foreignKey: 'subjectTeacherId', as: 'teachingAssignment' })
