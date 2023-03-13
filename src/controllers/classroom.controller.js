@@ -247,7 +247,7 @@ const postClassroomHeadTeacherAssignment = async (req, res, next) => {
 
 const getClassroomSubjectTeacherAssignment = async (req, res, next) => {
   const { id } = req.params
-
+  console.log(id);
   try {
     const classroom = await classroomService.getClassroomById(id)
     const teachersBySubjects = await teacherService.getAllTeachersByAllSubjects()

@@ -82,7 +82,7 @@ const putAccountResetPassword = async (req, res, next) => {
   try {
     const result = await accountService.resetPassword(id)
 
-    req.flash('successMsg', ``)
+    req.flash('successMsg', `Reset mật khẩu tài khoản ${id} thành công`)
     res.redirect('/')
     
   } catch (error) {

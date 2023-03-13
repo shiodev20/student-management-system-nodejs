@@ -12,7 +12,6 @@ const markTypeService = require('./markType.service')
 
 
 const getClassroomById = async (id) => {
-
   try {
     const result = await Classroom.findOne({
       where: { id: { [Op.eq]: id } },
