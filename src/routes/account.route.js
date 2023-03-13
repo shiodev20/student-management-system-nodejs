@@ -2,7 +2,6 @@ const router = require('express').Router()
 const {
   getAccountAdd,
   postAccountAdd,
-  getAccountUpdate,
   putAccountUpdateStatus,
   putAccountUpdateRole,
   putAccountResetPassword,

@@ -68,61 +68,6 @@ const postAccountAdd = async (req, res, next) => {
   }
 }
 
-// const getAccountUpdate = async (req, res, next) => {
-//   const { id } = req.params
-
-//   try {
-//     const account = await accountService.getAccountById(id)
-//     const roles = await roleService.getRoleList()
-
-//     res.render('account/update', {
-//       documentTitle: 'Cập nhật tài khoản',
-//       account,
-//       roles,
-//     })
-
-//   } catch (error) {
-//     switch (error.code) {
-//       case 0, 1:
-//         err.type = 'errorMsg'
-//         err.message = error.message
-//         err.url = '/'
-//         break;
-//     }
-
-//     next(err)
-//   }
-// }
-
-// const putAccountUpdate = async (req, res, next) => {
-//   const { accountId, username, password, role } = req.body
-
-//   try {
-//     if (!accountId || !username || !password || !role) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
-
-//     const result = await accountService.updateAccount({
-//       id: accountId,
-//       username,
-//       password,
-//       roleId: role
-//     })
-    
-//     req.flash('successMsg', `Cập nhật tài khoản ${accountId} thành công`)
-//     res.redirect(`/tai-khoan/cap-nhat-tai-khoan/${accountId}`)
-
-//   } catch (error) {
-//     switch (error.code) {
-//       case 0, 1:
-//         err.type = 'errorMsg'
-//         err.message = error.message
-//         err.url = `/tai-khoan/cap-nhat-tai-khoan/${accountId}`
-//         break;
-//     }
-
-//     next(err)
-//   }
-// }
-
 const putAccountUpdateStatus = async (req, res, next) => {
   const { id } = req.params
   try {
