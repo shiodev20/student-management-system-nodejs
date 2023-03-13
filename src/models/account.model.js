@@ -13,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Account.hasOne(models.Employee, { foreignKey: 'accountId', as: 'employee' })
       Account.hasOne(models.Teacher, { foreignKey: 'accountId', as: 'teacher' })
-
-      Account.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' })
     }
   }
   Account.init({

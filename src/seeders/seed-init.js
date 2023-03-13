@@ -26,7 +26,8 @@ module.exports = {
     await queryInterface.bulkInsert('roles', [
       { id: 'VT1', name: 'Giáo vụ' },
       { id: 'VT2', name: 'Giáo viên' },
-      { id: 'VT3', name: 'Quản trị viên' }
+      { id: 'VT3', name: 'Quản trị viên' },
+      { id: 'VT4', name: 'Nhân sự'},
     ], {})
     console.log('done ', 'roles');
 
@@ -434,7 +435,6 @@ module.exports = {
         username: 'NV000001',
         password: '$2b$10$9uT8hlVXwLU6ZnGgu46RtuGS5rJLTZmzPjjIGUov4CEe4ALWt2u..',
         status: 1,
-        roleId: 'VT1',
         createdAt: '2023-01-13 11:31:39'
       },
       {
@@ -442,7 +442,6 @@ module.exports = {
         username: 'NV000002',
         password: '$2b$10$dqPTEcwSnZT/oXaXzMOCb.UB.Ork4eVe4gxk8lg4kf8UVuPtwoS6O',
         status: 1,
-        roleId: 'VT1',
         createdAt: '2023-01-13 11:32:39'
       },
       {
@@ -450,7 +449,6 @@ module.exports = {
         username: 'NV000004',
         password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
-        roleId: 'VT3',
         createdAt: '2023-01-13 11:33:39'
       },
       {
@@ -458,7 +456,6 @@ module.exports = {
         username: 'GV000001',
         password: '$2b$10$4wrouDHTRF1T.khO50LeTOiEuuGLmA4zHPVud0KRkiJDy.2XgXOIa',
         status: 1,
-        roleId: 'VT2',
         createdAt: '2023-01-13 11:34:39'
       },
       {
@@ -466,7 +463,6 @@ module.exports = {
         username: 'GV000002',
         password: '$2b$10$5k.Ab6ux3gO8GYKRxvzOCuqlhSqGRcXDmMs/v22kSYkbtpS.AipmW',
         status: 1,
-        roleId: 'VT2',
         createdAt: '2023-01-13 11:35:39'
       }
     ], {})
@@ -474,7 +470,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('employees', [
       {
-        id: "NV00001",
+        id: "NV000001",
         firstName: "Leona",
         lastName: "Yoseloff",
         gender: 0,
@@ -483,6 +479,7 @@ module.exports = {
         email: "lyoseloff0@princeton.edu",
         phone: "3759552263",
         accountId: 'TK000001',
+        roleId: 'VT1',
       },
       {
         id: "NV000002",
@@ -494,6 +491,7 @@ module.exports = {
         email: "ktomek1@google.com",
         phone: "4872961506",
         accountId: 'TK000002',
+        roleId: 'VT1'
       },
       {
         id: "NV000003",
@@ -505,6 +503,7 @@ module.exports = {
         email: "saldhouse2@hao123.com",
         phone: "6299830993",
         accountId: null,
+        roleId: 'VT1'
       },
       {
         id: "NV000004",
@@ -516,6 +515,7 @@ module.exports = {
         email: "nhaslin3@fc2.com",
         phone: "3105964100",
         accountId: 'TK000003',
+        roleId: 'VT3'
       },
       {
         id: "NV000005",
@@ -527,6 +527,7 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: "1095019190",
         accountId: null,
+        roleId: 'VT4'
       }
     ])
     console.log('done ', 'employees');
@@ -542,7 +543,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '5484261865',
         subjectId: 'MH1',
-        accountId: 'TK000004'
+        accountId: 'TK000004',
+        roleId: 'VT2',
       },
       {
         id: 'GV000002',
@@ -554,7 +556,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1762753746',
         subjectId: 'MH1',
-        accountId: 'TK000005'
+        accountId: 'TK000005',
+        roleId: 'VT2',
       },
       {
         id: 'GV000003',
@@ -566,7 +569,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1254944004',
         subjectId: 'MH2',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000004',
@@ -578,7 +582,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1762753746',
         subjectId: 'MH2',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000005',
@@ -590,7 +595,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1762753746',
         subjectId: 'MH3',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000006',
@@ -602,7 +608,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '3564418282',
         subjectId: 'MH3',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000007',
@@ -614,7 +621,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '8413465984',
         subjectId: 'MH4',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000008',
@@ -626,7 +634,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '1902442218',
         subjectId: 'MH4',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000009',
@@ -638,7 +647,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '4294257091',
         subjectId: 'MH5',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000010',
@@ -650,7 +660,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '8598167059',
         subjectId: 'MH5',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000011',
@@ -662,7 +673,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '8598167059',
         subjectId: 'MH6',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000012',
@@ -674,7 +686,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '8598167059',
         subjectId: 'MH6',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000013',
@@ -686,7 +699,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH7',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000014',
@@ -698,7 +712,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH7',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000015',
@@ -710,7 +725,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH8',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000016',
@@ -722,7 +738,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH8',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000017',
@@ -734,7 +751,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH9',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000018',
@@ -746,7 +764,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH9',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000019',
@@ -758,7 +777,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH1',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
       {
         id: 'GV000020',
@@ -770,7 +790,8 @@ module.exports = {
         email: "sgeorgeau4@linkedin.com",
         phone: '6123969244',
         subjectId: 'MH2',
-        accountId: null
+        accountId: null,
+        roleId: 'VT2',
       },
     ], {})
     console.log('done ', 'teachers');

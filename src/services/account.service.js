@@ -9,9 +9,22 @@ const getAccountList = async () => {
   try {
     const result = await Account.findAll({
       include: [
-        { model: Role, as: 'role' },
-        { model: Teacher, as: 'teacher' },
-        { model: Employee, as: 'employee' },
+        { 
+          model: Teacher, 
+          as: 'teacher',
+          include: {
+            model: Role,
+            as: 'role'
+          }
+        },
+        { 
+          model: Employee, 
+          as: 'employee',
+          include: {
+            model: Role,
+            as: 'role',
+          } 
+        },
       ]
     })
 
@@ -42,7 +55,7 @@ const getAccountByUsername = async (username) => {
     const result = await Account.findOne({
       where: { username: { [Op.eq]: username } }
     })
-
+    
     return result
   } catch (error) {
     if (error.code != 0) throw error
@@ -53,11 +66,13 @@ const getAccountByUsername = async (username) => {
 const getNoAccountEmplList = async () => {
   try {
     const teachers = await Teacher.findAll({
-      where: { accountId: { [Op.eq]: null } }
+      where: { accountId: { [Op.eq]: null } },
+      include: { model: Role, as: 'role' },
     })
 
     const employees = await Employee.findAll({
-      where: { accountId: { [Op.eq]: null } }
+      where: { accountId: { [Op.eq]: null } },
+      include: { model: Role, as: 'role' }
     })
 
     return [...teachers, ...employees]
@@ -74,7 +89,6 @@ const addAccount = async ({ id, username, roleId }) => {
     const account = await Account.findByPk(id)
     if(account) throw customError(1, `Tài khoản ${id} đã tồn tại`)
 
-    const role = await roleService.getRoleById(roleId)
     const hashPassword = await bcrypt.hash('qwerty', 10)
 
     let empl = await Teacher.findByPk(username)
@@ -84,7 +98,6 @@ const addAccount = async ({ id, username, roleId }) => {
       id,
       username,
       password: hashPassword,
-      roleId: role.id
     })
 
     await empl.update({
@@ -144,20 +157,20 @@ const updateAccountStatus = async (id) => {
   }
 }
 
-const updateAccountRole = async (id, roleId) => {
-  try {
-    const account = await getAccountById(id)
-    const role = await roleService.getRoleById(roleId)
+// const updateAccountRole = async (id, roleId) => {
+//   try {
+//     const account = await getAccountById(id)
+//     const role = await roleService.getRoleById(roleId)
 
-    const result = await account.update({ roleId: role.id })
+//     const result = await account.update({ roleId: role.id })
 
-    return result
+//     return result
 
-  } catch (error) {
-    if(error.code != 0) throw error
-    throw customError()
-  }
-}
+//   } catch (error) {
+//     if(error.code != 0) throw error
+//     throw customError()
+//   }
+// }
 
 const resetAccountPassword = async (id) => {
   try {
@@ -200,6 +213,6 @@ exports.getNoAccountEmplList = getNoAccountEmplList
 exports.addAccount = addAccount
 exports.updateAccount = updateAccount
 exports.updateAccountStatus = updateAccountStatus
-exports.updateAccountRole = updateAccountRole
+// exports.updateAccountRole = updateAccountRole
 exports.resetPassword = resetAccountPassword
 exports.deleteAccount = deleteAccount

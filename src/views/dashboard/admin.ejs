@@ -85,26 +85,8 @@
                             <td class="font-weight-bold"><%= account.id %></td>
                             <td class="font-weight-bold"><%= account.username %></td>
                             <td class="font-weight-bold"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
-                            <td>
-                              <form action="/tai-khoan/cap-nhat-vai-tro/<%= account.id %>?_method=PUT" method="POST">
-                                <div class="input-group">
-                                  <select class="form-control form-control-sm font-weight-bold" name="role">
-                                    <% roles.forEach(role => { %>
-                                      <% if(role.id === account.roleId) { %>
-                                        <option value="<%= role.id %>" selected><%= role.name %></option>
-                                      <% } else { %>
-                                        <option value="<%= role.id %>"><%= role.name %></option>
-                                      <% } %>
-                                    <% }) %>
-                                  </select>
-                                  <div class="input-group-append">
-                                    <button class="btn btn-success btn-icon mr-1">
-                                      <i class='fa-solid fa-pencil'></i>
-                                    </button>
-                                  </div>
-                                </div>
-                              </form>
-                              
+                            <td class="font-weight-bold">
+                              <%= account.employee ? account.employee.role.name : account.teacher.role.name %>
                             </td>
               
                             <td>
@@ -123,8 +105,6 @@
                                 </button>
                               </form>
                 
-                              
-
                               <form action="/tai-khoan/reset-mat-khau/<%= account.id %>?_method=PUT" method="POST">
                                 <button class="btn btn-warning btn-icon mr-1">
                                   <i class='fa-solid fa-key'></i>
@@ -136,7 +116,9 @@
                                   <i class='fa-solid fa-trash'></i>
                                 </button>
                               </form>
+
                             </td>
+                            
                           </tr>
                         <% }) %>
               

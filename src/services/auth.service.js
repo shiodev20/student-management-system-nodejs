@@ -11,12 +11,12 @@ const getUserInfo = async (accountId) => {
     
     if(!user) throw customError(1, `Không tìm thấy nhân viên`)
     
-    const account = await accountService.getAccountById(accountId)
+    // const account = await accountService.getAccountById(accountId)
 
     const result = {
       id: user.id,
       fullName: user.fullName,
-      role: account.roleId
+      role: user.roleId
     }
 
     return result

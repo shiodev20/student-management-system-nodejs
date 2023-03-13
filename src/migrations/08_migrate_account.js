@@ -26,10 +26,6 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('now')
       },
-      roleId: {
-        type: Sequelize.STRING(6),
-        allowNull: false,
-      }
     });
   },
   async down(queryInterface, Sequelize) {

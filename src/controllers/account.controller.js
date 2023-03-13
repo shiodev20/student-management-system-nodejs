@@ -8,12 +8,10 @@ const err = { type: '', message: '', url: '' }
 const getAccountAdd = async (req, res, next) => {
   try {
     const noAccountEmplList = await accountService.getNoAccountEmplList()
-    const roles = await roleService.getRoleList()
 
     res.render('account/add', {
       documentTitle: 'Tạo tài khoản',
       noAccountEmplList,
-      roles,
     })
     
   } catch (error) {
@@ -29,19 +27,13 @@ const getAccountAdd = async (req, res, next) => {
 
 const postAccountAdd = async (req, res, next) => {
   const { id: username } = req.params
-  const { role } = req.body
   
   try {
-    if(!role) {
-      throw customError(2, `Vui lòng chọn quyền tài tài khoản`)
-    }
-
     const accountId = generateId('TK')
 
     const account = {
       id: accountId,
       username,
-      roleId: role
     }
 
     const result = await accountService.addAccount(account)
