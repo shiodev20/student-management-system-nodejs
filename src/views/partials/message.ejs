@@ -1,13 +1,17 @@
 <% if(successMsg.length > 0) { %>
-  <div class="notification is-success">
-    <button class="delete"></button>
+  <div class="notification bg-success">
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <%= successMsg[0] %>
   </div>
 <% } %>
 
 <% if(errorMsg.length > 0) { %>
-  <div class="notification is-danger">
-    <button class="delete"></button>
+  <div class="notification bg-danger">
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <%= errorMsg[0] %>
   </div>
 <% } %>

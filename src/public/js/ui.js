@@ -68,11 +68,11 @@ const notification = document.querySelector('.notification')
 const handleNotification = (notification) => {
   if(notification) {
     document.addEventListener('DOMContentLoaded', () => {
-      (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-        const $notification = $delete.parentNode;
+      (document.querySelectorAll('.notification .close') || []).forEach((btnClose) => {
+        const snotification = btnClose.parentNode;
     
-        $delete.addEventListener('click', () => {
-          $notification.parentNode.removeChild($notification);
+        btnClose.addEventListener('click', () => {
+          snotification.parentNode.removeChild(notification);
         });
       });
     });
