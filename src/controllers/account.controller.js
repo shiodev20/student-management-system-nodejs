@@ -8,10 +8,12 @@ const err = { type: '', message: '', url: '' }
 const getAccountAdd = async (req, res, next) => {
   try {
     const noAccountEmplList = await accountService.getNoAccountEmplList()
+    const roles = await roleService.getRoleList()
 
     res.render('account/add', {
       documentTitle: 'Tạo tài khoản',
       noAccountEmplList,
+      roles,
     })
     
   } catch (error) {

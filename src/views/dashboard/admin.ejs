@@ -64,69 +64,160 @@
                 <div class="col">
                   <div class="card-title">Danh sách tài khoản</div>
 
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="table-primary">
-                        <tr>
-                          <th>STT</th>
-                          <th>Mã tài khoản</th>
-                          <th>Tên đăng nhập</th>
-                          <th>Tên người dùng</th>
-                          <th>Vai trò</th>
-                          <th>Trạng thái</th>
-                          <th>Lựa chọn</th>
-                        </tr>
-                      </thead>
-                      
-                      <tbody>
-                        <% accounts.forEach((account, idx) => { %>
-                          <tr>
-                            <th><%= idx + 1 %></th>
-                            <td class="font-weight-bold"><%= account.id %></td>
-                            <td class="font-weight-bold"><%= account.username %></td>
-                            <td class="font-weight-bold"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
-                            <td class="font-weight-bold">
-                              <%= account.employee ? account.employee.role.name : account.teacher.role.name %>
-                            </td>
-              
-                            <td>
-                              <% if(account.status) { %>
-                                <label class="badge badge-success">Còn hiệu lực</label>
-                              <% } else {%>
-                                <label class="badge badge-danger">Vô hiệu hóa</label>
-                              <% } %>
-                            </td>
-                                
-                            <td class="d-flex justify-content-center">
+                  <ul class="nav nav-tabs">
+                    <% roles.forEach((role, idx) => { %>
+
+                      <% if(idx == 0) { %>
+                        <li class="nav-item">
+                          <a class="nav-link font-weight-bold active" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab"><%= role.name %></a>
+                        </li>
+                      <% } else { %> 
+                        <li class="nav-item">
+                          <a class="nav-link font-weight-bold" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab" ><%= role.name %></a>
+                        </li>
+                      <% } %>
+
+                    <% }) %>
+                  </ul>
+
+                  <div class="tab-content">
+                    <% roles.forEach((role, idx) => { %>
+
+                      <% if(idx == 0) { %>
+                        <div class="tab-pane fade show active" id="<%= role.id %>">
+
+                          <div class="table-responsive">
+                            <table class="table table-hover">
+                              <thead class="table-primary">
+                                <tr>
+                                  <th>STT</th>
+                                  <th>Mã tài khoản</th>
+                                  <th>Tên đăng nhập</th>
+                                  <th>Tên người dùng</th>
+                                  <th>Vai trò</th>
+                                  <th>Trạng thái</th>
+                                  <th>Lựa chọn</th>
+                                </tr>
+                              </thead>
                               
-                              <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST">
-                                <button class="btn btn-info btn-icon mr-1">
-                                  <i class="fa-solid fa-rotate"></i>
-                                </button>
-                              </form>
-                
-                              <form action="/tai-khoan/reset-mat-khau/<%= account.id %>?_method=PUT" method="POST">
-                                <button class="btn btn-warning btn-icon mr-1">
-                                  <i class='fa-solid fa-key'></i>
-                                </button>
-                              </form>
+                              <tbody>
+                                <% accounts.forEach((account, idx) => { %>
+                                  <% if( (account.employee && account.employee.role.id == role.id) || (account.teacher && account.teacher.role.id == role.id) ) { %>
+                                    <tr>
+                                      <th><%= idx + 1 %></th>
+                                      <td class="font-weight-bold"><%= account.id %></td>
+                                      <td class="font-weight-bold"><%= account.username %></td>
+                                      <td class="font-weight-bold"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
+                                      <td class="font-weight-bold"><%= account.employee ? account.employee.role.name : account.teacher.role.name %></td>
+                                      <td>
+                                        <% if(account.status) { %>
+                                          <label class="badge badge-success">Còn hiệu lực</label>
+                                        <% } else {%>
+                                          <label class="badge badge-danger">Vô hiệu hóa</label>
+                                        <% } %>
+                                      </td>
+                                      <td class="d-flex justify-content-center">
+                                        
+                                        <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST">
+                                          <button class="btn btn-info btn-icon mr-1">
+                                            <i class="fa-solid fa-rotate"></i>
+                                          </button>
+                                        </form>
+                          
+                                        <form action="/tai-khoan/reset-mat-khau/<%= account.id %>?_method=PUT" method="POST">
+                                          <button class="btn btn-warning btn-icon mr-1">
+                                            <i class='fa-solid fa-key'></i>
+                                          </button>
+                                        </form>
+          
+                                        <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST">
+                                          <button class="btn btn-danger btn-icon mr-1">
+                                            <i class='fa-solid fa-trash'></i>
+                                          </button>
+                                        </form>
+          
+                                      </td>
+                                    </tr>
+                                  <% } %>
+                                <% }) %>
+                      
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      <% } else { %>
+                        <div class="tab-pane fade" id="<%= role.id %>">
+                          <div class="table-responsive">
+                            <table class="table table-hover">
+                              <thead class="table-primary">
+                                <tr>
+                                  <th>STT</th>
+                                  <th>Mã tài khoản</th>
+                                  <th>Tên đăng nhập</th>
+                                  <th>Tên người dùng</th>
+                                  <th>Vai trò</th>
+                                  <th>Trạng thái</th>
+                                  <th>Lựa chọn</th>
+                                </tr>
+                              </thead>
+                              
+                              <tbody>
+                                <% accounts.forEach((account, idx) => { %>
+                                  <% if( (account.employee && account.employee.role.id == role.id) || (account.teacher && account.teacher.role.id == role.id) ) { %>
+                                    <tr>
+                                      <th><%= idx + 1 %></th>
+                                      <td class="font-weight-bold"><%= account.id %></td>
+                                      <td class="font-weight-bold"><%= account.username %></td>
+                                      <td class="font-weight-bold"><%= account.employee ? account.employee.fullName : account.teacher.fullName %></td>
+                                      <td class="font-weight-bold">
+                                        <%= account.employee ? account.employee.role.name : account.teacher.role.name %>
+                                      </td>
+                        
+                                      <td>
+                                        <% if(account.status) { %>
+                                          <label class="badge badge-success">Còn hiệu lực</label>
+                                        <% } else {%>
+                                          <label class="badge badge-danger">Vô hiệu hóa</label>
+                                        <% } %>
+                                      </td>
+                                          
+                                      <td class="d-flex justify-content-center">
+                                        
+                                        <form action="/tai-khoan/cap-nhat-trang-thai/<%= account.id %>?_method=PUT" method="POST">
+                                          <button class="btn btn-info btn-icon mr-1">
+                                            <i class="fa-solid fa-rotate"></i>
+                                          </button>
+                                        </form>
+                          
+                                        <form action="/tai-khoan/reset-mat-khau/<%= account.id %>?_method=PUT" method="POST">
+                                          <button class="btn btn-warning btn-icon mr-1">
+                                            <i class='fa-solid fa-key'></i>
+                                          </button>
+                                        </form>
+          
+                                        <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST">
+                                          <button class="btn btn-danger btn-icon mr-1">
+                                            <i class='fa-solid fa-trash'></i>
+                                          </button>
+                                        </form>
+          
+                                      </td>
+                                      
+                                    </tr>
+                                  <% } %>
+                                <% }) %>
+                      
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      <% } %>
 
-                              <form action="/tai-khoan/xoa-tai-khoan/<%= account.id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-danger btn-icon mr-1">
-                                  <i class='fa-solid fa-trash'></i>
-                                </button>
-                              </form>
-
-                            </td>
-                            
-                          </tr>
-                        <% }) %>
-              
-                      </tbody>
-                    </table>
+                    <% }) %>
                   </div>
-                </div
-                >
+
+                  
+                </div>
               </div>
             </div>
           </div>
