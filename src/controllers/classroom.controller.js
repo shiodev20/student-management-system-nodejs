@@ -18,12 +18,14 @@ const getClassroomDashboard = async (req, res, next) => {
     }
 
     const years = await yearService.getYearList()
+    const grades = await gradeService.getGradeList()
     const classrooms = await classroomService.getClassroomByYear(selectedYear)
 
     res.render('classroom/home', {
       documentTitle: 'Quản lý lớp học',
       selectedYear,
       years,
+      grades,
       classrooms,
     })
 
