@@ -168,8 +168,8 @@ const putStudentUpdate = async (req, res, next) => {
         err.message = error.message
         err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
         break;
-      case 1:
-        err.type = 'errorMsg'
+      case 2:
+        err.type = 'formMsg'
         err.message = error.message
         err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
         break;

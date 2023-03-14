@@ -30592,7 +30592,7 @@ div.tagsinput span.tag a {
   }
 }
 
-input:read-only {
+/* input:read-only {
   background-color: #fff !important;
 }
 
@@ -30628,5 +30628,16 @@ input:read-only {
   top: 0;
   right: 10px;
 }
+
+.form-msg {
+  border-radius: 5px;
+  color: #fff;
+}
+
+.form-msg ul {
+  margin: 0;
+  list-style: none;
+} */
+
 
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

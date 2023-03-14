@@ -23,38 +23,38 @@
   
                   <div class="col-md-4 col-sm-12 mb-4">
                     <label for="info">Mã lớp</label>
-                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.id %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.id %>" readonly>
                   </div>
   
                   <div class="col-md-4 col-sm-12 mb-4">
                     <label for="info">Năm học</label>
-                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.yearId %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.yearId %>" readonly>
                   </div>
   
                   <div class="col-md-4 col-sm-12 mb-4">
                     <label for="info">Khối lớp</label>
-                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.gradeId %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.gradeId %>" readonly>
                   </div>
   
                   <div class="col-md-4 col-sm-12 mb-4">
                     <label for="info">Lớp</label>
-                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.name %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.name %>" readonly>
                   </div> 
 
                   <div class="col-md-4 col-sm-12 mb-4">
                     <label for="info">Sĩ số</label>
-                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.size %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.size %>" readonly>
                   </div> 
                   
                   <div class="col-md-4 col-sm-12 mb-4">
                     <label for="info">Giáo viên chủ nhiệm</label>
-                    <input type="text" id="info" class="form-control form-control-sm" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
                   </div>
                 </div>
                 
                 <hr>
 
-                <button type="submit" class="btn btn-primary mb-4">Cập nhất</button>
+                <button type="submit" class="btn btn-primary mb-4">Cập nhật</button>
               
                 <div class="table-responsive">
                   <table class="table table-hover">
@@ -68,26 +68,15 @@
                         <th>Lựa chọn</th>
                       </tr>
                     </thead>
-  
-                    <tfoot class="table-primary">
-                      <tr>
-                        <th>STT</th>
-                        <th>Mã giáo viên</th>
-                        <th>Họ tên giáo viên</th>
-                        <th>Giới tính</th>
-                        <th>Môn giảng dạy</th>
-                        <th>Lựa chọn</th>
-                      </tr>
-                    </tfoot>
 
                     <tbody>
                       <% noAssignmentHeadTeacherList.forEach((teacher, idx) => { %>
                         <tr>
                           <th><%= idx + 1 %></th>
-                          <td><%= teacher.id %></td>
-                          <td><%= teacher.fullName %></td>
-                          <td><%= teacher.genderText %></td>
-                          <td><%= teacher.subject.name %></td>
+                          <td class="font-weight-bold"><%= teacher.id %></td>
+                          <td class="font-weight-bold"><%= teacher.fullName %></td>
+                          <td class="font-weight-bold"><%= teacher.genderText %></td>
+                          <td class="font-weight-bold"><%= teacher.subject.name %></td>
                           <td class="d-flex justify-content-center">
                             <div class="form-check">
                               <label class="form-check-label">

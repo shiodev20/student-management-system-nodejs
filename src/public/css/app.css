@@ -1,0 +1,46 @@
+input:read-only {
+  background-color: #fff !important;
+}
+
+.login-formGroup {
+  position: relative;
+}
+
+.login-formGroup input {
+  padding-left: 40px;
+}
+
+.login-formGroup i {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  opacity: 0.3;
+}
+
+.notification {
+  position: fixed;
+  bottom: 10px;
+  left: -600px;
+  max-width: 500px;
+  padding: 30px;
+  color: #fff;
+  border-radius: 5px;
+  transition: left .5s ease;
+  z-index: 99;
+}
+
+.notification .close {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+.form-msg {
+  border-radius: 5px;
+  color: #fff;
+}
+
+.form-msg ul {
+  margin: 0;
+  list-style: none;
+}
