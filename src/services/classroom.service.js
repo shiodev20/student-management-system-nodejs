@@ -10,6 +10,19 @@ const subjectService = require('./subject.service')
 const semesterService = require('./semester.service')
 const markTypeService = require('./markType.service')
 
+
+const getClassroomList = async () => {
+  try {
+    const result = await Classroom.findAll()
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 const getClassroomById = async (id) => {
   try {
     const result = await Classroom.findOne({
@@ -335,6 +348,7 @@ const deleteClassroom = async (id) => {
   }
 }
 
+exports.getClassroomList = getClassroomList
 exports.getClassroomById = getClassroomById
 exports.getClassroomByYear = getClassroomByYear
 exports.getClassroomByStudent = getClassroomByStudent

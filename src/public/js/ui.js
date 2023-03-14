@@ -1,66 +1,4 @@
 /**
- *  Navbar mobile
- */
-
-const navbarToggleBtn = document.querySelector('.navbar-burger')
-const navbarMenu = document.querySelector('.navbar-menu')
-
-const handleMobileNavbar = (navbarToggleBtn, navbarMenu) => {
-  if(navbarToggleBtn && navbarMenu) {
-    navbarToggleBtn.addEventListener('click', () => {
-      navbarMenu.classList.toggle('is-active')
-    })
-  }
-}
-
-/** 
- * Classroom detail tab
-*/
-
-const tabItems = document.querySelectorAll('.tab-item')
-const paneItems = document.querySelectorAll('.pane-item')
-
-const handleTab = (tabItems, paneItems) => {
-  if(tabItems.length > 0 && paneItems.length > 0) {
-    tabItems.forEach(tab => {
-      tab.addEventListener('click', () => {
-    
-        tabItems.forEach(tab => tab.classList.remove('is-active'))
-    
-        tab.classList.add('is-active')
-    
-        const tabId = tab.attributes.id.value
-    
-        let paneActive = null
-    
-        paneItems.forEach(pane => {
-          pane.style.display = 'none'
-          if(pane.attributes.id.value == tabId) paneActive = pane
-        })
-        
-        paneActive.style.display = 'block'
-      })
-    })
-  }
-}
-
-/**
- * Account active checkbox
- */
-const accountActiveInputs = document.querySelectorAll('.account-active-input')
-
-const disableAccountActiveInputClick = (accountActiveInputs) => {
-  if(accountActiveInputs) {
-    accountActiveInputs.forEach(input => {
-      input.addEventListener('click', (e) => {
-        e.preventDefault();
-      })
-    })
-  }
-}
-
-
-/**
  * Flash message
  */
 const notification = document.querySelector('.notification')
@@ -84,20 +22,6 @@ const handleNotification = (notification) => {
     setTimeout(() => {
       notification.style.left = '-600px';
     }, 5000)
-  }
-}
-
-/**
- *  Modal
- */
-const modal = document.querySelector('#modal')
-const modalCloseBtn = document.querySelector('#modal .modal-close')
-
-const handleModal = (modal, modalCloseBtn) => {
-  if(modal && modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', () => {
-      modal.classList.remove('is-active')
-    })
   }
 }
 
@@ -147,10 +71,32 @@ const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
   }
 }
 
+/**
+ *  
+ */
+const firstReportYearSelect = document.querySelector('#report-classroom-subject-score select#year')
+const firstReportClassroomSelect = document.querySelector('#report-classroom-subject-score select#classroom')
+const firstReportClassroomOptions = document.querySelectorAll('#report-classroom-subject-score select#classroom option')
 
-handleTab(tabItems, paneItems)
-handleMobileNavbar(navbarToggleBtn, navbarMenu)
+
+const handleFirstReport = (yearSelect, classroomSelect, classroomOptions) => {
+  yearSelect.addEventListener('change', (e) => {
+    const year = e.target.value
+  
+    let html = ''
+  
+    classroomOptions.forEach(option => {
+      let value = option.innerHTML.split(' - ')[0]
+  
+      if(value == year) {
+        html += `<option value="${option.value}">${option.innerHTML}</option>`
+      }
+    })
+  
+    classroomSelect.innerHTML = html
+  })
+}
+
 handleNotification(notification)
-handleModal(modal, modalCloseBtn)
 handleCheckClassSize(classSize, classSizeMax, assignStudentInputs)
-disableAccountActiveInputClick(accountActiveInputs)
+handleFirstReport(firstReportYearSelect, firstReportClassroomSelect, firstReportClassroomOptions)
