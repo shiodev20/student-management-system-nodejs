@@ -10,7 +10,7 @@ const yearService = require('./year.service')
 const getTeacherById = async (id) => {
   try {
     const result = await Teacher.findByPk(id)
-    if(!result) throw customError(1, `không tìm thấy giáo viên ${id}`)
+    // if(!result) throw customError(1, `không tìm thấy giáo viên ${id}`)
 
     return result
 

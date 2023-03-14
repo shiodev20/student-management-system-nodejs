@@ -3,7 +3,9 @@ const { Op } = require('sequelize')
 const { Account, Role, Teacher, Employee } = require('../models')
 const customError = require('../utils/customError')
 
-const roleService = require('./role.service')
+const teacherService = require('./teacher.service')
+const employeeService = require('./employee.service')
+
 
 const getAccountList = async () => {
   try {
@@ -40,7 +42,7 @@ const getAccountList = async () => {
 const getAccountById = async (id) => {
   try {
     const result = await Account.findByPk(id)
-    if (!result) throw customError(1, `Không tìm thấy tài khoản ${id}`)
+    // if (!result) throw customError(1, `Không tìm thấy tài khoản ${id}`)
 
     return result
 
@@ -84,15 +86,21 @@ const getNoAccountEmplList = async () => {
   }
 }
 
-const addAccount = async ({ id, username, roleId }) => {
+const addAccount = async ({ id, username }) => {
   try {
-    const account = await Account.findByPk(id)
+    // const account = await Account.findByPk(id)
+    const account = await getAccountById(id)
     if(account) throw customError(1, `Tài khoản ${id} đã tồn tại`)
 
-    const hashPassword = await bcrypt.hash('qwerty', 10)
+    // let empl = await Teacher.findByPk(username)
+    // if(!empl) empl = await Employee.findByPk(username)
 
-    let empl = await Teacher.findByPk(username)
-    if(!empl) empl = await Employee.findByPk(username)
+    let empl = await teacherService.getTeacherById(username)
+    if(!empl) empl = await employeeService.getEmployeeById(username)
+
+    if(!empl) throw customError(1, `Không tìm thấy nhân viên ${username}`)
+
+    const hashPassword = await bcrypt.hash('12345', 10)
 
     const result = await Account.create({
       id,
@@ -112,40 +120,10 @@ const addAccount = async ({ id, username, roleId }) => {
   }
 }
 
-const updateAccount = async ({ id, username, password, roleId }) => {
-  try {
-    const updateAccount = {}
-
-    const account = await getAccountById(id)
-    const role = await roleService.getRoleById(roleId)
-
-    if (account.username.toLowerCase() !== username.toLowerCase()) throw customError(2, `Tên đăng nhập không trùng khớp`)
-
-    updateAccount.id = account.id
-    updateAccount.roleId = role.id
-    updateAccount.username = account.username
-    
-    const isMatchPassword = password === account.password ? true : false
-
-    if (!isMatchPassword)
-    {
-      const hashPassword = await bcrypt.hash(password, 10)
-      updateAccount.password = hashPassword
-    }
-
-    const result = await account.update(updateAccount)
-
-    return result
-
-  } catch (error) {
-    if (error.code != 0) throw error
-    throw customError()
-  }
-}
-
 const updateAccountStatus = async (id) => {
   try {
     const account = await getAccountById(id)
+    if(!account) throw customError(1, `Không tìm thấy tài khoản ${id}`)
 
     const result = await account.update({ status: !account.status })
 
@@ -157,24 +135,11 @@ const updateAccountStatus = async (id) => {
   }
 }
 
-// const updateAccountRole = async (id, roleId) => {
-//   try {
-//     const account = await getAccountById(id)
-//     const role = await roleService.getRoleById(roleId)
-
-//     const result = await account.update({ roleId: role.id })
-
-//     return result
-
-//   } catch (error) {
-//     if(error.code != 0) throw error
-//     throw customError()
-//   }
-// }
-
 const resetAccountPassword = async (id) => {
   try {
     const account = await getAccountById(id)
+    if(!account) throw customError(1, `Không tìm thấy nhân viên ${id}`)
+
     const hashPassword = await bcrypt.hash('123456', 10)
 
     const result = await account.update({ password: hashPassword })
@@ -190,10 +155,13 @@ const resetAccountPassword = async (id) => {
 const deleteAccount = async (id) => {
   try {
     const account = await getAccountById(id)
+    if(!account) throw customError(1, `Không tìm thấy nhân viên ${id}`)
 
     let empl = await Employee.findOne({ where: { accountId: { [Op.eq]: account.id } } })
     if(!empl) empl = await Teacher.findOne({ where: { accountId: { [Op.eq]: account.id } } })
     
+    if(!empl) throw customError(1, `Không tìm thấy nhân viên ${username} của tài khoản ${id}`)
+
     await empl.update({ accountId: null })
 
     const result = await account.destroy()
@@ -211,8 +179,6 @@ exports.getAccountById = getAccountById
 exports.getAccountByUsername = getAccountByUsername
 exports.getNoAccountEmplList = getNoAccountEmplList
 exports.addAccount = addAccount
-exports.updateAccount = updateAccount
 exports.updateAccountStatus = updateAccountStatus
-// exports.updateAccountRole = updateAccountRole
 exports.resetPassword = resetAccountPassword
 exports.deleteAccount = deleteAccount

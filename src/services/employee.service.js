@@ -7,7 +7,7 @@ const accountService = require('./account.service')
 const getEmployeeById = async (id) => {
   try {
     const result = await Employee.findByPk(id)
-    if(!result) throw customError(1, `Không tìm thấy nhân viên ${id}`)
+    // if(!result) throw customError(1, `Không tìm thấy nhân viên ${id}`)
 
     return result
     

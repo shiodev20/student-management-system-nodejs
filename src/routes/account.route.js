@@ -19,7 +19,7 @@ router.post('/tao-tai-khoan/:id', [isLogin, isAdmin], postAccountAdd)
 
 router.put('/cap-nhat-trang-thai/:id', [isLogin, isAdmin], putAccountUpdateStatus)
 
-router.put('/cap-nhat-vai-tro/:id', [isLogin, isAdmin], putAccountUpdateRole)
+// router.put('/cap-nhat-vai-tro/:id', [isLogin, isAdmin], putAccountUpdateRole)
 
 router.put('/reset-mat-khau/:id', [isLogin, isAdmin], putAccountResetPassword)
 

@@ -53,12 +53,7 @@ const initialRoutes = (app) => {
       case 'VT3':
         const accounts = await accountService.getAccountList()
         const roles = await roleService.getRoleList()
-
-        // return res.json({
-        //   documentTitle: 'Trang chủ',
-        //   accounts,
-        //   roles,
-        // })
+        
         res.render('dashboard/admin', {
           documentTitle: 'Trang chủ',
           accounts,

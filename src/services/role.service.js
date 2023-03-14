@@ -16,9 +16,8 @@ const getRoleList = async () => {
 
 const getRoleById = async (id) => {
   try {
-    const role = await Role.findByPk(id)
-    if (!role) throw customError(1, `Không tìm thấy quyền người dùng`)
-    return role
+    const result = await Role.findByPk(id)
+    return result
 
   } catch (error) {
     if (error.code != 0) throw error

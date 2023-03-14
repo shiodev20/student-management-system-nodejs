@@ -1,5 +1,4 @@
 const { accountService, roleService } = require('../services')
-const customError = require('../utils/customError')
 const { generateId } = require('../utils/generateId')
 
 const err = { type: '', message: '', url: '' }
@@ -24,6 +23,8 @@ const getAccountAdd = async (req, res, next) => {
         err.url = `tai-khoan/tao-tai-khoan`
       break;
     }
+
+    next(err)
   }
 }
 
@@ -33,10 +34,7 @@ const postAccountAdd = async (req, res, next) => {
   try {
     const accountId = generateId('TK')
 
-    const account = {
-      id: accountId,
-      username,
-    }
+    const account = { id: accountId, username }
 
     const result = await accountService.addAccount(account)
 
@@ -44,21 +42,20 @@ const postAccountAdd = async (req, res, next) => {
     res.redirect('/tai-khoan/tao-tai-khoan')
 
   } catch (error) {
-    console.log(error);
-    // switch (error.code) {
-    //   case 1, 0:
-    //     err.type = 'errorMsg'
-    //     err.message = error.message
-    //     err.url = `/tai-khoan/tao-tai-khoan/${id}`
-    //     break;
-    //   case 2:
-    //     err.type = 'formMsg'
-    //     err.message = error.message
-    //     err.url = `/tai-khoan/tao-tai-khoan/${id}`
-    //     break;
-    // }
+    switch (error.code) {
+      case 1, 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/tai-khoan/tao-tai-khoan/${id}`
+        break;
+      case 2:
+        err.type = 'formMsg'
+        err.message = error.message
+        err.url = `/tai-khoan/tao-tai-khoan/${id}`
+        break;
+    }
 
-    // next(err)
+    next(err)
   }
 }
 
@@ -69,10 +66,17 @@ const putAccountUpdateStatus = async (req, res, next) => {
 
     req.flash('successMsg', `Cập nhật trạng thái tài khoản ${id} thành công`)
     res.redirect('/')
-
     
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -82,25 +86,19 @@ const putAccountResetPassword = async (req, res, next) => {
   try {
     const result = await accountService.resetPassword(id)
 
-    req.flash('successMsg', ``)
+    req.flash('successMsg', `Reset mật khẩu tài khoản ${id} thành công`)
     res.redirect('/')
     
   } catch (error) {
-    console.log(error);
-  }
-}
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+    }
 
-const putAccountUpdateRole = async (req, res, next) => {
-  const { id } = req.params
-  const { role } = req.body
-  try {
-    const result = await accountService.updateAccountRole(id, role)
-
-    req.flash('successMsg', ``)
-    res.redirect('/')
-
-  } catch (error) {
-    console.log(error);
+    next(err)
   }
 }
 
@@ -113,7 +111,15 @@ const deleteAccountDelete = async (req, res, next) => {
     res.redirect('/')
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -122,6 +128,6 @@ module.exports = {
   postAccountAdd,
   putAccountUpdateStatus,
   putAccountResetPassword,
-  putAccountUpdateRole,
+  // putAccountUpdateRole,
   deleteAccountDelete
 }
