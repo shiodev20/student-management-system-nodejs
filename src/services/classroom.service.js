@@ -10,15 +10,12 @@ const subjectService = require('./subject.service')
 const semesterService = require('./semester.service')
 const markTypeService = require('./markType.service')
 
-
 const getClassroomById = async (id) => {
-
   try {
     const result = await Classroom.findOne({
       where: { id: { [Op.eq]: id } },
       include: { model: Teacher, as: 'headTeacher' },
     })
-    if (!result) throw customError(1, `Không tìm thấy lớp học ${id}`)
 
     return result
 
@@ -31,6 +28,7 @@ const getClassroomById = async (id) => {
 const getClassroomByYear = async (yearId) => {
   try {
     const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const result = await Classroom.findAll({
       where: { yearId: { [Op.eq]: year.id } },
@@ -48,7 +46,10 @@ const getClassroomByYear = async (yearId) => {
 const getClassroomByStudent = async (studentId, yearId) => {
   try {
     const student = await studentService.getStudentById(studentId)
+    if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+
     const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const result = await Classroom.findOne({
       where: {
@@ -76,6 +77,7 @@ const getClassroomByStudent = async (studentId, yearId) => {
 const getSubjectTeacherByClassroom = async (classroomId) => {
   try {
     const classroom = await getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
 
     const result = []
 
@@ -103,7 +105,10 @@ const getSubjectTeacherByClassroom = async (classroomId) => {
 const getClassroomsBySubjectTeacher = async (subjectTeacherId, yearId) => {
   try {
     const subjectTeacher = await teacherService.getTeacherById(subjectTeacherId)
+    if(!subjectTeacher) throw customError(1, `Không tìm thấy giáo viên ${subjectTeacherId}`)
+
     const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const result = await Classroom.findAll({
       where: {
@@ -136,7 +141,7 @@ const getClassroomsBySubjectTeacher = async (subjectTeacherId, yearId) => {
 const addClassroom = async (classroom) => {
   try {
     const classroomId = generateClassroomId(classroom.yearId, classroom.name)
-    const isContainClassroom = await Classroom.findByPk(classroomId)
+    const isContainClassroom = await getClassroomById(classroomId)
 
     if (isContainClassroom) throw customError(1, 'Lớp học đã tồn tại')
 
@@ -167,13 +172,15 @@ const addClassroom = async (classroom) => {
 const addHeadTeacherToClassroom = async (classroomId, headTeacherId) => {
   try {
     const classroom = await getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
     const headTeacher = await teacherService.getTeacherById(headTeacherId)
-    
+    if(!headTeacher) throw customError(1, `Không tìm thấy giáo viên ${headTeacherId}`)
 
     // Xóa GVCN cũ khỏi "TeachingAssignemnt" (Nếu có)
     if (classroom.headTeacherId) {
       const oldHeadTeacher = await teacherService.getTeacherById(classroom.headTeacherId)
-
+      if(!oldHeadTeacher) throw customError(1, `Không tìm thấy GVCN cũ ${classroom.headTeacherId}`)
       const oldteachingAssingment = await TeachingAssignment.findOne({
         where: {
           [Op.and]: [
@@ -210,8 +217,13 @@ const addHeadTeacherToClassroom = async (classroomId, headTeacherId) => {
 const addSubjectTeacherToClassroom = async (classroomId, { subjectId, teacherId }) => {
   try {
     const classroom = await getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
     const subject = await subjectService.getSubjectById(subjectId)
+    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+
     const teacher = await teacherService.getTeacherById(teacherId)
+    if(!teacher) throw customError(1, `Không tìm thấy giáo viên ${teacherId}`)
 
     const teachingAssignment = await TeachingAssignment.findOne({
       where: {
@@ -236,7 +248,10 @@ const addStudentToClassroom = async (classroomId, studentId) => {
   try {
 
     const classroom = await getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
     const student = await studentService.getStudentById(studentId)
+    if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
 
     await classroom.update({ size: classroom.size + 1 })
 
@@ -275,7 +290,10 @@ const addStudentToClassroom = async (classroomId, studentId) => {
 const deleteStudentFromClassroom = async (classroomId, studentId) => {
   try {
     const classroom = await getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
     const student = await studentService.getStudentById(studentId)
+    if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
 
     const studentMarkRecords = await Mark.findAll({
       where: {

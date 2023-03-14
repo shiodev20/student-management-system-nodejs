@@ -53,9 +53,13 @@ const getClassroomAdd = async (req, res, next) => {
     })
 
   } catch (error) {
-    err.type = 'errorMsg'
-    err.message = error.message
-    err.url = '/lop-hoc/mo-lop-hoc'
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/lop-hoc/mo-lop-hoc'
+        break;
+    }
 
     next(err)
   }
@@ -67,6 +71,7 @@ const postClassroomAdd = async (req, res, next) => {
     if (!req.body.year || !req.body.grade || !req.body.classroomName) {
       throw customError(2, 'Vui lòng nhập đầy đủ thông tin')
     }
+
     const classroom = {
       yearId: req.body.year,
       gradeId: req.body.grade,
@@ -105,6 +110,8 @@ const getClassroomDetail = async (req, res, next) => {
   try {
     
     const classroom = await classroomService.getClassroomById(id)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
+
     const currentYear = await yearService.getCurrentYear()
     const currentSemester = await semesterService.getCurrentSemester()
     const students = await studentService.getStudentsByClassroom(classroom.id)
@@ -138,6 +145,8 @@ const getClassroomStudentAssignment = async (req, res, next) => {
 
   try {
     const classroom = await classroomService.getClassroomById(id)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
+
     const noClassroomAssignStudents = await studentService.getNoClassAssignmentStudents(classroom.gradeId, classroom.yearId)
 
     res.render('classroom/student-assignment', {
@@ -195,6 +204,8 @@ const getClassroomHeadTeacherAssignment = async (req, res, next) => {
 
   try {
     const classroom = await classroomService.getClassroomById(id)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
+
     const noAssignmentHeadTeacherList = await teacherService.getNoAssignmentHeadTeacherList()
 
     res.render('classroom/headTeacher-assignment', {
@@ -250,13 +261,10 @@ const getClassroomSubjectTeacherAssignment = async (req, res, next) => {
 
   try {
     const classroom = await classroomService.getClassroomById(id)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
+
     const teachersBySubjects = await teacherService.getAllTeachersByAllSubjects()
-
-    // return res.json({
-    //   classroom,
-    //   teachersBySubjects
-    // })
-
+    
     res.render('classroom/subjectTeacher-assignment', {
       documentTitle: 'Phân công giáo viên bộ môn',
       classroom,

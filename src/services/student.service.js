@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const { Student, Classroom, Year, Grade, ClassroomDetail } = require('../models')
-const { generateStudentId, generateId } = require('../utils/generateId')
+const { generateId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
 const classroomService = require('./classroom.service')
@@ -21,7 +21,6 @@ const getStudentList = async () => {
 const getStudentById = async (id) => {
   try {
     const result = await Student.findByPk(id)
-    if (!result) throw customError(1, `Không tìm thấy học sinh ${id}`)
 
     return result
 
@@ -70,7 +69,6 @@ const getStudentBySearch = async (info, type) => {
 
 const getStudentsByClassroom = async (classroomId) => {
   try {
-    // const classroom = await Classroom.findByPk(classroomId)
     const classroom = await classroomService.getClassroomById(classroomId)
 
     if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
@@ -161,10 +159,6 @@ const getNoClassAssignmentStudents = async (gradeId, yearId) => {
 
 const addStudent = async (student) => {
   try {
-    // const lastStudent = await Student.findOne({
-    //   order: [['enrollDate', 'DESC']]
-    // })
-
     const studentId = generateId('HS')
 
     const result = await Student.create({

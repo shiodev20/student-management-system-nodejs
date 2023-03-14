@@ -16,7 +16,6 @@ const getYearList = async () => {
 const getYearById = async (id) => {
   try {
     const result = await Year.findByPk(id)
-    if (!result) throw customError(1, `Không tìm thấy năm học ${id}`)
 
     return result
 
