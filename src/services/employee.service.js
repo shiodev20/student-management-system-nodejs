@@ -7,7 +7,6 @@ const accountService = require('./account.service')
 const getEmployeeById = async (id) => {
   try {
     const result = await Employee.findByPk(id)
-    // if(!result) throw customError(1, `Không tìm thấy nhân viên ${id}`)
 
     return result
     
@@ -20,6 +19,7 @@ const getEmployeeById = async (id) => {
 const getEmployeeByAccount = async (accountId) => {
   try {
     const account = await accountService.getAccountById(accountId)
+    if(!account) throw customError(1, `Không tìm thấy tài khoản ${id}`)
 
     const result = await Employee.findOne({
       where: { accountId: { [Op.eq]: account.id } }

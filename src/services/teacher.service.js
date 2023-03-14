@@ -10,7 +10,6 @@ const yearService = require('./year.service')
 const getTeacherById = async (id) => {
   try {
     const result = await Teacher.findByPk(id)
-    // if(!result) throw customError(1, `không tìm thấy giáo viên ${id}`)
 
     return result
 
@@ -23,6 +22,7 @@ const getTeacherById = async (id) => {
 const getTeacherByAccount = async (accountId) => {
   try {
     const account = await accountService.getAccountById(accountId)
+    if(!account) throw customError(1, `Không tìm thấy tài khoản ${accountId}`)
     
     const result = await Teacher.findOne({
       where: { accountId: { [Op.eq]: account.id } }

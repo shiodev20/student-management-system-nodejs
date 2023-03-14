@@ -8,9 +8,10 @@ const getMarkAdd = async (req, res, next) => {
   const { id } = req.params
 
   try {
+    const classroom = await classroomService.getClassroomById(id)
+
     const currentYear = await yearService.getCurrentYear()
     const currentSemester = await semesterService.getCurrentSemester()
-    const classroom = await classroomService.getClassroomById(id)
     const subject = await subjectService.getSubjectByTeacher(req.session.user.id)
     const markTypes = await markTypeService.getMarkTypeList()
 

@@ -12,4 +12,16 @@ const getGradeList = async () => {
 	}
 }
 
+const getGradeById = async (id) => {
+	try {
+		const result = await Grade.findByPk(id)
+		return result
+
+	} catch (error) {
+		if(error.code != 0) throw error
+		throw customError()
+	}
+}
+
 exports.getGradeList = getGradeList
+exports.getGradeById = getGradeById

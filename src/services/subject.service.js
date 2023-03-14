@@ -17,7 +17,6 @@ const getSubjectList = async () => {
 const getSubjectById = async (id) => {
   try {
     const result = await Subject.findByPk(id)
-    if (!result) throw customError(1, `không tìm thấy môn học ${id}`)
 
     return result
 
@@ -30,7 +29,8 @@ const getSubjectById = async (id) => {
 const getSubjectByTeacher = async (teacherId) => {
   try {
     const teacher = await teacherService.getTeacherById(teacherId)
-
+    if(!teacher) throw customError(1, `Không tìm thấy giáo viên ${teacherId}`)
+    
     const result = await teacher.getSubject()
 
     return result

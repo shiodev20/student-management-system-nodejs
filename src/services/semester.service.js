@@ -18,7 +18,6 @@ const getSemesterList = async () => {
 const getSemesterById = async (id) => {
   try {
     const result = await Semester.findByPk(id)
-    if (!result) throw customError(1, `Không tìm thấy học kỳ ${id}`)
 
     return result
 

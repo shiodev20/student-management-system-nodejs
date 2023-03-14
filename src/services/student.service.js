@@ -1,9 +1,11 @@
 const { Op } = require('sequelize')
-const { Student, Classroom, Year, Grade, ClassroomDetail } = require('../models')
+const { Student, Classroom, Year, ClassroomDetail } = require('../models')
 const { generateId } = require('../utils/generateId')
 const customError = require('../utils/customError')
 
 const classroomService = require('./classroom.service')
+const yearService = require('./year.service')
+const gradeService = require('./grade.service')
 
 const getStudentList = async () => {
   try {
@@ -70,7 +72,6 @@ const getStudentBySearch = async (info, type) => {
 const getStudentsByClassroom = async (classroomId) => {
   try {
     const classroom = await classroomService.getClassroomById(classroomId)
-
     if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
 
     const result = await classroom.getStudents()
@@ -84,7 +85,8 @@ const getStudentsByClassroom = async (classroomId) => {
 
 const getNoClassAssignmentStudents = async (gradeId, yearId) => {
   try {
-    const year = await Year.findByPk(yearId)
+    const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const yearOrder = year.order - 1
     const gradeNumber = Number(gradeId.substring(2)) - 1
@@ -110,7 +112,8 @@ const getNoClassAssignmentStudents = async (gradeId, yearId) => {
       where: { order: { [Op.eq]: yearOrder } }
     })
 
-    const gradeBefore = await Grade.findByPk(gradeBeforeId)
+    const gradeBefore = await gradeService.getGradeById(gradeBeforeId)
+    if(!gradeBefore) throw customError(1, `Không tìm thấy khối lớp ${gradeBeforeId}`)
 
     const assignedStudents = await Student.findAll({
       attributes: ['id'],
@@ -190,8 +193,7 @@ const updateStudent = async (id, student) => {
 
 const deleteStudent = async (id) => {
   try {
-    const deleteStudent = await Student.findByPk(id)
-
+    const deleteStudent = await getStudentById(id)
     if (!deleteStudent) throw customError(1, `Không tìm thấy học sinh ${id}`)
 
     const result = await deleteStudent.destroy()

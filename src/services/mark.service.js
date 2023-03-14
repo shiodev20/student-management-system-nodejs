@@ -13,8 +13,13 @@ const getMarksOfClassroomBySubject = async (classroomId, semesterId, subjectId) 
 
   try {
     const semester = await semesterService.getSemesterById(semesterId)
+    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+
     const classroom = await classroomService.getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
     const subject = await subjectService.getSubjectById(subjectId)
+    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
 
     const result = await Student.findAll({
       include: [
@@ -49,8 +54,13 @@ const getMarksOfClassroomBySubject = async (classroomId, semesterId, subjectId) 
 const getMarksOfStudent = async (studentId, yearId, semesterId) => {
   try {
     const student = await studentService.getStudentById(studentId)
+    if(!student) throw customError(1, `Không tìm thấy học sinh ${studentId}`)
+    
     const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+
     const semester = await semesterService.getSemesterById(semesterId)
+    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
 
     const studentResult = await Subject.findAll({
       include: {
@@ -107,9 +117,17 @@ const addMarks = async (data) => {
 const updateAvgMark = async (yearId, semesterId, classroomId, subjectId) => {
   try {
     const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+
     const semester = await semesterService.getSemesterById(semesterId)
+    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+
     const classroom = await classroomService.getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
     const subject = await subjectService.getSubjectById(subjectId)
+    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+
     const markTypes = await markTypeService.getMarkTypeList()
 
     const sumOfCoefficient = markTypes.reduce((total, item) => total + item.coefficient, 0)
