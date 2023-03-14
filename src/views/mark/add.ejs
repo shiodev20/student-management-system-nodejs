@@ -95,9 +95,9 @@
                       <% studentMarks.forEach((student, idx) => { %>
                         <tr>
                           <th><%= idx + 1 %></th>
-                          <td><input type="text" name="studentIds" value="<%= student.id %>" hidden><%= student.id %></td>
-                          <td><%= student.firstName %></td>
-                          <td><%= student.lastName %></td>
+                          <td class="font-weight-bold"><input type="text" name="studentIds" value="<%= student.id %>" hidden><%= student.id %></td>
+                          <td class="font-weight-bold"><%= student.firstName %></td>
+                          <td class="font-weight-bold"><%= student.lastName %></td>
                           <% markTypes.forEach(markType => { %>
       
                             <% student.marks.forEach(mark => { %>

@@ -38,11 +38,6 @@ const initialRoutes = (app) => {
         const accounts = await accountService.getAccountList()
         const roles = await roleService.getRoleList()
 
-        // return res.json({
-        //   documentTitle: 'Trang chủ',
-        //   accounts,
-        //   roles,
-        // })
         res.render('dashboard/admin', {
           documentTitle: 'Trang chủ',
           accounts,
