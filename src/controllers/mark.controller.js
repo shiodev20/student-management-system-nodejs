@@ -15,7 +15,7 @@ const getMarkAdd = async (req, res, next) => {
     const subject = await subjectService.getSubjectByTeacher(req.session.user.id)
     const markTypes = await markTypeService.getMarkTypeList()
 
-    const studentMarks = await markService.getMarksOfClassroomBySubject(classroom.id, currentSemester.id, subject.id)
+    const studentMarks = await markService.getMarksOfClassroomBySubject(classroom.id, subject.id, currentSemester.id)
 
     res.render('mark/add', {
       documentTitle: 'Nhập điểm',

@@ -9,7 +9,8 @@ const classroomService = require('./classroom.service')
 const studentService = require('./student.service')
 const markTypeService = require('./markType.service')
 
-const getMarksOfClassroomBySubject = async (classroomId, semesterId, subjectId) => {
+
+const getMarksOfClassroomBySubject = async (classroomId, subjectId, semesterId, yearId = null) => {
 
   try {
     const semester = await semesterService.getSemesterById(semesterId)
@@ -29,7 +30,8 @@ const getMarksOfClassroomBySubject = async (classroomId, semesterId, subjectId) 
           through: { attributes: [] },
           attributes: [],
           where: {
-            id: classroom.id
+            id: classroom.id,
+            yearId: yearId ? yearId : classroom.yearId
           }
         },
         {
@@ -190,6 +192,7 @@ const updateAvgMark = async (yearId, semesterId, classroomId, subjectId) => {
     throw customError()
   }
 }
+
 
 exports.getMarksOfClassroomBySubject = getMarksOfClassroomBySubject
 exports.getMarksOfStudent = getMarksOfStudent

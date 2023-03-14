@@ -1,9 +1,10 @@
 const {
   yearService,
   semesterService,
-  studentService,
   classroomService,
   subjectService,
+  markService,
+  markTypeService,
 } = require('../services')
 const customError = require('../utils/customError')
 
@@ -22,7 +23,9 @@ const getReportDashboard = async (req, res, next) => {
       semesters,
       subjects,
       classrooms,
-      tag: null
+      markTypes: null,
+      studentMarks: null,
+      queryData: null,
     })
 
   } catch (error) {
@@ -31,12 +34,17 @@ const getReportDashboard = async (req, res, next) => {
 }
 
 const getReportClassroomSubject = async (req, res, next) => {
-  const { tag } = req.query
+  const { year, semester, subject, classroom } = req.query
   try {
     const years = await yearService.getYearList()
     const semesters = await semesterService.getSemesterList()
     const subjects = await subjectService.getSubjectList()
     const classrooms = await classroomService.getClassroomList()
+    const markTypes = await markTypeService.getMarkTypeList()
+
+    const studentMarks = await markService.getMarksOfClassroomBySubject(classroom, subject, semester, year)
+
+    // return res.json(studentMarks)
 
     res.render('report/home', {
       documentTitle: 'Báo cáo thống kê',
@@ -44,7 +52,9 @@ const getReportClassroomSubject = async (req, res, next) => {
       semesters,
       subjects,
       classrooms,
-      tag,
+      markTypes,
+      studentMarks,
+      queryData: req.query,
     })
   } catch (error) {
     console.log(error);
