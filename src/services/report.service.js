@@ -1,14 +1,31 @@
 const { Op, fn, col } = require('sequelize')
 const { Mark, Classroom } = require('../models')
+
 const customError = require('../utils/customError')
 const { getPercentage } = require('../utils/calculator')
 
 const markService = require('./mark.service')
 const markTypeService = require('./markType.service')
+const classroomService = require('./classroom.service')
+const subjectService = require('./subject.service')
+const semesterService = require('./semester.service')
+const yearService = require('./year.service')
 
 const getStudentMarkReport = async (classroomId, subjectId, semesterId, yearId) => {
   try {
-    const result = await markService.getMarksOfClassroomBySubject(classroomId, subjectId, semesterId, yearId)
+    const classroom = await classroomService.getClassroomById(classroomId)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+
+    const subject = await subjectService.getSubjectById(subjectId)
+    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+
+    const semester = await semesterService.getSemesterById(semesterId)
+    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+
+    const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+
+    const result = await markService.getMarksOfClassroomBySubject(classroom.id, subject.id, semester.id, year.id)
 
     return result
 
@@ -20,6 +37,15 @@ const getStudentMarkReport = async (classroomId, subjectId, semesterId, yearId) 
 
 const getSubjectReport = async (yearId, semesterId, subjectId) => {
   try {
+    const subject = await subjectService.getSubjectById(subjectId)
+    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+
+    const semester = await semesterService.getSemesterById(semesterId)
+    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+
+    const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+
     const markTypes = await markTypeService.getMarkTypeList()
     const passMark = 5.0
 
@@ -33,9 +59,9 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
       ],
       where: {
         [Op.and]: [
-          { yearId: { [Op.eq]: yearId } },
-          { semesterId: { [Op.eq]: semesterId } },
-          { subjectId: { [Op.eq]: subjectId } },
+          { yearId: { [Op.eq]: year.id } },
+          { semesterId: { [Op.eq]: semester.id } },
+          { subjectId: { [Op.eq]: subject.id } },
           { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id }},
           { mark: { [Op.gte]: passMark }},
         ]
@@ -59,13 +85,19 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
 
 const getSemesterReport = async (yearId, semesterId) => {
   try {
+    const semester = await semesterService.getSemesterById(semesterId)
+    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+
+    const year = await yearService.getYearById(yearId)
+    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+
     const passMark = 5.0
 
     const result = []
 
     const classrooms = await Classroom.findAll({
       where: {
-        yearId: { [Op.eq]: yearId }
+        yearId: { [Op.eq]: year.id }
       }
     })
 
@@ -82,7 +114,7 @@ const getSemesterReport = async (yearId, semesterId) => {
       }
 
       for (const student of students) {
-        const studentAvgSemester = await markService.updateAvgSemester(yearId, semesterId, classroom.id, student.id)
+        const studentAvgSemester = await markService.updateAvgSemester(year.id, semester.id, classroom.id, student.id)
         if(studentAvgSemester >= passMark) item.passQuantity += 1
       }
       
