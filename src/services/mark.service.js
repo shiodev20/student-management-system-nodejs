@@ -214,21 +214,14 @@ const updateAvgSemester = async (yearId, semesterId, classroomId, studentId) => 
           ]
         }
       })
-
-      console.log(studentMark.mark);
-
       sumOfCoefficient += subject.coefficient
       avg += Number(studentMark.mark)
     }
 
 
-    const avgSemeter = (avg / sumOfCoefficient).toFixed(1)
+    const result = Number((avg / sumOfCoefficient).toFixed(1))
 
-    return {
-      avg,
-      sumOfCoefficient,
-      avgSemeter,
-    }
+    return result
 
 
   } catch (error) {

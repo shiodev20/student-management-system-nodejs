@@ -6,10 +6,11 @@ const {
   markTypeService,
   reportService,
   gradeService,
-  markService,
 } = require('../services')
 const customError = require('../utils/customError')
 const { getPercentage } = require('../utils/calculator')
+
+const err = { type: '', message: '', url: ''}
 
 const getReportDashboard = async (req, res, next) => {
   try {
@@ -29,17 +30,25 @@ const getReportDashboard = async (req, res, next) => {
       markTypes: null,
       studentMarks: null,
       subjectReport: null,
-      queryData: null,
+      queryData: req.query.tag ? req.query : null,
     })
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao`
+        break;
+    }
   }
 }
 
 const getReportClassroomSubject = async (req, res, next) => {
   const { year, semester, subject, classroom } = req.query
   try {
+    if(!year || !semester || !subject || !classroom) throw customError(1, `Vui lòng chọn đầy đủ thông tin`)
+
     const years = await yearService.getYearList()
     const semesters = await semesterService.getSemesterList()
     const subjects = await subjectService.getSubjectList()
@@ -58,10 +67,20 @@ const getReportClassroomSubject = async (req, res, next) => {
       markTypes,
       studentMarks,
       subjectReport: null,
+      semesterReport: null,
       queryData: req.query,
     })
+
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao?tag=1`
+        break;
+    }
+
+    next(err)
   }
 
 }
@@ -70,6 +89,8 @@ const getReportSubject = async (req, res, next) => {
   const { year, semester, subject } = req.query
 
   try {
+    if(!year || !semester || !subject) throw customError(1, `Vui lòng chọn đầy đủ thông tin`)
+
     const years = await yearService.getYearList()
     const semesters = await semesterService.getSemesterList()
     const subjects = await subjectService.getSubjectList()
@@ -79,7 +100,6 @@ const getReportSubject = async (req, res, next) => {
 
     const data = await reportService.getSubjectReport(year, semester, subject)
 
-    
     const subjectReport = {}
 
     grades.forEach(grade => {
@@ -109,37 +129,73 @@ const getReportSubject = async (req, res, next) => {
       markTypes: null,
       studentMarks: null,
       subjectReport,
+      semesterReport: null,
       queryData: req.query,
     })
+
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao?tag=2`
+        break;
+    }
+
+    next(err)
   }
 }
 
 const getReportSemeter = async (req, res, next) => {
-  
+  const { year, semester } = req.query
+
   try {
+    if(!year || !semester) throw customError(1, `Vui lòng chọn đầy đủ thông tin`)
+    
     const years = await yearService.getYearList()
     const semesters = await semesterService.getSemesterList()
     const subjects = await subjectService.getSubjectList()
     const classrooms = await classroomService.getClassroomList()
+    const grades = await gradeService.getGradeList()
 
-    const result = await markService.updateAvgSemester('NH2223', 'HK1', '11A12223', 'HS000001')
+    const data = await reportService.getSemesterReport(year, semester)
 
-    return res.json(result)
-    
+    const semesterReport = {}
+
+    grades.forEach(grade => {
+      semesterReport[grade.id] = []
+
+      data.forEach(item => {
+        if(item.gradeId == grade.id) {
+          semesterReport[grade.id].push(item)
+        }
+      })
+    })
+
     res.render('report/home', {
       documentTitle: 'Báo cáo thống kê',
       years,
       semesters,
       subjects,
       classrooms,
+      grades,
       markTypes: null,
       studentMarks: null,
+      subjectReport: null,
+      semesterReport,
       queryData: req.query,
     })
+
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao?tag=3`
+        break;
+    }
+
+    next(err)
   }
 }
 
