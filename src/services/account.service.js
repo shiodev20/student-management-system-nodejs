@@ -100,7 +100,7 @@ const addAccount = async ({ id, username }) => {
 
     if(!empl) throw customError(1, `Không tìm thấy nhân viên ${username}`)
 
-    const hashPassword = await bcrypt.hash('12345', 10)
+    const hashPassword = await bcrypt.hash('123456', 10)
 
     const result = await Account.create({
       id,

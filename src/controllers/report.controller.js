@@ -6,6 +6,7 @@ const {
   markTypeService,
   reportService,
   gradeService,
+  markService,
 } = require('../services')
 const customError = require('../utils/customError')
 const { getPercentage } = require('../utils/calculator')
@@ -123,6 +124,10 @@ const getReportSemeter = async (req, res, next) => {
     const subjects = await subjectService.getSubjectList()
     const classrooms = await classroomService.getClassroomList()
 
+    const result = await markService.updateAvgSemester('NH2223', 'HK1', '11A12223', 'HS000001')
+
+    return res.json(result)
+    
     res.render('report/home', {
       documentTitle: 'Báo cáo thống kê',
       years,

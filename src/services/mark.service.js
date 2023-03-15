@@ -193,8 +193,52 @@ const updateAvgMark = async (yearId, semesterId, classroomId, subjectId) => {
   }
 }
 
+const updateAvgSemester = async (yearId, semesterId, classroomId, studentId) => {
+  try {
+    const subjects = await subjectService.getSubjectList()
+    const markTypes = await markTypeService.getMarkTypeList()
+
+    let sumOfCoefficient = 0
+    let avg = 0
+
+    for (const subject of subjects) {
+      const studentMark = await Mark.findOne({
+        where: {
+          [Op.and]: [
+            { yearId: { [Op.eq]: yearId }},
+            { semesterId: { [Op.eq]: semesterId }},
+            { classroomId: { [Op.eq]: classroomId }},
+            { studentId: { [Op.eq]: studentId }},
+            { subjectId: { [Op.eq]: subject.id }},
+            { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id } }
+          ]
+        }
+      })
+
+      console.log(studentMark.mark);
+
+      sumOfCoefficient += subject.coefficient
+      avg += Number(studentMark.mark)
+    }
+
+
+    const avgSemeter = (avg / sumOfCoefficient).toFixed(1)
+
+    return {
+      avg,
+      sumOfCoefficient,
+      avgSemeter,
+    }
+
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
 
 exports.getMarksOfClassroomBySubject = getMarksOfClassroomBySubject
 exports.getMarksOfStudent = getMarksOfStudent
 exports.addMarks = addMarks
 exports.updateAvgMark = updateAvgMark
+exports.updateAvgSemester = updateAvgSemester
