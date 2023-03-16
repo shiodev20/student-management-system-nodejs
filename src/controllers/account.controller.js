@@ -9,11 +9,15 @@ const getAccountSearch = async (req, res, next) => {
 
   try {
     if(!info) throw customError(1, `Vui lòng nhập thông tin tìm kiếm`)
+    const accounts = await accountService.getAccountBySearch(info, type)
+    const roles = await roleService.getRoleList()
 
-    const result = await accountService.getAccountBySearch(info, type)
+    res.render('dashboard/admin', {
+      documentTitle: 'Trang chủ',
+      accounts,
+      roles,
+    })
 
-    return res.json(result)
-    
   } catch (error) {
     console.log(error);
   }
