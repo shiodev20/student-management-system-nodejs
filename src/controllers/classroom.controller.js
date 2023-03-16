@@ -106,11 +106,24 @@ const postClassroomAdd = async (req, res, next) => {
 }
 
 
+const postClassroomsAdd = async (req, res, next) => {
+  const { year, grade, quantity } = req.body
+  try {
+    const result = await classroomService.addClassrooms(year, grade, quantity)
+
+    req.flash('successMsg', `Mở ${quantity} lớp học thành công`)
+    res.redirect('/lop-hoc/mo-lop-hoc')
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 const getClassroomDetail = async (req, res, next) => {
   const { id } = req.params
 
   try {
-    
     const classroom = await classroomService.getClassroomById(id)
     if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
 
@@ -260,7 +273,6 @@ const postClassroomHeadTeacherAssignment = async (req, res, next) => {
 
 const getClassroomSubjectTeacherAssignment = async (req, res, next) => {
   const { id } = req.params
-  console.log(id);
   try {
     const classroom = await classroomService.getClassroomById(id)
     if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
@@ -364,6 +376,7 @@ module.exports = {
   getClassroomDashboard,
   getClassroomAdd,
   postClassroomAdd,
+  postClassroomsAdd,
   getClassroomDetail,
   getClassroomStudentAssignment,
   postClassroomStudentAssignment,

@@ -182,6 +182,62 @@ const addClassroom = async (classroom) => {
   }
 }
 
+const addClassrooms = async (yearId, gradeId, quantity) => {
+  try {
+    const createdClassrooms = await Classroom.findAll({
+      attributes: ['id'],
+      where: {
+        [Op.and]: [
+          { yearId: { [Op.eq]: yearId } },
+          { gradeId: { [Op.eq]: gradeId }}
+        ]
+      }
+    })
+
+    const yearPostfix = yearId.slice(2)
+    const gradePostfix = gradeId.slice(2)
+    
+    let count = 0
+    let classIndex = 1
+
+    const data = []
+
+    while (count < quantity) {
+      let classroomId = gradePostfix + 'A' + classIndex + yearPostfix
+
+      let isContain = false
+
+      createdClassrooms.forEach(classroom => {
+        if(classroom.id == classroomId) isContain = true
+      })
+
+      if(isContain) {
+        classIndex += 1
+        continue
+      } else {
+        data.push({
+          id: classroomId,
+          name: gradePostfix + 'A' + classIndex,
+          gradeId: gradeId,
+          yearId: yearId,
+        })
+        classIndex += 1
+        count += 1
+      }
+    }
+
+    const result = await Promise.all(data.map(async classroom => {
+      await addClassroom(classroom)
+    }))
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 const addHeadTeacherToClassroom = async (classroomId, headTeacherId) => {
   try {
     const classroom = await getClassroomById(classroomId)
@@ -355,6 +411,7 @@ exports.getClassroomByStudent = getClassroomByStudent
 exports.getClassroomsBySubjectTeacher = getClassroomsBySubjectTeacher
 exports.getSubjectTeacherByClassroom = getSubjectTeacherByClassroom
 exports.addClassroom = addClassroom
+exports.addClassrooms = addClassrooms
 exports.addHeadTeacherToClassroom = addHeadTeacherToClassroom
 exports.addSubjectTeacherToClassroom = addSubjectTeacherToClassroom
 exports.addStudentToClassroom = addStudentToClassroom

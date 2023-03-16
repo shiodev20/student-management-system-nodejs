@@ -69,7 +69,23 @@
 
                     <tbody>
                       <% teachersBySubjects.forEach((item, idx) => { %>
-                        <% if(classroom.headTeacher.subjectId !== item.subject.id) { %>
+                        <% if(classroom.headTeacher) { %>
+                          <% if(classroom.headTeacher.subjectId !== item.subject.id) { %>
+                            <tr>
+                              <th><%= idx + 1 %></th>
+                              <td class="font-weight-bold"><%= item.subject.id %></td>
+                              <td class="font-weight-bold"><%= item.subject.name %></td>
+                              <td>
+                                <select name="<%= item.subject.id %>" class="form-control form-control-sm font-weight-bold">
+                                  <option value="">Chọn</option>
+                                  <% item.teachers.forEach(teacher => { %>
+                                    <option value="<%= teacher.id %>"><%= teacher.fullName %></option>
+                                  <% }) %>
+                                </select>
+                              </td>
+                            </tr>
+                          <% } %>
+                        <% } else { %>
                           <tr>
                             <th><%= idx + 1 %></th>
                             <td class="font-weight-bold"><%= item.subject.id %></td>
@@ -84,6 +100,7 @@
                             </td>
                           </tr>
                         <% } %>
+
                       <% }) %>
                     </tbody>
                   </table>
@@ -99,95 +116,6 @@
       </div>
 
 
-
-  <section class="section">
-  
-    <div class="l-container">
-  
-      <form action="/lop-hoc/phan-cong-gvbm" method="POST">
-
-        <div class="is-flex is-flex-wrap-wrap">
-  
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Mã lớp</label>
-              <div class="control">
-                <input class="input" name="classroomId" type="text" value="<%= classroom.id %>" readonly>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Khối</label>
-              <div class="control">
-                <input class="input" type="text" value="<%= classroom.gradeId %>" readonly>
-              </div>
-            </div>
-          </div>
-          
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Tên lớp</label>
-              <div class="control">
-                <input class="input" type="text" value="<%= classroom.name %>" readonly>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-item m-3">
-            <div class="field sm-input">
-              <label class="label">Giáo viên chủ nhiệm</label>
-              <div class="control">
-                <input class="input" type="text" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
-              </div>
-            </div>
-          </div>
-          
-          <div class="flex-item m-3 is-align-self-flex-end">
-            <button type="submit" class="button is-info">Cập nhật</button>
-          </div>
-        </div>
-  
-        <div class="table-container my-5">
-            <table class="table is-fullwidth is-hoverable is-bordered">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Mã môn học</th>
-                  <th>Môn học</th>
-                  <th>Giáo viên</th>
-                </tr>
-              </thead>
-              
-              <tbody>
-                <% teachersBySubjects.forEach((item, idx) => { %>
-                  <tr>
-                    <th><%= idx + 1 %></th>
-                    <td><%= item.subject.id %></td>
-                    <td><%= item.subject.name %></td>
-                    <td class="has-text-centered">
-                      <div class="select">
-                        <select name="<%= item.subject.id %>">
-                          <option value="">Chọn</option>
-                          <% item.teachers.forEach(teacher => { %>
-                            <option value="<%= teacher.id %>"><%= teacher.fullName %></option>
-                          <% }) %>
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                <% }) %>
-              </tbody>
-      
-            </table>
-          </table>          
-        </div>
-  
-      </form>
-    </div>
-  
-  </section>
 
 <%- include('../partials/footer') %>
 <%- include('../partials/library') %>

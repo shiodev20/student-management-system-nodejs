@@ -7,6 +7,7 @@ const {
   getClassroomStudentAssignment,
   getClassroomAdd,
   postClassroomAdd,
+  postClassroomsAdd,
   postClassroomStudentAssignment,
   postClassroomHeadTeacherAssignment,
   postClassroomSubjectTeacherAssignment,
@@ -19,6 +20,8 @@ const { isLogin, isStaff } = require('../middlewares/auth.middleware')
 router.get('/mo-lop-hoc', [isLogin, isStaff], getClassroomAdd)
 
 router.post('/mo-lop-hoc', [isLogin, isStaff], postClassroomAdd)
+
+router.post('/mo-nhieu-lop', [isLogin, isStaff], postClassroomsAdd)
 
 router.get('/lap-danh-sach-lop-hoc/:id', [isLogin, isStaff], getClassroomStudentAssignment)
 
