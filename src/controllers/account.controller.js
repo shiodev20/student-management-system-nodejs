@@ -1,8 +1,23 @@
 const { accountService, roleService } = require('../services')
 const { generateId } = require('../utils/generateId')
+const customError = require('../utils/customError')
 
 const err = { type: '', message: '', url: '' }
 
+const getAccountSearch = async (req, res, next) => {
+  const { info, type } = req.query
+
+  try {
+    if(!info) throw customError(1, `Vui lòng nhập thông tin tìm kiếm`)
+
+    const result = await accountService.getAccountBySearch(info, type)
+
+    return res.json(result)
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const getAccountAdd = async (req, res, next) => {
   try {
@@ -124,10 +139,10 @@ const deleteAccountDelete = async (req, res, next) => {
 }
 
 module.exports = {
+  getAccountSearch,
   getAccountAdd,
   postAccountAdd,
   putAccountUpdateStatus,
   putAccountResetPassword,
-  // putAccountUpdateRole,
-  deleteAccountDelete
+  deleteAccountDelete,
 }
