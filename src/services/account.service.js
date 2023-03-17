@@ -188,14 +188,77 @@ const getAccountBySearch = async (info, type) => {
   }
 }
 
+const getNoAccountEmplListBySearch = async (info, type) => {
+  try {
+    let result = null
+    let teachers = []
+    let employees = []
+
+    switch (type) {
+      case '0':
+        teachers = await Teacher.findAll({
+          where: {
+            [Op.and]: [
+              { id: { [Op.eq]: info } },
+              { accountId: { [Op.eq]: null } },
+            ]
+          },
+          include: { model: Role, as: 'role' },
+        })
+    
+        employees = await Employee.findAll({
+          where: {
+            [Op.and]: [
+              { id: { [Op.eq]: info } },
+              { accountId: { [Op.eq]: null } },
+            ]
+          },
+          include: { model: Role, as: 'role' }
+        })
+    
+        result = [...teachers, ...employees]
+        break;
+
+      case '1':
+        teachers = await Teacher.findAll({
+          where: {
+            [Op.or]: [
+              { firstName: { [Op.like]: `%${info}%` } },
+              { lastName: { [Op.like]: `%${info}%` } },
+            ]
+          },
+          include: { model: Role, as: 'role' },
+        })
+    
+        employees = await Employee.findAll({
+          where: {
+            [Op.or]: [
+              { firstName: { [Op.like]: `%${info}%` } },
+              { lastName: { [Op.like]: `%${info}%` } },
+            ]
+          },
+          include: { model: Role, as: 'role' }
+        })
+    
+        result = [...teachers, ...employees]
+        break;
+
+      default:
+        throw customError(1, 'Loại tìm kiếm không phù hợp')
+    }
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 const addAccount = async ({ id, username }) => {
   try {
-    // const account = await Account.findByPk(id)
     const account = await getAccountById(id)
     if (account) throw customError(1, `Tài khoản ${id} đã tồn tại`)
-
-    // let empl = await Teacher.findByPk(username)
-    // if(!empl) empl = await Employee.findByPk(username)
 
     let empl = await teacherService.getTeacherById(username)
     if (!empl) empl = await employeeService.getEmployeeById(username)
@@ -281,6 +344,7 @@ exports.getAccountById = getAccountById
 exports.getAccountByUsername = getAccountByUsername
 exports.getNoAccountEmplList = getNoAccountEmplList
 exports.getAccountBySearch = getAccountBySearch
+exports.getNoAccountEmplListBySearch = getNoAccountEmplListBySearch
 exports.addAccount = addAccount
 exports.updateAccountStatus = updateAccountStatus
 exports.resetPassword = resetAccountPassword

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {
   getAccountSearch,
+  getAccountAddSearch,
   getAccountAdd,
   postAccountAdd,
   putAccountUpdateStatus,
@@ -10,6 +11,8 @@ const { isLogin, isAdmin } = require('../middlewares/auth.middleware')
 
 
 router.get('/tao-tai-khoan', [isLogin, isAdmin], getAccountAdd)
+
+router.get('/tao-tai-khoan/tim-kiem-tai-khoan', [isLogin, isAdmin], getAccountAddSearch)
 
 router.post('/tao-tai-khoan/:id', [isLogin, isAdmin], postAccountAdd)
 

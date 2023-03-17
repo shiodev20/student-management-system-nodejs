@@ -20,7 +20,43 @@ const getAccountSearch = async (req, res, next) => {
     })
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+    }
+
+    next(err)
+  }
+}
+
+const getAccountAddSearch = async (req, res, next) => {
+  const { info, type } = req.query
+
+  try {
+    if(!info) throw customError(1, `Vui lòng nhập thông tin tìm kiếm`)
+
+    const noAccountEmplList = await accountService.getNoAccountEmplListBySearch(info, type)
+    const roles = await roleService.getRoleList()
+
+    res.render('account/add', {
+      documentTitle: 'Tạo tài khoản',
+      noAccountEmplList,
+      roles,
+    })
+
+  } catch (error) {
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/tai-khoan/tao-tai-khoan`
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -66,12 +102,12 @@ const postAccountAdd = async (req, res, next) => {
       case 1, 0:
         err.type = 'errorMsg'
         err.message = error.message
-        err.url = `/tai-khoan/tao-tai-khoan/${id}`
+        err.url = `/tai-khoan/tao-tai-khoan`
         break;
       case 2:
         err.type = 'formMsg'
         err.message = error.message
-        err.url = `/tai-khoan/tao-tai-khoan/${id}`
+        err.url = `/tai-khoan/tao-tai-khoan`
         break;
     }
 
@@ -145,6 +181,7 @@ const deleteAccountDelete = async (req, res, next) => {
 
 module.exports = {
   getAccountSearch,
+  getAccountAddSearch,
   getAccountAdd,
   postAccountAdd,
   putAccountUpdateStatus,
