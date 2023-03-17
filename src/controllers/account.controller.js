@@ -16,6 +16,7 @@ const getAccountSearch = async (req, res, next) => {
       documentTitle: 'Trang chủ',
       accounts,
       roles,
+      queryData: req.query
     })
 
   } catch (error) {

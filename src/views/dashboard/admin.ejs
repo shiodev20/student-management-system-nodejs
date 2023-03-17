@@ -23,7 +23,12 @@
 
                     <div class="col-md-4 col-sm-12 mb-2">
                       <label for="info">Thông tin</label>
-                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" name="info">
+                      <input 
+                        type="text" 
+                        id="info" 
+                        name="info" 
+                        class="form-control form-control-sm font-weight-bold" 
+                      />
                     </div>
 
                     <div class="col-md-4 col-sm-12 mb-2">
@@ -66,17 +71,9 @@
 
                   <ul class="nav nav-tabs">
                     <% roles.forEach((role, idx) => { %>
-
-                      <% if(idx == 0) { %>
-                        <li class="nav-item">
-                          <a class="nav-link font-weight-bold active" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab"><%= role.name %></a>
-                        </li>
-                      <% } else { %> 
-                        <li class="nav-item">
-                          <a class="nav-link font-weight-bold" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab" ><%= role.name %></a>
-                        </li>
-                      <% } %>
-
+                      <li class="nav-item">
+                        <a class="nav-link font-weight-bold <%= idx == 0 ?'active' : '' %>" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab"><%= role.name %></a>
+                      </li>
                     <% }) %>
                   </ul>
 
@@ -86,6 +83,7 @@
 
                         <div class="table-responsive">
                           <table class="table table-hover">
+
                             <thead class="table-primary">
                               <tr>
                                 <th>Mã tài khoản</th>

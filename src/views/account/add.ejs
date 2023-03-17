@@ -13,7 +13,7 @@
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
-                  
+
                   <div class="card-body">
 
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
@@ -53,144 +53,72 @@
                         <div class="card-title">Danh sách nhân viên</div>
 
                         <ul class="nav nav-tabs">
-                          <% roles.forEach((role, idx) => { %>
-      
-                            <% if(idx == 0) { %>
-                              <li class="nav-item">
-                                <a class="nav-link font-weight-bold active" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab"><%= role.name %></a>
-                              </li>
-                            <% } else { %> 
-                              <li class="nav-item">
-                                <a class="nav-link font-weight-bold" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab" ><%= role.name %></a>
-                              </li>
-                            <% } %>
-      
+                          <% roles.forEach((role, idx)=> { %>
+                            <li class="nav-item">
+                              <a 
+                                class="nav-link font-weight-bold <%= idx == 0 ? 'active' : '' %>" id="<%= role.id %>-tab" data-toggle="tab"
+                                href="#<%= role.id %>" role="tab"><%= role.name %></a>
+                            </li>
                           <% }) %>
                         </ul>
-                        
+
 
                         <div class="tab-content">
-                          <% roles.forEach((role, idx) => { %>
-      
-                            <% if(idx == 0) { %>
-                              <div class="tab-pane fade show active" id="<%= role.id %>">
-      
-                                <div class="table-responsive">
-                                  <table class="table table-hover">
-                                    <thead class="table-primary">
-                                      <tr>
-                                        <th>STT</th>
-                                        <th>Mã nhân viên</th>
-                                        <th>Tên nhân viên</th>
-                                        <th>Email</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Vai trò</th>
-                                        <th>Lựa chọn</th>
-                                      </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                      <% noAccountEmplList.forEach((empl, idx)=> { %>
-                                        <% if(empl.role.id == role.id) { %>
-                                          <tr>
-                                            <th><%= idx + 1 %></th>
-                                            <td class="font-weight-bold"><%= empl.id %></td>
-                                            <td class="font-weight-bold"><%= empl.fullName %></td>
-                                            <td class="font-weight-bold"><%= empl.email %></td>
-                                            <td class="font-weight-bold"><%= empl.phone %></td>
-                                            <td class="font-weight-bold"><%= empl.role.name %></td>
-                                            <td>
-                                              <form action="/tai-khoan/tao-tai-khoan/<%= empl.id %>" method="POST">
-                                                <button class="btn btn-primary">Cấp tài khoản</button>
-                                              </form>
-                                            </td>
-                                          </tr>
+                          <% roles.forEach((role, idx)=> { %>
+                            <div class="tab-pane fade <%= idx == 0 ? 'show active' : '' %>" id="<%= role.id %>">
+
+                              <div class="table-responsive">
+                                <table class="table table-hover">
+                                  <thead class="table-primary">
+                                    <tr>
+                                      <th>STT</th>
+                                      <th>Mã nhân viên</th>
+                                      <th>Tên nhân viên</th>
+                                      <th>Email</th>
+                                      <th>Số điện thoại</th>
+                                      <th>Vai trò</th>
+                                      <th>Lựa chọn</th>
+                                    </tr>
+                                  </thead>
+
+                                  <tbody>
+                                    <% noAccountEmplList.forEach((empl, idx)=> { %>
+                                      <% if(empl.role.id == role.id) { %>
+                                        <tr>
+                                          <th>
+                                            <%= idx + 1 %>
+                                          </th>
+                                          <td class="font-weight-bold">
+                                            <%= empl.id %>
+                                          </td>
+                                          <td class="font-weight-bold">
+                                            <%= empl.fullName %>
+                                          </td>
+                                          <td class="font-weight-bold">
+                                            <%= empl.email %>
+                                          </td>
+                                          <td class="font-weight-bold">
+                                            <%= empl.phone %>
+                                          </td>
+                                          <td class="font-weight-bold">
+                                            <%= empl.role.name %>
+                                          </td>
+                                          <td>
+                                            <form action="/tai-khoan/tao-tai-khoan/<%= empl.id %>" method="POST">
+                                              <button class="btn btn-primary">Cấp tài khoản</button>
+                                            </form>
+                                          </td>
+                                        </tr>
                                         <% } %>
                                       <% }) %>
-                            
-                                    </tbody>
-                                  </table>
-                                </div>
+
+                                  </tbody>
+                                </table>
                               </div>
-                            <% } else { %>
-                              <div class="tab-pane fade" id="<%= role.id %>">
-      
-                                <div class="table-responsive">
-                                  <table class="table table-hover">
-                                    <thead class="table-primary">
-                                      <tr>
-                                        <th>STT</th>
-                                        <th>Mã nhân viên</th>
-                                        <th>Tên nhân viên</th>
-                                        <th>Email</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Vai trò</th>
-                                        <th>Lựa chọn</th>
-                                      </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                      <% noAccountEmplList.forEach((empl, idx)=> { %>
-                                        <% if(empl.role.id == role.id) { %>
-                                          <tr>
-                                            <th><%= idx + 1 %></th>
-                                            <td class="font-weight-bold"><%= empl.id %></td>
-                                            <td class="font-weight-bold"><%= empl.fullName %></td>
-                                            <td class="font-weight-bold"><%= empl.email %></td>
-                                            <td class="font-weight-bold"><%= empl.phone %></td>
-                                            <td class="font-weight-bold"><%= empl.role.name %></td>
-                                            <td>
-                                              <form action="/tai-khoan/tao-tai-khoan/<%= empl.id %>" method="POST">
-                                                <button class="btn btn-primary">Cấp tài khoản</button>
-                                              </form>
-                                            </td>
-                                          </tr>
-                                        <% } %>
-                                      <% }) %>
-                            
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            <% } %>
-      
+                            </div>
                           <% }) %>
                         </div>
 
-                        <!-- <div class="table-responsive">
-                          <table class="table table-hover">
-                            <thead class="table-primary">
-                              <tr>
-                                <th>STT</th>
-                                <th>Mã nhân viên</th>
-                                <th>Tên nhân viên</th>
-                                <th>Email</th>
-                                <th>Số điện thoại</th>
-                                <th>Vai trò</th>
-                                <th>Lựa chọn</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <% noAccountEmplList.forEach((empl, idx)=> { %>
-                                <tr>
-                                  <th><%= idx + 1 %></th>
-                                  <td class="font-weight-bold"><%= empl.id %></td>
-                                  <td class="font-weight-bold"><%= empl.fullName %></td>
-                                  <td class="font-weight-bold"><%= empl.email %></td>
-                                  <td class="font-weight-bold"><%= empl.phone %></td>
-                                  <td class="font-weight-bold"><%= empl.role.name %></td>
-                                  <td>
-                                    <form action="/tai-khoan/tao-tai-khoan/<%= empl.id %>" method="POST">
-                                      <button class="btn btn-primary">Cấp tài khoản</button>
-                                    </form>
-                                  </td>
-                                </tr>
-                                <% }) %>
-                            </tbody>
-
-
-                          </table>
-                        </div> -->
                       </div>
 
                     </div>
