@@ -190,8 +190,7 @@ const getStudentResult = async (req, res, next) => {
     const student = await studentService.getStudentById(id)
     const classroom = await classroomService.getClassroomByStudent(id, year)
     const studentResult = await markService.getMarksOfStudent(id, year, semester)
-
-    // return res.json(studentResult)
+    const studentAvgSemester = await markService.updateAvgSemester(year, semester, classroom.id, id)
 
     res.render('student/result', {
       documentTitle: 'Kết quả học tập',
@@ -203,6 +202,7 @@ const getStudentResult = async (req, res, next) => {
       student,
       classroom,
       studentResult,
+      studentAvgSemester,
     })
 
   } catch (error) {

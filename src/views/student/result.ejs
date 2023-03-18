@@ -18,22 +18,22 @@
                 <form action="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>" method="GET">
                   <div class="form-group row">
 
-                    <div class="col-md-4 col-sm-12 mb-2">
+                    <div class="col-md-4 col-sm-12 mb-3">
                       <label for="info">Mã học sinh</label>
                       <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= student.id %>" readonly>
                     </div>
                     
-                    <div class="col-md-4 col-sm-12 mb-2">
+                    <div class="col-md-4 col-sm-12 mb-3">
                       <label for="info">Họ và tên</label>
                       <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= student.fullName %>" readonly>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 mb-2">
+                    <div class="col-md-4 col-sm-12 mb-3">
                       <label for="info">Lớp</label>
                       <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom ? classroom.name : null %>" readonly>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 mb-2">
+                    <div class="col-md-4 col-sm-12 mb-3">
                       <label for="year">Năm học</label>
                       <select class="form-control form-control-sm font-weight-bold" id="year" name="year">
                         <% years.forEach(year => { %>
@@ -48,7 +48,7 @@
                       </select>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 mb-2">
+                    <div class="col-md-4 col-sm-12 mb-3">
                       <label for="semester">Học kỳ</label>
                       <select class="form-control form-control-sm font-weight-bold" id="semester" name="semester">
                         <<% semesters.forEach(semester => { %>
@@ -63,7 +63,12 @@
                       </select>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                    <div class="col-md-4 col-sm-12 mb-3">
+                      <label for="info">Xếp loại</label>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="Giỏi" readonly>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 align-self-end">
                       <button type="submit" class="btn btn-info">Xem điểm</button>
                     </div>
 
@@ -90,6 +95,17 @@
                 <hr>
 
                 <div class="card-title">Bảng điểm</div>
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-12 mb-4">
+                    <label for="info">ĐTB học kỳ</label>
+                    <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= studentAvgSemester %>" readonly>
+                  </div>
+
+                 
+
+                </div>
+
                 <div class="table-responsive">
                   <table class="table table-hover">
 
