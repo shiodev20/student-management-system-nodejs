@@ -34,10 +34,14 @@
                 <div class="tab-pane fade active show" id="general-rule">
                   <form action="/" method="POST">
                     <div class="row">
-                      <% rules.forEach(rule => { %>
+                      <% rules.forEach((rule, idx) => { %>
                         <div class="col-md-3 col-sm-12 mb-3">
                           <label for=""><%= rule.name %></label>
-                          <input type="number" class="form-control font-weight-bold" name="<%= rule.id %>" value="<%= rule.value %>">
+                          <% if(idx < rules.length - 1) { %>
+                            <input type="number" class="form-control font-weight-bold" name="<%= rule.id %>" value="<%= parseInt(rule.value) %>">
+                          <% } else { %>
+                            <input type="number" class="form-control font-weight-bold" name="<%= rule.id %>" value="<%= rule.value %>">
+                          <% } %>
                         </div>
                       <% }) %>
                         <div class="col-md-3 col-sm-12 mb-3">
@@ -48,14 +52,90 @@
                 </div>
 
                 <div class="tab-pane fade show" id="subject-rule">
-                  <form action="" method="POST">
-                    
+                  <form action="/" method="POST">
+                    <div class="row">
+                      <div class="col">
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            <thead class="table-primary">
+                              <tr>
+                                <th>STT</th>
+                                <th>Mã môn học</th>
+                                <th>Tên môn học</th>
+                                <th>Hệ số</th>
+                              </tr>
+                            </thead>
+    
+                            <div class="tbody">
+                              <% subjects.forEach((subject, idx) => { %>
+                                <tr>
+                                  <th><%= idx + 1 %></th>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= subject.id %>" readonly>
+                                  </td>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= subject.name %>">
+                                  </td>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficient" value="<%= subject.coefficient %>">
+                                  </td>
+                                </tr>
+                              <% }) %>
+                            </div>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12 my-3">
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                      </div>
+                    </div>
                   </form>
                 </div>
 
                 <div class="tab-pane fade show" id="mark-rule">
-                  <form action="" method="POST">
-                    
+                  <form action="/" method="POST">
+                    <div class="row">
+                      <div class="col">
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            <thead class="table-primary">
+                              <tr>
+                                <th>STT</th>
+                                <th>Mã loại điểm</th>
+                                <th>Tên loại điểm</th>
+                                <th>Hệ số</th>
+                              </tr>
+                            </thead>
+    
+                            <div class="tbody">
+                              <% markTypes.forEach((markType, idx) => { %>
+                                <tr>
+                                  <th><%= idx + 1 %></th>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= markType.id %>" readonly>
+                                  </td>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= markType.name %>">
+                                  </td>
+                                  <td>
+                                    <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficient" value="<%= markType.coefficient %>">
+                                  </td>
+                                </tr>
+                              <% }) %>
+                            </div>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12 my-3">
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                      </div>
+                    </div>
                   </form>
                 </div>
 

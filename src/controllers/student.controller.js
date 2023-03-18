@@ -153,7 +153,7 @@ const putStudentUpdate = async (req, res, next) => {
 
     if (!checkAge) {
       const ruleList = await ruleService.getRuleList()
-      throw customError(2, `Tuổi học sinh từ ${ruleList.minAge} đến ${ruleList.maxAge} tuổi`)
+      throw customError(2, `Tuổi học sinh từ ${parseInt(ruleList[0].value)} đến ${parseInt(ruleList[1].value)} tuổi`)
     }
 
     const result = await studentService.updateStudent(id, student)

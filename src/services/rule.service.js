@@ -13,21 +13,27 @@ const getRuleList = async () => {
   }
 }
 
+const getRuleById = async (id) => {
+  try {
+    const result = await Rule.findByPk(id)
+    return result
+    
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 const checkStudentAge = async (dob) => {
+
+  
   const studentYearOfDob = new Date(dob).getFullYear()
   const currentYear = new Date().getFullYear()
 
   try {
-    const minAge = await Rule.findOne({
-      where: { id: { [Op.eq]: 'QD1' } }
-    })
+    const minAge = await getRuleById('QD1')
+    const maxAge = await getRuleById('QD2')
 
-    const maxAge = await Rule.findOne({
-      where: { id: { [Op.eq]: 'QD2' } }
-    })
-
-    console.log(minAge);
-    
     const age = currentYear - studentYearOfDob
 
     if (age >= minAge.value && age <= maxAge.value) return true
@@ -41,4 +47,5 @@ const checkStudentAge = async (dob) => {
 }
 
 exports.getRuleList = getRuleList
+exports.getRuleById = getRuleById
 exports.checkStudentAge = checkStudentAge
