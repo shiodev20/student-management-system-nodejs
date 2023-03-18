@@ -42,4 +42,6 @@ initialRoutes(app)
 
 app.use(errorMiddleware)
 
-app.listen(3000, () => { console.log('app is running') })
+app.listen(3000, () => { 
+  console.log('app is running') 
+})

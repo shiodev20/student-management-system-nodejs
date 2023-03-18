@@ -13,7 +13,7 @@
           <div class="col-12 grid-margin">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Cập nhật học sinh</h4>
+                <h4 class="card-title">Cập nhật học sinh <%= student.id %></h4>
                 <form action="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>?_method=PUT" method="POST">
 
                   <%- include('../partials/form-message'); %>

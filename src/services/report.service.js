@@ -14,23 +14,23 @@ const yearService = require('./year.service')
 const getStudentMarkReport = async (classroomId, subjectId, semesterId, yearId) => {
   try {
     const classroom = await classroomService.getClassroomById(classroomId)
-    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
+    if (!classroom) throw customError(1, `Không tìm thấy lớp học ${classroomId}`)
 
     const subject = await subjectService.getSubjectById(subjectId)
-    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+    if (!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
 
     const semester = await semesterService.getSemesterById(semesterId)
-    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+    if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
 
     const year = await yearService.getYearById(yearId)
-    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+    if (!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const result = await markService.getMarksOfClassroomBySubject(classroom.id, subject.id, semester.id, year.id)
 
     return result
 
   } catch (error) {
-    if(error.code != 0) throw error
+    if (error.code != 0) throw error
     throw customError()
   }
 }
@@ -38,13 +38,13 @@ const getStudentMarkReport = async (classroomId, subjectId, semesterId, yearId) 
 const getSubjectReport = async (yearId, semesterId, subjectId) => {
   try {
     const subject = await subjectService.getSubjectById(subjectId)
-    if(!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
+    if (!subject) throw customError(1, `Không tìm thấy môn học ${subjectId}`)
 
     const semester = await semesterService.getSemesterById(semesterId)
-    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+    if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
 
     const year = await yearService.getYearById(yearId)
-    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+    if (!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const markTypes = await markTypeService.getMarkTypeList()
     const passMark = 5.0
@@ -62,8 +62,8 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
           { yearId: { [Op.eq]: year.id } },
           { semesterId: { [Op.eq]: semester.id } },
           { subjectId: { [Op.eq]: subject.id } },
-          { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id }},
-          { mark: { [Op.gte]: passMark }},
+          { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id } },
+          { mark: { [Op.gte]: passMark } },
         ]
       },
       group: ['classroom.id', 'classroom.name', 'classroom.size'],
@@ -78,7 +78,7 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
 
 
   } catch (error) {
-    if(error.code != 0) throw error
+    if (error.code != 0) throw error
     throw customError()
   }
 }
@@ -86,10 +86,10 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
 const getSemesterReport = async (yearId, semesterId) => {
   try {
     const semester = await semesterService.getSemesterById(semesterId)
-    if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
+    if (!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
 
     const year = await yearService.getYearById(yearId)
-    if(!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
+    if (!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const passMark = 5.0
 
@@ -101,31 +101,32 @@ const getSemesterReport = async (yearId, semesterId) => {
       }
     })
 
+    // return classrooms
     for (const classroom of classrooms) {
       const students = await classroom.getStudents()
-      
+
       const item = {
         id: classroom.id,
         name: classroom.name,
         size: classroom.size,
         gradeId: classroom.gradeId,
         passQuantity: 0,
-        passRatio: null,
+        passRatio: 0,
       }
 
       for (const student of students) {
         const studentAvgSemester = await markService.updateAvgSemester(year.id, semester.id, classroom.id, student.id)
-        if(studentAvgSemester >= passMark) item.passQuantity += 1
+        if (studentAvgSemester >= passMark) item.passQuantity += 1
       }
-      
-      item.passRatio = getPercentage(item.passQuantity, item.size)
+
+      item.passRatio = isNaN(getPercentage(item.passQuantity, item.size)) ? 0 : getPercentage(item.passQuantity, item.size)
       result.push(item)
     }
 
     return result
 
   } catch (error) {
-    if(error.code != 0) throw error
+    if (error.code != 0) throw error
     throw customError()
   }
 }
