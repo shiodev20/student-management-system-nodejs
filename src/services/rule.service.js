@@ -4,8 +4,9 @@ const customError = require('../utils/customError')
 
 const getRuleList = async () => {
   try {
-    const result = await Rule.findOne()
+    const result = await Rule.findAll()
     return result
+    
   } catch (error) {
     if(error.code != 0) throw error
     throw customError()
@@ -17,13 +18,19 @@ const checkStudentAge = async (dob) => {
   const currentYear = new Date().getFullYear()
 
   try {
-    const ageRule = await Rule.findOne({
-      attributes: ['minAge', 'maxAge']
+    const minAge = await Rule.findOne({
+      where: { id: { [Op.eq]: 'QD1' } }
     })
 
+    const maxAge = await Rule.findOne({
+      where: { id: { [Op.eq]: 'QD2' } }
+    })
+
+    console.log(minAge);
+    
     const age = currentYear - studentYearOfDob
 
-    if (age >= ageRule.minAge && age <= ageRule.maxAge) return true
+    if (age >= minAge.value && age <= maxAge.value) return true
 
     return false
 

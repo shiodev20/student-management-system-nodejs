@@ -1,12 +1,13 @@
 const router = require('express').Router()
 
-const { getRuleDashboard, getRuleUpdate, putRuleUpdate } = require('../controllers/rule.controller')
+const { getRuleDashboard } = require('../controllers/rule.controller')
 
+const { isLogin, isStaff } = require('../middlewares/auth.middleware')
 
-router.get('/cap-nhat-quy-dinh', getRuleUpdate)
+// router.get('/cap-nhat-quy-dinh', [isLogin, isAdmin], getRuleUpdate)
 
-router.put('/cap-nhat-quy-dinh', putRuleUpdate)
+// router.put('/cap-nhat-quy-dinh', [isLogin, isAdmin], putRuleUpdate)
 
-router.get('/', getRuleDashboard)
+router.get('/', [isLogin, isStaff], getRuleDashboard)
 
 module.exports = router

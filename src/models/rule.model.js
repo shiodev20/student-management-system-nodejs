@@ -13,39 +13,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Rule.init({
-    minAge: {
+    id: {
       primaryKey: true,
-      type: DataTypes.INTEGER,
-      validate: {
-        min: 0,
-        max: 10,
-      },
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    maxAge: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        min: 0,
-        max: 10,
-      },
     },
-    classSize: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
+    label: {
+      type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        min: 0,
-      },
     },
-    passMark: {
-      primaryKey: true,
+    value: {
       type: DataTypes.DECIMAL(3, 1),
       allowNull: false,
-      validate: {
-        min: 0,
-      },
     }
   }, {
     sequelize,

@@ -14,14 +14,31 @@ module.exports = {
     */
     await queryInterface.bulkInsert('rules', [
       {
-        minAge: 15,
-        maxAge: 20,
-        classSize: 40,
-        passMark: 5
+        id: 'QD1',
+        name: 'Tuổi tiếp nhận tối thiểu',
+        label: 'minAge',
+        value: 15,
+      },
+      {
+        id: 'QD2',
+        name: 'Tuổi tiếp nhận tối đa',
+        label: 'maxAge',
+        value: 20,
+      },
+      {
+        id: 'QD3',
+        name: 'Sỉ số tối đa',
+        label: 'classSizeMax',
+        value: 25,
+      },
+      {
+        id: 'QD4',
+        name: 'Điểm đạt môn',
+        label: 'passMark',
+        value: 5.0
       }
     ], {})
     console.log('done ', 'rules');
-
 
     await queryInterface.bulkInsert('roles', [
       { id: 'VT1', name: 'Giáo vụ' },
@@ -1184,7 +1201,6 @@ module.exports = {
       },
     ])
     console.log('done ', 'Classroomdetails');
-
   },
 
   async down(queryInterface, Sequelize) {
@@ -1209,5 +1225,6 @@ module.exports = {
     await queryInterface.bulkDelete('marktypes', null, {});
     await queryInterface.bulkDelete('roles', null, {});
     await queryInterface.bulkDelete('rules', null, {});
+
   }
 };
