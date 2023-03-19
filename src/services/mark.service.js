@@ -215,9 +215,8 @@ const updateAvgSemester = async (yearId, semesterId, classroomId, studentId) => 
         }
       })
       sumOfCoefficient += subject.coefficient
-      avg += Number(studentMark.mark)
+      avg += Number(studentMark.mark) * subject.coefficient
     }
-
 
     const result = Number((avg / sumOfCoefficient).toFixed(1))
 
