@@ -55,6 +55,17 @@ const initialRoutes = (app) => {
     }
   })
 
+  app.get('/thong-tin-ca-nhan/:id', [isLogin], async (req, res) => {
+    try {
+      res.render('account/info', {
+        documentTitle: 'Thông tin cá nhân'
+      })
+    } catch (error) {
+      console.log(error);      
+    }
+  })
+
+
   app.use(authRouter)
   app.use('/hoc-sinh', studentRouter)
   app.use('/lop-hoc', classroomRouter)
