@@ -40,7 +40,7 @@
                           <% if(idx < rules.length - 1) { %>
                             <input type="number" class="form-control font-weight-bold" name="<%= rule.id %>" value="<%= parseInt(rule.value) %>">
                           <% } else { %>
-                            <input type="number" class="form-control font-weight-bold" name="<%= rule.id %>" value="<%= rule.value %>">
+                            <input type="text" class="form-control font-weight-bold" name="<%= rule.id %>" value="<%= rule.value %>">
                           <% } %>
                         </div>
                       <% }) %>

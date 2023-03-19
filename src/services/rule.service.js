@@ -46,9 +46,17 @@ const checkStudentAge = async (dob) => {
   }
 }
 
-const updateRule = async () => {
+const updateRules = async (rules) => {
+
   try {
-    
+    const result = await Promise.all(rules.map(async rule => {
+      const updateRule = await getRuleById(rule.id)
+
+      await updateRule.update({ value: rule.value })
+    }))
+
+    return result
+
   } catch (error) {
     if(error.code != 0) throw error
     throw customError()
@@ -57,4 +65,5 @@ const updateRule = async () => {
 
 exports.getRuleList = getRuleList
 exports.getRuleById = getRuleById
+exports.updateRules = updateRules
 exports.checkStudentAge = checkStudentAge
