@@ -45,11 +45,26 @@ const putGeneralRuleUpdate = async (req, res, next) => {
 }
 
 const putSubjectRuleUpdate = async (req, res, next) => {
+  const { ids, names, coefficients } = req.body
 
   try {
-    console.log(req.body);
+    const data = []
 
+    ids.forEach((id, idx) => {
+      const item = {}
+
+      item.id = id
+      item.name = names[idx]
+      item.coefficient = Number(coefficients[idx])
+
+      data.push(item)
+    })
+
+    const result = await subjectService.updateSubjects(data)
+
+    req.flash('successMsg', 'Cập nhật môn học thành công')
     res.redirect('/quy-dinh?tag=2')
+    
   } catch (error) {
     console.log(error);
   }

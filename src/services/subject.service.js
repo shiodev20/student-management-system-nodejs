@@ -41,6 +41,26 @@ const getSubjectByTeacher = async (teacherId) => {
   }
 }
 
+const updateSubjects = async (subjects) => {
+  try {
+    const result = await Promise.all(subjects.map(async subject => {
+      const updateSubject = await getSubjectById(subject.id)
+
+      await updateSubject.update({
+        name: subject.name,
+        coefficient: subject.coefficient
+      })
+    }))
+
+    return result
+    
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getSubjectList = getSubjectList
 exports.getSubjectById = getSubjectById
 exports.getSubjectByTeacher = getSubjectByTeacher
+exports.updateSubjects = updateSubjects

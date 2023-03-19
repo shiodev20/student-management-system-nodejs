@@ -54,8 +54,6 @@
                 <div class="tab-pane fade <%= (tag && tag == '2') ? 'active show' : ''%>" id="subject-rule">
                   <form action="/quy-dinh/cap-nhat-mon-hoc?_method=PUT&tag=2" method="POST">
 
-                    <input type="text" name="tag" value="2" hidden>
-
                     <div class="row">
                       <div class="col">
                         <div class="table-responsive">
@@ -74,13 +72,13 @@
                                 <tr>
                                   <th><%= idx + 1 %></th>
                                   <td>
-                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= subject.id %>" readonly>
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="ids" value="<%= subject.id %>" readonly>
                                   </td>
                                   <td>
-                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= subject.name %>">
+                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="names" value="<%= subject.name %>">
                                   </td>
                                   <td>
-                                    <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficient" value="<%= subject.coefficient %>">
+                                    <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficients" value="<%= subject.coefficient %>">
                                   </td>
                                 </tr>
                               <% }) %>
