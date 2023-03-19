@@ -10,6 +10,7 @@ const classroomService = require('./classroom.service')
 const subjectService = require('./subject.service')
 const semesterService = require('./semester.service')
 const yearService = require('./year.service')
+const ruleService = require('./rule.service')
 
 const getStudentMarkReport = async (classroomId, subjectId, semesterId, yearId) => {
   try {
@@ -47,7 +48,7 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
     if (!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
     const markTypes = await markTypeService.getMarkTypeList()
-    const passMark = 5.0
+    const passMark = await ruleService.getRuleById('QD4')
 
     const result = await Mark.findAll({
       attributes: [
@@ -63,7 +64,7 @@ const getSubjectReport = async (yearId, semesterId, subjectId) => {
           { semesterId: { [Op.eq]: semester.id } },
           { subjectId: { [Op.eq]: subject.id } },
           { markTypeId: { [Op.eq]: markTypes[markTypes.length - 1].id } },
-          { mark: { [Op.gte]: passMark } },
+          { mark: { [Op.gte]: passMark.value } },
         ]
       },
       group: ['classroom.id', 'classroom.name', 'classroom.size'],
@@ -91,7 +92,7 @@ const getSemesterReport = async (yearId, semesterId) => {
     const year = await yearService.getYearById(yearId)
     if (!year) throw customError(1, `Không tìm thấy năm học ${yearId}`)
 
-    const passMark = 5.0
+    const passMark = await ruleService.getRuleById('QD4')
 
     const result = []
 
@@ -116,7 +117,7 @@ const getSemesterReport = async (yearId, semesterId) => {
 
       for (const student of students) {
         const studentAvgSemester = await markService.updateAvgSemester(year.id, semester.id, classroom.id, student.id)
-        if (studentAvgSemester >= passMark) item.passQuantity += 1
+        if (studentAvgSemester >= passMark.value) item.passQuantity += 1
       }
 
       item.passRatio = isNaN(getPercentage(item.passQuantity, item.size)) ? 0 : getPercentage(item.passQuantity, item.size)

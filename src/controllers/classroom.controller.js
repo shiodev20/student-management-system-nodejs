@@ -1,4 +1,4 @@
-const { classroomService, yearService, gradeService, semesterService, teacherService, studentService } = require('../services')
+const { classroomService, yearService, gradeService, semesterService, teacherService, studentService, ruleService } = require('../services')
 const customError = require('../utils/customError')
 
 
@@ -163,11 +163,13 @@ const getClassroomStudentAssignment = async (req, res, next) => {
     if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
 
     const noClassroomAssignStudents = await studentService.getNoClassAssignmentStudents(classroom.gradeId, classroom.yearId)
+    const classSizeMax = await ruleService.getRuleById('QD3')
 
     res.render('classroom/student-assignment', {
       documentTitle: `Lập danh sách lớp ${id}`,
       classroom,
       noClassroomAssignStudents,
+      classSizeMax,
     })
 
   } catch (error) {
