@@ -19,20 +19,20 @@
 
               <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link font-weight-bold active" data-toggle="tab" href="#general-rule" role="tab">Quy định chung</a>
+                  <a class="nav-link font-weight-bold <%= (tag == null || tag == '1') ? 'active' : ''%>" data-toggle="tab" href="#general-rule" role="tab">Quy định chung</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link font-weight-bold" data-toggle="tab" href="#subject-rule" role="tab">Môn học</a>
+                  <a class="nav-link font-weight-bold <%= (tag && tag == '2') ? 'active' : ''%>"" data-toggle="tab" href="#subject-rule" role="tab">Môn học</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link font-weight-bold" data-toggle="tab" href="#mark-rule" role="tab">Điểm số</a>
+                  <a class="nav-link font-weight-bold <%= (tag && tag == '3') ? 'active' : ''%>"" data-toggle="tab" href="#mark-rule" role="tab">Điểm số</a>
                 </li>
               </ul>
 
               <div class="tab-content">
 
-                <div class="tab-pane fade active show" id="general-rule">
-                  <form action="/" method="POST">
+                <div class="tab-pane fade <%= (tag == null || tag == '1') ? 'active show' : ''%>" id="general-rule">
+                  <form action="/quy-dinh/cap-nhat-quy-dinh?_method=PUT&tag=1" method="POST">
                     <div class="row">
                       <% rules.forEach((rule, idx) => { %>
                         <div class="col-md-3 col-sm-12 mb-3">
@@ -51,8 +51,11 @@
                   </form>
                 </div>
 
-                <div class="tab-pane fade show" id="subject-rule">
-                  <form action="/" method="POST">
+                <div class="tab-pane fade <%= (tag && tag == '2') ? 'active show' : ''%>" id="subject-rule">
+                  <form action="/quy-dinh/cap-nhat-mon-hoc?_method=PUT&tag=2" method="POST">
+
+                    <input type="text" name="tag" value="2" hidden>
+
                     <div class="row">
                       <div class="col">
                         <div class="table-responsive">
@@ -95,8 +98,9 @@
                   </form>
                 </div>
 
-                <div class="tab-pane fade show" id="mark-rule">
-                  <form action="/" method="POST">
+                <div class="tab-pane fade <%= (tag && tag == '3') ? 'active show' : ''%>" id="mark-rule">
+                  <form action="/quy-dinh/cap-nhat-loai-diem?_method=PUT&tag=3" method="POST">
+
                     <div class="row">
                       <div class="col">
                         <div class="table-responsive">
@@ -112,18 +116,33 @@
     
                             <div class="tbody">
                               <% markTypes.forEach((markType, idx) => { %>
-                                <tr>
-                                  <th><%= idx + 1 %></th>
-                                  <td>
-                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= markType.id %>" readonly>
-                                  </td>
-                                  <td>
-                                    <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= markType.name %>">
-                                  </td>
-                                  <td>
-                                    <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficient" value="<%= markType.coefficient %>">
-                                  </td>
-                                </tr>
+                                <% if(idx == markTypes.length - 1) { %>
+                                  <tr>
+                                    <th><%= idx + 1 %></th>
+                                    <td>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= markType.id %>" readonly>
+                                    </td>
+                                    <td>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= markType.name %>">
+                                    </td>
+                                    <td>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="coefficient" value="Không thể chỉnh sửa" readonly>
+                                    </td>
+                                  </tr>
+                                <% } else { %>
+                                  <tr>
+                                    <th><%= idx + 1 %></th>
+                                    <td>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= markType.id %>" readonly>
+                                    </td>
+                                    <td>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= markType.name %>">
+                                    </td>
+                                    <td>
+                                      <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficient" value="<%= markType.coefficient %>">
+                                    </td>
+                                  </tr>
+                                <% } %>
                               <% }) %>
                             </div>
                           </table>

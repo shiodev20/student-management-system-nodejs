@@ -12,6 +12,7 @@ const getRuleDashboard = async (req, res, next) => {
       rules,
       subjects,
       markTypes,
+      tag: req.body.tag ? req.body.tag : null,
     })
 
   } catch (error) {
@@ -19,18 +20,66 @@ const getRuleDashboard = async (req, res, next) => {
   }
 }
 
-// const getRuleUpdate = async (req, res) => {
-//   res.render('rule/update', {
-//     documentTitle: 'Cập nhật quy định',
-//   })
-// }
+const putGeneralRuleUpdate = async (req, res, next) => {
 
-// const putRuleUpdate = async (req, res) => {
-// }
+  try {
+    const rules = await ruleService.getRuleList()
+    const subjects = await subjectService.getSubjectList()
+    const markTypes = await markTypeService.getMarkTypeList()
+
+    res.render('rule/home', {
+      documentTitle: 'Quản lý quy định',
+      rules,
+      subjects,
+      markTypes,
+      tag: req.body.tag
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const putSubjectRuleUpdate = async (req, res, next) => {
+
+  try {
+    const rules = await ruleService.getRuleList()
+    const subjects = await subjectService.getSubjectList()
+    const markTypes = await markTypeService.getMarkTypeList()
+
+    res.render('rule/home', {
+      documentTitle: 'Quản lý quy định',
+      rules,
+      subjects,
+      markTypes,
+      tag: req.body.tag
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const putMarkTypeRuleUpdate = async (req, res, next) => {
+
+  try {
+    const rules = await ruleService.getRuleList()
+    const subjects = await subjectService.getSubjectList()
+    const markTypes = await markTypeService.getMarkTypeList()
+
+    res.render('rule/home', {
+      documentTitle: 'Quản lý quy định',
+      rules,
+      subjects,
+      markTypes,
+      tag: req.body.tag
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 module.exports = {
   getRuleDashboard,
-  // getRuleUpdate,
-  // putRuleUpdate,
+  putGeneralRuleUpdate,
+  putSubjectRuleUpdate,
+  putMarkTypeRuleUpdate,
 }
-

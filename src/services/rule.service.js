@@ -46,6 +46,15 @@ const checkStudentAge = async (dob) => {
   }
 }
 
+const updateRule = async () => {
+  try {
+    
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getRuleList = getRuleList
 exports.getRuleById = getRuleById
 exports.checkStudentAge = checkStudentAge
