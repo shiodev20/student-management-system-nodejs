@@ -13,4 +13,25 @@ const getRankList = async () => {
   }
 }
 
+const getRankByMark = async (mark) => {
+  try {
+    let result = ''
+    
+    const ranks = await getRankList()
+
+    ranks.forEach(rank => {
+      if(mark >= rank.minValue && mark <= rank.maxValue) {
+        result = rank.name
+        return
+      }
+    })
+
+    return result
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getRankList = getRankList
+exports.getRankByMark = getRankByMark

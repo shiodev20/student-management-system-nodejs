@@ -8,6 +8,8 @@ const initialRoutes = require('./routes')
 
 const errorMiddleware = require('./middlewares/error.middleware')
 
+const { rankService } = require('./services')
+
 const app = express()
 
 app.set('view engine', 'ejs')

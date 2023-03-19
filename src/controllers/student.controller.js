@@ -6,6 +6,7 @@ const {
   markService, 
   classroomService,
   markTypeService,
+  rankService,
 } = require('../services')
 const customError = require('../utils/customError')
 
@@ -191,6 +192,7 @@ const getStudentResult = async (req, res, next) => {
     const classroom = await classroomService.getClassroomByStudent(id, year)
     const studentResult = await markService.getMarksOfStudent(id, year, semester)
     const studentAvgSemester = await markService.updateAvgSemester(year, semester, classroom.id, id)
+    const studentRank = await rankService.getRankByMark(studentAvgSemester)
 
     res.render('student/result', {
       documentTitle: 'Kết quả học tập',
@@ -203,6 +205,7 @@ const getStudentResult = async (req, res, next) => {
       classroom,
       studentResult,
       studentAvgSemester,
+      studentRank,
     })
 
   } catch (error) {
