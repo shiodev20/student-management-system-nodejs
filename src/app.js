@@ -3,7 +3,6 @@ const express = require('express')
 const session = require('express-session')
 const flash = require('connect-flash')
 const methodOverride = require('method-override')
-const bcrypt = require('bcrypt')
 
 const initialRoutes = require('./routes')
 
