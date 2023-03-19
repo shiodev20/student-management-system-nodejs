@@ -118,26 +118,26 @@
                                   <tr>
                                     <th><%= idx + 1 %></th>
                                     <td>
-                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= markType.id %>" readonly>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="ids" value="<%= markType.id %>" readonly>
                                     </td>
                                     <td>
-                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= markType.name %>">
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="names" value="<%= markType.name %>">
                                     </td>
                                     <td>
-                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="coefficient" value="Không thể chỉnh sửa" readonly>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="coefficients" value="0" readonly>
                                     </td>
                                   </tr>
                                 <% } else { %>
                                   <tr>
                                     <th><%= idx + 1 %></th>
                                     <td>
-                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="id" value="<%= markType.id %>" readonly>
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="ids" value="<%= markType.id %>" readonly>
                                     </td>
                                     <td>
-                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="name" value="<%= markType.name %>">
+                                      <input class="form-control form-control-sm font-weight-bold" type="text" name="names" value="<%= markType.name %>">
                                     </td>
                                     <td>
-                                      <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficient" value="<%= markType.coefficient %>">
+                                      <input class="form-control form-control-sm font-weight-bold" type="number" name="coefficients" value="<%= markType.coefficient %>">
                                     </td>
                                   </tr>
                                 <% } %>

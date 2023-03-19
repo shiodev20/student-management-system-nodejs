@@ -64,18 +64,35 @@ const putSubjectRuleUpdate = async (req, res, next) => {
 
     req.flash('successMsg', 'Cập nhật môn học thành công')
     res.redirect('/quy-dinh?tag=2')
-    
+
   } catch (error) {
     console.log(error);
   }
 }
 
 const putMarkTypeRuleUpdate = async (req, res, next) => {
+  const { ids, names , coefficients } = req.body
 
   try {
-    console.log(req.body);
+    const data = []
 
+    ids.forEach((id, idx) => {
+      const item = {}
+
+      item.id = id
+      item.name = names[idx]
+      item.coefficient = Number(coefficients[idx])
+
+      data.push(item)
+    })
+    
+    // return res.json(data)
+
+    const result = await markTypeService.updateMarkTypes(data)
+
+    req.flash('successMsg', 'Cập nhật loại điểm thành công')
     res.redirect('/quy-dinh?tag=3')
+
   } catch (error) {
     console.log(error);
   }
