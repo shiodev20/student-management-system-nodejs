@@ -62,7 +62,8 @@ const postMarkAdd = async (req, res, next) => {
       studentIds.forEach((studentId, idx) => {
         const formatMark = Math.round(markTypeOfInput[idx] * 10) / 10
 
-        if (formatMark < 0) throw customError(1, 'Điểm nhập không được bé hơn 0')
+        if (formatMark < 0) throw customError(1, 'Điểm nhập không được bé hơn 0.0')
+        if(formatMark > 10) throw customError(1, 'Điểm nhập không được lớn hơn 10.0')
 
         const temp = { ...partials }
 
