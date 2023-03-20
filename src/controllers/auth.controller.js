@@ -30,7 +30,7 @@ const postLogin = async (req, res, next) => {
       throw customError(2, 'Tài khoản hoặc mật khẩu không chính xác')
     }
 
-    const user = await authService.getUserInfo(account.id)
+    const user = await authService.getAuthInfo(account.id)
 
     req.session.regenerate((err) => {
       req.session.auth = true

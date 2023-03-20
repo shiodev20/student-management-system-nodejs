@@ -8,7 +8,7 @@ const studentRouter = require('./student.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
-const { yearService, semesterService, classroomService, accountService, roleService, gradeService } = require('../services')
+const { yearService, semesterService, classroomService, accountService, roleService, gradeService, authService } = require('../services')
 
 const initialRoutes = (app) => {
 
@@ -56,9 +56,14 @@ const initialRoutes = (app) => {
   })
 
   app.get('/thong-tin-ca-nhan/:id', [isLogin], async (req, res) => {
+    const { id } = req.params
+
     try {
+      const info = await authService.getUserInfo(id)
+
       res.render('account/info', {
-        documentTitle: 'Thông tin cá nhân'
+        documentTitle: 'Thông tin cá nhân',
+        info,
       })
     } catch (error) {
       console.log(error);      
