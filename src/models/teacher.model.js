@@ -57,6 +57,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(11),
       allowNull: false
     },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
     fullName: {
       type: DataTypes.VIRTUAL,
       get() {

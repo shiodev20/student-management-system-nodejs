@@ -36,6 +36,11 @@ module.exports = {
         type: Sequelize.STRING(11),
         allowNull: false
       },
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
+      },
       accountId: {
         type: Sequelize.STRING(10),
       },

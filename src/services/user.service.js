@@ -1,11 +1,13 @@
 const { Op } = require('sequelize')
-const { Teacher, Employee, Role } = require('../models')
+const { Teacher, Employee, Role, Classroom, TeachingAssignment } = require('../models')
 const customError = require('../utils/customError')
 const { generateId } = require('../utils/generateId')
 
 const roleService = require('./role.service')
 const employeeService = require('./employee.service')
 const teacherService = require('./teacher.service')
+const yearService = require('./year.service')
+const classroomService = require('./classroom.service')
 
 const getUserList = async () => {
   try {
@@ -167,8 +169,54 @@ const updateUser = async (id, user) => {
   }
 }
 
+const deleteUser = async (id) => {
+  try {
+    const user = await getUserById(id)
+    if(!user) throw customError(1, `Không tìm thấy nhân viên ${id}`)
+
+    if(user.roleId == 'VT2') {
+      const currentYear = await yearService.getCurrentYear()
+      const classrooms = await Classroom.findAll({
+        where: {
+          [Op.and]: [
+            { yearId: { [Op.eq]: currentYear.id } },
+            { headTeacherId: { [Op.eq]: user.id } }
+          ]
+        }
+      })
+
+      const teachingAssignments = await TeachingAssignment.findAll({
+        where: {
+          subjectTeacherId: { [Op.eq]: user.id }
+        },
+        include: {
+          model: Classroom,
+          as: 'classroom',
+          where: {
+            yearId: { [Op.eq]: currentYear.id }
+          }
+        }
+      })
+
+      await Promise.all(classrooms.map(async classroom => {
+        await classroom.update({ headTeacherId: null })
+      }))
+
+      await Promise.all(teachingAssignments.map(async teachingAssignment => {
+        await teachingAssignment.update({ subjectTeacherId: null })
+      }))
+    }
+
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getUserList = getUserList
 exports.getUserId = getUserById
 exports.getUserBySearch = getUserBySearch
 exports.addUser = addUser
 exports.updateUser = updateUser
+exports.deleteUser = deleteUser

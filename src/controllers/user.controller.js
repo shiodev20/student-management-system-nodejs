@@ -124,7 +124,14 @@ const putUserUpdate = async (req, res, next) => {
 }
 
 const deleteUserDelete = async (req, res, next) => {
+  const { id } = req.params
 
+  try {
+    
+
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = {
