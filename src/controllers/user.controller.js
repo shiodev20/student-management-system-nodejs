@@ -71,7 +71,36 @@ const getUserUpdate = async (req, res, next) => {
 }
 
 const putUserUpdate = async (req, res, next) => {
+  const { id } = req.params
+  try {
+    if(
+      !req.body.firstName ||
+      !req.body.lastName ||
+      !req.body.dob ||
+      !req.body.gender ||
+      !req.body.address ||
+      !req.body.email ||
+      !req.body.phone
+    ) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
 
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
+      gender: Number(req.body.gender),
+      address: req.body.address,
+      email: req.body.email,
+      phone: req.body.phone,
+    }
+
+    const result = await userService.updateUser(id, user)
+
+    req.flash('successMsg', `Cập nhật nhân viên ${id} thành công`)
+    res.redirect(`/nhan-vien/cap-nhat-nhan-vien/${id}`)
+
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const deleteUserDelete = async (req, res, next) => {

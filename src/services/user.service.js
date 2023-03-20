@@ -35,8 +35,6 @@ const getUserById = async (id) => {
     let result = await employeeService.getEmployeeById(id)
     if(!result) result = await teacherService.getTeacherById(id)
 
-    if(!result) throw customError(1, `Không tìm thấy nhân viên ${id}`)
-
     return result
 
   } catch (error) {
@@ -79,6 +77,23 @@ const addUser = async (user) => {
   }
 }
 
+const updateUser = async (id, user) => {
+  try {
+    const updateUser = await getUserById(id)
+    if(!updateUser) throw customError(1, `Không tìm thấy nhân viên ${id}`)
+
+    const result = await updateUser.update(user)
+
+    return result
+    
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getUserList = getUserList
 exports.getUserId = getUserById
 exports.addUser = addUser
+exports.updateUser = updateUser
+
