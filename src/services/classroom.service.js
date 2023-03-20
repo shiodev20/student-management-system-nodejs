@@ -397,6 +397,37 @@ const deleteStudentFromClassroom = async (classroomId, studentId) => {
 
 const deleteClassroom = async (id) => {
   try {
+    const classroom = await getClassroomById(id)
+    if(!classroom) throw customError(1, `Không tìm thấy lớp học ${id}`)
+
+    const classroomDetails = await ClassroomDetail.findAll({
+      where: {
+        classroomId: { [Op.eq]: classroom.id }
+      }
+    })
+
+    const teachingAssignments = await TeachingAssignment.findAll({
+      where: {
+        classroomId: { [Op.eq]: classroom.id }
+      }
+    })
+
+    await Promise.all(classroomDetails.map(async item => {
+      await item.destroy()
+    }))
+
+    await Promise.all(teachingAssignments.map(async item => {
+      await item.destroy()
+    }))
+
+    const result = await classroom.destroy()
+
+    return result
+
+    return {
+      classroomDetails,
+      teachingAssignments
+    }
 
   } catch (error) {
     if (error.code != 0) throw error

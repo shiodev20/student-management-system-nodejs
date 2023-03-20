@@ -18,6 +18,7 @@ const getClassroomDashboard = async (req, res, next) => {
     }
 
     const years = await yearService.getYearList()
+    const currentYear = await yearService.getCurrentYear()
     const grades = await gradeService.getGradeList()
     const classrooms = await classroomService.getClassroomByYear(selectedYear)
 
@@ -25,6 +26,7 @@ const getClassroomDashboard = async (req, res, next) => {
       documentTitle: 'Quản lý lớp học',
       selectedYear,
       years,
+      currentYear,
       grades,
       classrooms,
     })
@@ -363,10 +365,10 @@ const deleteClassroomDelete = async (req, res, next) => {
   const { id } = req.params
 
   try {
-    // Dùng modal check xem lớp đã có học sinh hay chưa
     const result = await classroomService.deleteClassroom(id)
 
-    return res.json(result)
+    req.flash('successMsg', `Xóa lớp học ${id} thành công`)
+    res.redirect('/lop-hoc')
 
   } catch (error) {
     console.log(error);
