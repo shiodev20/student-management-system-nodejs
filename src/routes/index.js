@@ -10,6 +10,8 @@ const { isLogin } = require('../middlewares/auth.middleware')
 
 const { yearService, semesterService, classroomService, accountService, roleService, gradeService, authService } = require('../services')
 
+const err = { type: '', message: '', url: '' }
+
 const initialRoutes = (app) => {
 
   app.get('/', [isLogin], async (req, res) => {
@@ -66,7 +68,13 @@ const initialRoutes = (app) => {
         info,
       })
     } catch (error) {
-      console.log(error);      
+      switch (error.code) {
+        case 0, 1:
+          err.type = 'errorMsg'
+          err.message = error.message
+          err.url = '/'
+          break;
+      }
     }
   })
 

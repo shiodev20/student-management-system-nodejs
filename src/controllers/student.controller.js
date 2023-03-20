@@ -66,6 +66,7 @@ const postStudentAdd = async (req, res, next) => {
       dob: req.body.dob,
       gender: Number(req.body.gender),
       address: req.body.address,
+      email: req.body.email ? req.body.email : null,
       parentName: req.body.parentName,
       parentPhone: req.body.parentPhone,
     }
@@ -146,6 +147,7 @@ const putStudentUpdate = async (req, res, next) => {
       dob: req.body.dob,
       gender: Number(req.body.gender),
       address: req.body.address,
+      email: req.body.email ? req.body.email : null,
       parentName: req.body.parentName,
       parentPhone: req.body.parentPhone,
     }
