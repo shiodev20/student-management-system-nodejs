@@ -53,10 +53,10 @@
               <hr>
 
               <label for="">Lựa chọn:</label><br>
-            
-              <a href="/lop-hoc/lap-danh-sach-lop-hoc/<%= classroom.id %>" class="btn btn-info mb-3 mr-1">Thêm học sinh</a>
-              <a href="/lop-hoc/phan-cong-gvcn/<%= classroom.id %>"class="btn btn-info mb-3 mr-1">Phân công GVCN</a>
-              <a href="/lop-hoc/phan-cong-gvbm/<%= classroom.id %>" class="btn btn-info mb-3 mr-1">Phân công GVBM</a>
+              
+              <a href="/lop-hoc/lap-danh-sach-lop-hoc/<%= classroom.id %>" class="btn btn-info mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>">Thêm học sinh</a>
+              <a href="/lop-hoc/phan-cong-gvcn/<%= classroom.id %>"class="btn btn-info mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>"">Phân công GVCN</a>
+              <a href="/lop-hoc/phan-cong-gvbm/<%= classroom.id %>" class="btn btn-info mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>"">Phân công GVBM</a>
 
             </div>
           </div>

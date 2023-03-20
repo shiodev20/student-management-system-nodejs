@@ -47,7 +47,7 @@ const getNoAssignmentHeadTeacherList = async () => {
       where: {
         [Op.and]: [
           { headTeacherId: { [Op.ne]: null } },
-          { yearId: { [Op.eq]: currentYear.id } }
+          { yearId: { [Op.eq]: currentYear.id } },
         ]
       }
     })
@@ -55,7 +55,12 @@ const getNoAssignmentHeadTeacherList = async () => {
     for (const item of assignedTeachers) assignedTeacherIds.push(item.headTeacherId)
 
     const result = await Teacher.findAll({
-      where: { id: { [Op.notIn]: assignedTeacherIds } },
+      where: { 
+        [Op.and]: [
+          { status: { [Op.eq]: true } },
+          { id: { [Op.notIn]: assignedTeacherIds } }
+        ]
+      },
       include: {
         model: Subject,
         as: 'subject'
@@ -92,7 +97,12 @@ const getAllTeachersByAllSubjects = async () => {
     const subjects = await subjectService.getSubjectList()
 
     await Promise.all(subjects.map(async subject => {
-      const teachers = await getTeachersBySubject(subject.id)
+      let teachers = await getTeachersBySubject(subject.id)
+      
+      teachers = teachers.filter(teacher => {
+        if(teacher.status) return teacher
+      })
+
       teachersBySubjects.push({ subject, teachers })
     }))
 
