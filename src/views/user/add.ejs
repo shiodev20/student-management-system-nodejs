@@ -13,8 +13,8 @@
           <div class="col-12 grid-margin">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Tiếp nhận học sinh</h4>
-                <form action="/hoc-sinh/tao-hoc-sinh" method="POST" class="form-sample">
+                <h4 class="card-title">Tiếp nhận nhân viên</h4>
+                <form action="/nhan-vien/tao-nhan-vien" method="POST" class="form-sample">
 
                   <div class="row">
 
@@ -54,6 +54,7 @@
                         <label class="col-sm-3 col-form-label" for="gender">Giới tính</label>
                         <div class="col-sm-9">
                           <select class="form-control font-weight-bold" name="gender" id="gender">
+                            <option value="">Chọn</option>
                             <option value="1">Nam</option>
                             <option value="0">Nữ</option>
                           </select>
@@ -89,18 +90,23 @@
 
                     <div class="col">
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="parentName">Họ tên phụ huynh</label>
+                        <label class="col-sm-3 col-form-label" for="phone">Số điện thoại</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="parentName" name="parentName">
+                          <input type="text" class="form-control font-weight-bold" id="phone" name="phone">
                         </div>
                       </div>
                     </div>
 
                     <div class="col">
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="parentPhone">SĐT phụ huynh</label>
+                        <label class="col-sm-3 col-form-label" for="role">Chức vụ</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="parentPhone" name="parentPhone">
+                          <select class="form-control form-control-sm font-weight-bold" name="role">
+                            <option value="">Chọn</option>
+                            <% roles.forEach(role => { %>
+                              <option value="<%= role.id %>"><%= role.name %></option>
+                            <% }) %>
+                          </select>
                         </div>
                       </div>
                     </div>

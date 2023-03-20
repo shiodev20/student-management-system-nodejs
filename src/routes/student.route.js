@@ -12,9 +12,9 @@ const {
 const { isLogin, isStaff } = require('../middlewares/auth.middleware')
 
 
-router.get('/tiep-nhan-hoc-sinh', [isLogin, isStaff], getStudentAdd)
+router.get('/tao-hoc-sinh', [isLogin, isStaff], getStudentAdd)
 
-router.post('/tiep-nhan-hoc-sinh', [isLogin, isStaff], postStudentAdd)
+router.post('/tao-hoc-sinh', [isLogin, isStaff], postStudentAdd)
 
 router.get('/cap-nhat-hoc-sinh/:id', [isLogin, isStaff], getStudentUpdate)
 
