@@ -5,16 +5,18 @@ const markRouter = require('./mark.route')
 const reportRouter = require('./report.route')
 const ruleRouter = require('./rule.route')
 const studentRouter = require('./student.route')
+const userRouter = require('./user.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
-const { yearService, semesterService, classroomService, accountService, roleService, gradeService, authService } = require('../services')
+const { yearService, semesterService, classroomService, accountService, roleService, gradeService, authService, userService } = require('../services')
 
 const err = { type: '', message: '', url: '' }
 
 const initialRoutes = (app) => {
 
   app.get('/', [isLogin], async (req, res) => {
+    let roles = null
 
     switch (req.session.user.role) {
       case 'VT1':
@@ -38,7 +40,7 @@ const initialRoutes = (app) => {
 
       case 'VT3':
         const accounts = await accountService.getAccountList()
-        const roles = await roleService.getRoleList()
+        roles = await roleService.getRoleList()
 
         res.render('dashboard/admin', {
           documentTitle: 'Trang chủ',
@@ -48,6 +50,14 @@ const initialRoutes = (app) => {
         break;
       
       case 'VT4':
+        const users = await userService.getUserList()
+        roles = await roleService.getRoleList()
+        
+        res.render('dashboard/hr', {
+          documentTitle: 'Trang chủ',
+          roles,
+          users,
+        })
         break;
 
       default:
@@ -85,6 +95,7 @@ const initialRoutes = (app) => {
   app.use('/diem', markRouter)
   app.use('/tai-khoan', accountRouter)
   app.use('/bao-cao', reportRouter)
+  app.use('/nhan-vien', userRouter)
   app.use('/quy-dinh', ruleRouter)
 }
 

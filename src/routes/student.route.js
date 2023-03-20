@@ -28,4 +28,5 @@ router.get('/tim-kiem-hoc-sinh', [isLogin, isStaff], getStudentSearch)
 
 router.use('/', [isLogin, isStaff], getStudentDashboard)
 
+
 module.exports = router

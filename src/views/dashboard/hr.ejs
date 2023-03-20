@@ -1,0 +1,150 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
+
+  <div class="main-panel">
+
+    <div class="content-wrapper">
+
+      <div class="row">
+
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                <form action="/tai-khoan/tim-kiem-tai-khoan" method="GET">
+                  <div class="form-group row">
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="info">Thông tin</label>
+                      <input 
+                        type="text" 
+                        id="info" 
+                        name="info" 
+                        class="form-control form-control-sm font-weight-bold" 
+                      />
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="type">Loại tìm kiếm</label>
+                      <select class="form-control form-control-sm font-weight-bold" id="type" name="type">
+                        <option value="">Chọn</option>
+                        <option value="0">Mã nhân viên</option>
+                        <option value="1">Tên nhân viên</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+
+                  </div>
+
+                </form>
+
+                <div class="w-100 d-block d-md-none">
+                  <hr>
+                </div>
+
+                <div>
+                  <a href="/tai-khoan/tao-tai-khoan" class="button is-primary">
+                    <button class="btn btn-primary btn-icon-text">
+                      <i class='fa-solid fa-user-plus btn-icon-prepend'></i>Thêm nhân viên
+                    </button>
+                  </a>
+                </div>
+
+              </div>
+
+              <hr>
+
+              <div class="row">
+
+                <div class="col">
+                  <div class="card-title">Danh sách nhân viên</div>
+
+                  <ul class="nav nav-tabs">
+                    <% roles.forEach((role, roleIdx) => { %>
+                      <li class="nav-item">
+                        <a class="nav-link font-weight-bold <%= roleIdx == 0 ?'active' : '' %>" id="<%= role.id %>-tab" data-toggle="tab" href="#<%= role.id %>" role="tab"><%= role.name %></a>
+                      </li>
+                    <% }) %>
+                  </ul>
+
+                  <div class="tab-content">
+                    <% roles.forEach((role, roleIdx) => { %>
+                      <div class="tab-pane fade <%= roleIdx == 0 ? 'show active' : '' %>" id="<%= role.id %>">
+
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            
+                            <thead class="table-primary">
+                              <tr>
+                                <th>Mã nhân viên</th>
+                                <th>Họ</th>
+                                <th>Tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>Địa chỉ</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Lựa chọn</th>
+                              </tr>
+                            </thead>
+                            
+                            <tbody>
+                              <% users.forEach((user, idx) => { %>
+                                <% if(user.role.id == role.id) { %>
+                                  <tr>
+                                    <td class="font-weight-bold"><%= user.id %></td>
+                                    <td class="font-weight-bold"><%= user.firstName %></td>
+                                    <td class="font-weight-bold"><%= user.lastName %></td>
+                                    <td class="font-weight-bold"><%= user.genderText %></td>
+                                    <td class="font-weight-bold"><%= user.formatDob %></td>
+                                    <td class="font-weight-bold"><%= user.address %></td>
+                                    <td class="font-weight-bold"><%= user.email %></td>
+                                    <td class="font-weight-bold"><%= user.phone %></td>
+
+                                    <td class="d-flex justify-content-center">
+                                      
+                                      <form action="/?_method=PUT" method="GET">
+                                        <button class="btn btn-success btn-icon mr-1">
+                                          <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                      </form>
+                        
+                                      <form action="/?_method=DELETE" method="POST">
+                                        <button class="btn btn-danger btn-icon mr-1">
+                                          <i class='fa-solid fa-trash'></i>
+                                        </button>
+                                      </form>
+        
+                                    </td>
+                                  </tr>
+                                <% } %>
+                              <% }) %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    <% }) %>
+                  </div>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+<%- include('../partials/footer') %>
+<%- include('../partials/library') %>

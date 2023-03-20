@@ -20,7 +20,12 @@ const isTeacher = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-  if(req.session.user.role = 'VT3') return next()
+  if(req.session.user.role == 'VT3') return next()
+  return res.redirect('/')
+}
+
+const isHR = (req, res, next) => {
+  if(req.session.user.role == 'VT4') return next()
   return res.redirect('/')
 }
 
@@ -30,4 +35,5 @@ module.exports = {
   isStaff,
   isTeacher,
   isAdmin,
+  isHR,
 }
