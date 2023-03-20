@@ -42,7 +42,6 @@ const getAccountList = async () => {
 const getAccountById = async (id) => {
   try {
     const result = await Account.findByPk(id)
-    // if (!result) throw customError(1, `Không tìm thấy tài khoản ${id}`)
 
     return result
 

@@ -13,8 +13,8 @@
           <div class="col-12 grid-margin">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Tiếp nhận nhân viên</h4>
-                <form action="/nhan-vien/tao-nhan-vien" method="POST" class="form-sample">
+                <h4 class="card-title">Cập nhật nhân viên <%= user.id %></h4>
+                <form action="/nhan-vien/tao-nhan-vien/<%= user.id %>" method="POST" class="form-sample">
 
                   <div class="row">
 
@@ -22,7 +22,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="firstName">Họ</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="firstName" name="firstName">
+                          <input type="text" class="form-control font-weight-bold" id="firstName" name="firstName" value="<%= user.firstName %>">
                         </div>
                       </div>
                     </div>
@@ -31,7 +31,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="lastName">Tên</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="lastName" name="lastName">
+                          <input type="text" class="form-control font-weight-bold" id="lastName" name="lastName" value="<%= user.lastName %>">
                         </div>
                       </div>
                     </div>
@@ -44,7 +44,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="dob">Ngày sinh</label>
                         <div class="col-sm-9">
-                          <input type="date" class="form-control font-weight-bold" id="dob" name="dob">
+                          <input type="date" class="form-control font-weight-bold" id="dob" name="dob" value="<%= user.dob %>">
                         </div>
                       </div>
                     </div>
@@ -55,8 +55,13 @@
                         <div class="col-sm-9">
                           <select class="form-control font-weight-bold" name="gender" id="gender">
                             <option value="">Chọn</option>
-                            <option value="1">Nam</option>
-                            <option value="0">Nữ</option>
+                              <% if(user.gender) { %>
+                                <option value="1" selected>Nam</option>
+                                <option value="0">Nữ</option>
+                              <% } else { %>
+                                <option value="1">Nam</option>
+                                <option value="0" selected>Nữ</option>
+                              <% } %>
                           </select>
                         </div>
                       </div>
@@ -70,7 +75,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="address">Địa chỉ</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="address" name="address">
+                          <input type="text" class="form-control font-weight-bold" id="address" name="address" value="<%= user.address %>">
                         </div>
                       </div>
                     </div>
@@ -79,7 +84,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="email">Email</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="email" name="email">
+                          <input type="text" class="form-control font-weight-bold" id="email" name="email" value="<%= user.email %>">
                         </div>
                       </div>
                     </div>
@@ -92,21 +97,16 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="phone">Số điện thoại</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control font-weight-bold" id="phone" name="phone">
+                          <input type="text" class="form-control font-weight-bold" id="phone" name="phone" value="<%= user.phone %>">
                         </div>
                       </div>
                     </div>
 
                     <div class="col">
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="role">Chức vụ</label>
+                        <label class="col-sm-3 col-form-label" for="phone">Chức vụ</label>
                         <div class="col-sm-9">
-                          <select class="form-control form-control-sm font-weight-bold" name="role">
-                            <option value="">Chọn</option>
-                            <% roles.forEach(role => { %>
-                              <option value="<%= role.id %>"><%= role.name %></option>
-                            <% }) %>
-                          </select>
+                          <input type="text" class="form-control font-weight-bold" id="phone" name="phone" value="<%= role.name %>" readonly>
                         </div>
                       </div>
                     </div>

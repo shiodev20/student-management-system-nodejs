@@ -3,6 +3,8 @@ const customError = require('../utils/customError')
 const { generateId } = require('../utils/generateId')
 
 const roleService = require('./role.service')
+const employeeService = require('./employee.service')
+const teacherService = require('./teacher.service')
 
 const getUserList = async () => {
   try {
@@ -24,6 +26,21 @@ const getUserList = async () => {
 
   } catch (error) {
     if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
+const getUserById = async (id) => {
+  try {
+    let result = await employeeService.getEmployeeById(id)
+    if(!result) result = await teacherService.getTeacherById(id)
+
+    if(!result) throw customError(1, `Không tìm thấy nhân viên ${id}`)
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
     throw customError()
   }
 }
@@ -63,4 +80,5 @@ const addUser = async (user) => {
 }
 
 exports.getUserList = getUserList
+exports.getUserId = getUserById
 exports.addUser = addUser

@@ -53,9 +53,16 @@ const postUserAdd = async (req, res, next) => {
 }
 
 const getUserUpdate = async (req, res, next) => {
+  const { id } = req.params
+
   try {
+    const user = await userService.getUserId(id)
+    const role = await user.getRole()
+
     res.render('user/update', {
-      documentTitle: 'Cập nhật nhân viên'
+      documentTitle: 'Cập nhật nhân viên',
+      user,
+      role,
     })
 
   } catch (error) {
