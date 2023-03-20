@@ -112,12 +112,12 @@
                                     <td class="font-weight-bold"><%= user.phone %></td>
 
                                     <td class="d-flex justify-content-center">
-                                      
-                                      <form action="/?_method=PUT" method="GET">
+                                        
+                                      <a href="/nhan-vien/cap-nhat-nhan-vien/<%= user.id %>">
                                         <button class="btn btn-success btn-icon mr-1">
                                           <i class="fa-solid fa-pen"></i>
                                         </button>
-                                      </form>
+                                      </a>
                         
                                       <form action="/?_method=DELETE" method="POST">
                                         <button class="btn btn-danger btn-icon mr-1">

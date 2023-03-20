@@ -97,9 +97,23 @@
                       </div>
                     </div>
 
+                    <div class="col">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="role">Chức vụ</label>
+                        <div class="col-sm-9">
+                          <select class="form-control form-control-sm font-weight-bold" name="role">
+                            <option value="">Chọn</option>
+                            <% roles.forEach(role => { %>
+                              <option value="<%= role.id %>"><%= role.name %></option>
+                            <% }) %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
 
-                  <button type="submit" class="btn btn-primary ml-auto">Cập nhật</button>
+                  <button type="submit" class="btn btn-primary ml-auto">Tiếp nhận</button>
                 </form>
               </div>
 

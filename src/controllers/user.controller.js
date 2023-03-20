@@ -53,7 +53,14 @@ const postUserAdd = async (req, res, next) => {
 }
 
 const getUserUpdate = async (req, res, next) => {
+  try {
+    res.render('user/update', {
+      documentTitle: 'Cập nhật nhân viên'
+    })
 
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const putUserUpdate = async (req, res, next) => {
