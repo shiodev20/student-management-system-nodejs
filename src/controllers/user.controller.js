@@ -127,8 +127,11 @@ const deleteUserDelete = async (req, res, next) => {
   const { id } = req.params
 
   try {
-    
+    const result = await userService.deleteUser(id)
 
+    req.flash('successMsg', `Xóa nhân viên ${id} thành công`)
+    res.redirect('/')
+    
   } catch (error) {
     console.log(error);
   }

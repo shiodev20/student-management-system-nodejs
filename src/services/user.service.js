@@ -7,11 +7,13 @@ const roleService = require('./role.service')
 const employeeService = require('./employee.service')
 const teacherService = require('./teacher.service')
 const yearService = require('./year.service')
-const classroomService = require('./classroom.service')
 
 const getUserList = async () => {
   try {
     const employees = await Employee.findAll({
+      where: {
+        status: { [Op.eq]: true },
+      },
       include: {
         model: Role,
         as: 'role'
@@ -19,6 +21,9 @@ const getUserList = async () => {
     })
 
     const teachers = await Teacher.findAll({
+      where: {
+        status: { [Op.eq]: true },
+      },
       include: {
         model: Role,
         as: 'role'
@@ -174,8 +179,9 @@ const deleteUser = async (id) => {
     const user = await getUserById(id)
     if(!user) throw customError(1, `Không tìm thấy nhân viên ${id}`)
 
+    const currentYear = await yearService.getCurrentYear()
+
     if(user.roleId == 'VT2') {
-      const currentYear = await yearService.getCurrentYear()
       const classrooms = await Classroom.findAll({
         where: {
           [Op.and]: [
@@ -184,7 +190,6 @@ const deleteUser = async (id) => {
           ]
         }
       })
-
       const teachingAssignments = await TeachingAssignment.findAll({
         where: {
           subjectTeacherId: { [Op.eq]: user.id }
@@ -207,6 +212,9 @@ const deleteUser = async (id) => {
       }))
     }
 
+    const result = await user.update({ status: false })
+
+    return result
 
   } catch (error) {
     if(error.code != 0) throw error
