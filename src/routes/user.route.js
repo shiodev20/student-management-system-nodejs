@@ -1,11 +1,13 @@
 const router = require('express').Router()
 
-const { getUserAdd, postUserAdd, getUserUpdate, putUserUpdate, deleteUserDelete } = require('../controllers/user.controller')
+const { getUserAdd, postUserAdd, getUserUpdate, putUserUpdate, deleteUserDelete, getUserSearch } = require('../controllers/user.controller')
 const { isLogin, isHR } = require('../middlewares/auth.middleware')
 
 router.get('/tao-nhan-vien', [isLogin, isHR], getUserAdd)
 
 router.post('/tao-nhan-vien', [isLogin, isHR], postUserAdd)
+
+router.get('/tim-kiem-nhan-vien', [isLogin, isHR], getUserSearch)
 
 router.get('/cap-nhat-nhan-vien/:id', [isLogin, isHR], getUserUpdate)
 

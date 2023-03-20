@@ -19,7 +19,7 @@ const getUserAdd = async (req, res, next) => {
 
 const postUserAdd = async (req, res, next) => {
   try {
-    if(
+    if (
       !req.body.firstName ||
       !req.body.lastName ||
       !req.body.dob ||
@@ -45,7 +45,27 @@ const postUserAdd = async (req, res, next) => {
 
     req.flash('successMsg', `Thêm nhân viên thành công`)
     res.redirect('/nhan-vien/tao-nhan-vien')
-    
+
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const getUserSearch = async (req, res, next) => {
+  const { info, type } = req.query
+
+  try {
+    if (!info) throw customError(1, `Vui lòng nhập thông tin tìm kiếm`)
+
+    const users = await userService.getUserBySearch(info, type)
+    const roles = await roleService.getRoleList()
+
+    res.render('dashboard/hr', {
+      documentTitle: 'Trang chủ',
+      roles,
+      users,
+    })
 
   } catch (error) {
     console.log(error);
@@ -73,7 +93,7 @@ const getUserUpdate = async (req, res, next) => {
 const putUserUpdate = async (req, res, next) => {
   const { id } = req.params
   try {
-    if(
+    if (
       !req.body.firstName ||
       !req.body.lastName ||
       !req.body.dob ||
@@ -110,6 +130,7 @@ const deleteUserDelete = async (req, res, next) => {
 module.exports = {
   getUserAdd,
   postUserAdd,
+  getUserSearch,
   getUserUpdate,
   putUserUpdate,
   deleteUserDelete,

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { Teacher, Employee, Role } = require('../models')
 const customError = require('../utils/customError')
 const { generateId } = require('../utils/generateId')
@@ -34,6 +35,80 @@ const getUserById = async (id) => {
   try {
     let result = await employeeService.getEmployeeById(id)
     if(!result) result = await teacherService.getTeacherById(id)
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
+const getUserBySearch = async (info, type) => {
+
+  try {
+    let result = null
+    let employees = []
+    let teachers = []
+
+    switch (type) {
+      // Search by id
+      case '0':
+        employees = await Employee.findAll({
+          where: { id: { [Op.eq]: info } },
+          include: {
+            model: Role,
+            as: 'role'
+          }
+        })
+    
+        teachers = await Teacher.findAll({
+          where: { id: { [Op.eq]: info } },
+          include: {
+            model: Role,
+            as: 'role'
+          }
+        })
+
+        result = [...employees, ...teachers]
+
+        break;
+      
+      // search by name
+      case '1':
+        employees = await Employee.findAll({
+          where: {
+            [Op.or]: [
+              { firstName: { [Op.like]: `%${info}%` } },
+              { lastName: { [Op.like]: `%${info}%` } },
+            ]
+          },
+          include: {
+            model: Role,
+            as: 'role'
+          }
+        })
+    
+        teachers = await Teacher.findAll({
+          where: {
+            [Op.or]: [
+              { firstName: { [Op.like]: `%${info}%` } },
+              { lastName: { [Op.like]: `%${info}%` } },
+            ]
+          },
+          include: {
+            model: Role,
+            as: 'role'
+          }
+        })
+
+        result = [...employees, ...teachers]
+
+        break;
+
+      default:
+        throw customError(1, `Loại tìm kiếm không phù hợp`)
+    }
 
     return result
 
@@ -94,6 +169,6 @@ const updateUser = async (id, user) => {
 
 exports.getUserList = getUserList
 exports.getUserId = getUserById
+exports.getUserBySearch = getUserBySearch
 exports.addUser = addUser
 exports.updateUser = updateUser
-
