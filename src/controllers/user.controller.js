@@ -12,8 +12,22 @@ const getUserAdd = async (req, res, next) => {
       documentTitle: 'Thêm nhân viên',
       roles,
     })
+
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -46,9 +60,21 @@ const postUserAdd = async (req, res, next) => {
     req.flash('successMsg', `Thêm nhân viên thành công`)
     res.redirect('/nhan-vien/tao-nhan-vien')
 
-
   } catch (error) {
-    console.log(error);
+    switch(error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/nhan-vien/tao-nhan-vien'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/nhan-vien/tao-nhan-vien'
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -68,7 +94,20 @@ const getUserSearch = async (req, res, next) => {
     })
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -86,7 +125,20 @@ const getUserUpdate = async (req, res, next) => {
     })
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -119,7 +171,20 @@ const putUserUpdate = async (req, res, next) => {
     res.redirect(`/nhan-vien/cap-nhat-nhan-vien/${id}`)
 
   } catch (error) {
-    console.log(error);
+    switch(error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/nhan-vien/cap-nhat-nhan-vien/${id}`
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/nhan-vien/cap-nhat-nhan-vien/${id}`
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -133,7 +198,20 @@ const deleteUserDelete = async (req, res, next) => {
     res.redirect('/')
     
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+    }
+
+    next(err)
   }
 }
 
