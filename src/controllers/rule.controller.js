@@ -1,5 +1,7 @@
 const { ruleService, subjectService, markTypeService } = require('../services')
+const customError = require('../utils/customError')
 
+const err = { type: '', message: '', url: '' }
 
 const getRuleDashboard = async (req, res, next) => {
   try {
@@ -16,19 +18,32 @@ const getRuleDashboard = async (req, res, next) => {
     })
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh'
+        break;
+    }
+
+    next(err)
   }
 }
 
 const putGeneralRuleUpdate = async (req, res, next) => {
-
   try {
     const rules = []
 
     for (const key in req.body) {
+      const value = Number(req.body[key])
+
+      if(!value) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
+      if(key == 'QD4' && (value < 0 || value > 10) ) throw customError(1, `Điểm đạt phải từ 0.0 đến 10.0`)
+      if(value < 0) throw customError(1, `Giá trị phải lớn hơn 0`)
+
       const item = {
         id: key,
-        value: Number(req.body[key])
+        value: value
       }
 
       rules.push(item)
@@ -40,7 +55,14 @@ const putGeneralRuleUpdate = async (req, res, next) => {
     res.redirect('/quy-dinh?tag=1')
     
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=1'
+        break;
+    }
+    next(err)
   }
 }
 
@@ -53,9 +75,15 @@ const putSubjectRuleUpdate = async (req, res, next) => {
     ids.forEach((id, idx) => {
       const item = {}
 
+      const subjectName = names[idx]
+      const subjectCoefficient = Number(coefficients[idx])
+
+      if(!subjectName || !subjectCoefficient) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
+      if(subjectCoefficient <= 0 || subjectCoefficient > 10) throw customError(1, `Hệ số phải từ 1.0 đến 10.0`)
+
       item.id = id
-      item.name = names[idx]
-      item.coefficient = Number(coefficients[idx])
+      item.name = subjectName
+      item.coefficient = subjectCoefficient
 
       data.push(item)
     })
@@ -66,7 +94,15 @@ const putSubjectRuleUpdate = async (req, res, next) => {
     res.redirect('/quy-dinh?tag=2')
 
   } catch (error) {
-    console.log(error);
+    switch(error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=2'
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -79,14 +115,20 @@ const putMarkTypeRuleUpdate = async (req, res, next) => {
     ids.forEach((id, idx) => {
       const item = {}
 
+      const markTypeName = names[idx]
+      const markTypeCoefficient = coefficients[idx]
+
+      if(!markTypeName || !markTypeCoefficient) throw customError(1, `Vui lòng nhập đầy đủ thông tin`)
+      if(markTypeCoefficient <= 0 || markTypeCoefficient > 10) throw customError(1, `Hệ số phải từ 1.0 đến 10.0`)
+
       item.id = id
-      item.name = names[idx]
-      item.coefficient = Number(coefficients[idx])
+      item.name = markTypeName
+      item.coefficient = markTypeCoefficient
 
       data.push(item)
     })
     
-    // return res.json(data)
+    return res.json(data)
 
     const result = await markTypeService.updateMarkTypes(data)
 
@@ -94,7 +136,15 @@ const putMarkTypeRuleUpdate = async (req, res, next) => {
     res.redirect('/quy-dinh?tag=3')
 
   } catch (error) {
-    console.log(error);
+    switch(error.code) {
+      case 0, 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=3'
+        break;
+    }
+
+    next(err)
   }
 }
 
