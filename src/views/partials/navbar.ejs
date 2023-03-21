@@ -20,6 +20,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
           <a href="/thong-tin-ca-nhan/<%= currentUser.id %>" class="dropdown-item"><i class="fa-solid fa-gear"></i>Thông tin cá nhân</a>
+          <a  data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item"><i class="fa-solid fa-key"></i>Đổi mật khẩu</a>
           <a href="/dang-xuat" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a>
         </div>
       </li>
@@ -34,3 +35,38 @@
 </nav>
 
 
+<!-- Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold">Đổi mật khẩu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label for="oldPassword" class="font-weight-bold">Mật khẩu cũ</label>
+          <input type="password" id="oldPassword" class="form-control font-weight-bold" name="oldPassword">
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword" class="font-weight-bold">Mật khẩu mói</label>
+          <input type="password" id="newPassword" class="form-control font-weight-bold" name="newPassword">
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword2" class="font-weight-bold">Nhập lại mật khẩu mới</label>
+          <input type="password" id="newPassword2" class="form-control font-weight-bold" name="newPassword2">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Cập nhật</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
