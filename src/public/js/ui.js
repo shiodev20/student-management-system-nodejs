@@ -80,21 +80,25 @@ const firstReportClassroomOptions = document.querySelectorAll('#report-classroom
 
 
 const handleFirstReport = (yearSelect, classroomSelect, classroomOptions) => {
-  yearSelect.addEventListener('change', (e) => {
-    const year = e.target.value
-  
-    let html = ''
-  
-    classroomOptions.forEach(option => {
-      let value = option.innerHTML.split(' - ')[0]
-  
-      if(value == year) {
-        html += `<option value="${option.value}">${option.innerHTML}</option>`
-      }
+
+  if(yearSelect && classroomSelect && classroomOptions) {
+    yearSelect.addEventListener('change', (e) => {
+      const year = e.target.value
+    
+      let html = ''
+    
+      classroomOptions.forEach(option => {
+        let value = option.innerHTML.split(' - ')[0]
+    
+        if(value == year) {
+          html += `<option value="${option.value}">${option.innerHTML}</option>`
+        }
+      })
+    
+      classroomSelect.innerHTML = html
     })
-  
-    classroomSelect.innerHTML = html
-  })
+  }
+
 }
 
 handleNotification(notification)
