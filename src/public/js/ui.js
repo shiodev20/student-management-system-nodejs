@@ -25,6 +25,8 @@ const handleNotification = (notification) => {
   }
 }
 
+
+
 /**
  * Check class size
  */
@@ -82,37 +84,46 @@ const changePasswordError = document.querySelector('#changePasswordModalErrorMsg
 
 const handleChangePasswordModal = (userIdInput, oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError) => {
 
-  changePasswordSubmit.addEventListener('click', () => {
-    if(!oldPasswordInput.value || !newPasswordInput.value || !newPassword2Input.value) {
-      changePasswordError.innerHTML = `
+  if(
+    userIdInput &&
+    oldPasswordInput &&
+    newPasswordInput &&
+    newPassword2Input &&
+    changePasswordSubmit &&
+    changePassword
+  ) {
+    changePasswordSubmit.addEventListener('click', () => {
+      if(!oldPasswordInput.value || !newPasswordInput.value || !newPassword2Input.value) {
+        changePasswordError.innerHTML = `
+          <ul class="my-3 py-3">
+            <li>Vui lòng nhập đầy đủ thông tin</li>
+          </ul>
+        `
+      }
+    
+      else if(newPasswordInput.value.length < 6 || newPassword2Input.value.length < 6) {
+        changePasswordError.innerHTML = `
         <ul class="my-3 py-3">
-          <li>Vui lòng nhập đầy đủ thông tin</li>
+          <li>Mật khẩu phải từ 6 ký tự trở lên</li>
         </ul>
       `
-    }
-  
-    if(newPasswordInput.value.length < 6 || newPassword2Input.value.length < 6) {
-      changePasswordError.innerHTML = `
-      <ul class="my-3 py-3">
-        <li>Mật khẩu phải từ 6 ký tự trở lên</li>
-      </ul>
-    `
-    }
-  
-    if(newPasswordInput.value !== newPassword2Input.value) {
-      changePasswordError.innerHTML = `
-        <ul class="my-3 py-3">
-          <li>Mật khẩu nhập lại không chính xác</li>
-        </ul>
-      `
-    }
-  
-  
-    changePassword(userIdInput.value, oldPasswordInput.value, newPasswordInput.value, newPassword2Input.value)
-  })
+      }
+    
+      else if(newPasswordInput.value !== newPassword2Input.value) {
+        changePasswordError.innerHTML = `
+          <ul class="my-3 py-3">
+            <li>Mật khẩu nhập lại không chính xác</li>
+          </ul>
+        `
+      }
+    
+      else {
+        changePassword(userIdInput.value, oldPasswordInput.value, newPasswordInput.value, newPassword2Input.value)
+      }
+    })
+
+  }
 }
-
-
 
 
 

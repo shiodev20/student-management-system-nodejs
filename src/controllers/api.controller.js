@@ -10,22 +10,13 @@ const postChangePassword = async (req, res) => {
   try {
     const result = await authService.changePassword(id, oldPassword, newPassword, newPassword2)
 
-    return res.json(result)
+    return res.json({status: true})
 
   } catch (error) {
-    switch (error.code) {
-      case 0:
-        err.type = 'errorMsg'
-        err.message = error.message
-        res.json(err)
-        break;
-        
-      case 1:
-        err.type = 'errorMsg'
-        err.message = error.message
-        res.json(err)
-        break;
-    }
+    res.json({
+      status: false,
+      message: error.message
+    })
   }
 }
 

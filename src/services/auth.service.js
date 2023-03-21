@@ -50,7 +50,7 @@ const getUserInfo = async (id) => {
 const changePassword = async (id, oldPassword, newPassword, newPassword2) => {
   try {
     let account = await accountService.getAccountByUsername(id)
-    if (!account) account = await teacherService.getAccountByUsername(id)
+    if (!account) account = await accountService.getAccountByUsername(id)
 
     if(!account) throw customError(1, `Không tìm thấy tài khoản ${id}`)
 
