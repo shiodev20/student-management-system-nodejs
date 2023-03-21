@@ -32,7 +32,6 @@ const classSize = document.querySelector('#classSize')
 const classSizeMax = document.querySelector('#classSizeMax')
 const assignStudentInputs = document.querySelectorAll('input[name=studentIds]')
 
-
 const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
   if(classSize && classSizeMax && assignStudentInputs) {
 
@@ -72,8 +71,50 @@ const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
 }
 
 /**
- *  
+ *  change password modal
  */
+const oldPasswordInput = document.querySelector('#changePasswordModal input[name=oldPassword]')
+const newPasswordInput = document.querySelector('#changePasswordModal input[name=newPassword]')
+const newPassword2Input = document.querySelector('#changePasswordModal input[name=newPassword2]')
+const changePasswordSubmit = document.querySelector('#changePasswordModal #changePasswordSubmit')
+const changePasswordError = document.querySelector('#changePasswordModalErrorMsg')
+
+const handleChangePasswordModal = (oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError) => {
+
+  changePasswordSubmit.addEventListener('click', () => {
+    if(!oldPasswordInput.value || !newPasswordInput.value || !newPassword2Input.value) {
+      changePasswordError.innerHTML = `
+        <ul class="my-3 py-3">
+          <li>Vui lòng nhập đầy đủ thông tin</li>
+        </ul>
+      `
+    }
+  
+    if(newPasswordInput.value.length < 6 || newPassword2Input.value.length < 6) {
+      changePasswordError.innerHTML = `
+      <ul class="my-3 py-3">
+        <li>Mật khẩu phải từ 6 ký tự trở lên</li>
+      </ul>
+    `
+    }
+  
+    if(newPasswordInput.value !== newPassword2Input.value) {
+      changePasswordError.innerHTML = `
+        <ul class="my-3 py-3">
+          <li>Mật khẩu nhập lại không chính xác</li>
+        </ul>
+      `
+    }
+  
+  
+    changePassword(oldPasswordInput.value, newPasswordInput.value, newPassword2Input.value)
+  })
+}
+
+
+
+
+
 const firstReportYearSelect = document.querySelector('#report-classroom-subject-score select#year')
 const firstReportClassroomSelect = document.querySelector('#report-classroom-subject-score select#classroom')
 const firstReportClassroomOptions = document.querySelectorAll('#report-classroom-subject-score select#classroom option')
@@ -104,3 +145,4 @@ const handleFirstReport = (yearSelect, classroomSelect, classroomOptions) => {
 handleNotification(notification)
 handleCheckClassSize(classSize, classSizeMax, assignStudentInputs)
 handleFirstReport(firstReportYearSelect, firstReportClassroomSelect, firstReportClassroomOptions)
+handleChangePasswordModal(oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError)
