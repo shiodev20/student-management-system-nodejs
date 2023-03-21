@@ -1,7 +1,11 @@
-const customError = require('../utils/customError')
+const bcrypt = require('bcrypt')
 
 const teacherService = require('./teacher.service')
 const employeeService = require('./employee.service')
+const accountService = require('./account.service')
+
+const customError = require('../utils/customError')
+
 
 const getAuthInfo = async (accountId) => {
   try {
@@ -43,5 +47,33 @@ const getUserInfo = async (id) => {
 
 }
 
+const changePassword = async (id, oldPassword, newPassword, newPassword2) => {
+  try {
+    let account = await accountService.getAccountByUsername(id)
+    if (!account) account = await teacherService.getAccountByUsername(id)
+
+    if(!account) throw customError(1, `Không tìm thấy tài khoản ${id}`)
+
+    const isOldPasswordMatch = await bcrypt.compare(oldPassword, account.password)
+    
+    if(!isOldPasswordMatch) throw customError(1, `Mật khẩu không chính xác`)
+
+    if(newPassword !== newPassword2) throw customError()
+
+    const newPasswordHash = await bcrypt.hash(newPassword, 10)
+
+    const result = await account.update({
+      password: newPasswordHash
+    })
+    
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  } 
+}
+
 exports.getAuthInfo = getAuthInfo
 exports.getUserInfo = getUserInfo
+exports.changePassword = changePassword

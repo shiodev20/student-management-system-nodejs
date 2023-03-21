@@ -6,6 +6,7 @@ const reportRouter = require('./report.route')
 const ruleRouter = require('./rule.route')
 const studentRouter = require('./student.route')
 const userRouter = require('./user.route')
+const apiRouter = require('./api.route')
 
 const { isLogin } = require('../middlewares/auth.middleware')
 
@@ -97,6 +98,7 @@ const initialRoutes = (app) => {
   app.use('/bao-cao', reportRouter)
   app.use('/nhan-vien', userRouter)
   app.use('/quy-dinh', ruleRouter)
+  app.use('/api', apiRouter)
 }
 
 module.exports = initialRoutes

@@ -73,13 +73,14 @@ const handleCheckClassSize = (classSize, classSizeMax, assignStudentInputs) => {
 /**
  *  change password modal
  */
+const userIdInput =document.querySelector('#changePasswordModal input[name=id]')
 const oldPasswordInput = document.querySelector('#changePasswordModal input[name=oldPassword]')
 const newPasswordInput = document.querySelector('#changePasswordModal input[name=newPassword]')
 const newPassword2Input = document.querySelector('#changePasswordModal input[name=newPassword2]')
 const changePasswordSubmit = document.querySelector('#changePasswordModal #changePasswordSubmit')
 const changePasswordError = document.querySelector('#changePasswordModalErrorMsg')
 
-const handleChangePasswordModal = (oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError) => {
+const handleChangePasswordModal = (userIdInput, oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError) => {
 
   changePasswordSubmit.addEventListener('click', () => {
     if(!oldPasswordInput.value || !newPasswordInput.value || !newPassword2Input.value) {
@@ -107,7 +108,7 @@ const handleChangePasswordModal = (oldPasswordInput, newPasswordInput, newPasswo
     }
   
   
-    changePassword(oldPasswordInput.value, newPasswordInput.value, newPassword2Input.value)
+    changePassword(userIdInput.value, oldPasswordInput.value, newPasswordInput.value, newPassword2Input.value)
   })
 }
 
@@ -145,4 +146,4 @@ const handleFirstReport = (yearSelect, classroomSelect, classroomOptions) => {
 handleNotification(notification)
 handleCheckClassSize(classSize, classSizeMax, assignStudentInputs)
 handleFirstReport(firstReportYearSelect, firstReportClassroomSelect, firstReportClassroomOptions)
-handleChangePasswordModal(oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError)
+handleChangePasswordModal(userIdInput, oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError)
