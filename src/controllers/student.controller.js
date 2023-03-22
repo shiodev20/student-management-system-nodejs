@@ -29,7 +29,12 @@ const getStudentDashboard = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/hoc-sinh'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/hoc-sinh'
@@ -85,7 +90,12 @@ const postStudentAdd = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/hoc-sinh/tiep-nhan-hoc-sinh'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/hoc-sinh/tiep-nhan-hoc-sinh'
@@ -114,7 +124,12 @@ const getStudentUpdate = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/hoc-sinh'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/hoc-sinh'
@@ -166,7 +181,12 @@ const putStudentUpdate = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/hoc-sinh/cap-nhat-hoc-sinh/${id}`
@@ -212,7 +232,12 @@ const getStudentResult = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `hoc-sinh/ket-qua-hoc-tap/${id}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `hoc-sinh/ket-qua-hoc-tap/${id}`
@@ -240,7 +265,12 @@ const getStudentSearch = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/hoc-sinh`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/hoc-sinh`
@@ -262,7 +292,12 @@ const deleteStudentDelete = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/hoc-sinh`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/hoc-sinh`

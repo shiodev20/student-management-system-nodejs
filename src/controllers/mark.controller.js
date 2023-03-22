@@ -29,7 +29,12 @@ const getMarkAdd = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/${id}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/${id}`
@@ -82,7 +87,12 @@ const postMarkAdd = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/diem/nhap-diem/${partials.classroomId}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/diem/nhap-diem/${partials.classroomId}`
@@ -106,7 +116,12 @@ const getMarkAvgCalculate = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/diem/nhap-diem/${id}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/diem/nhap-diem/${id}`

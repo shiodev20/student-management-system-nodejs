@@ -1,8 +1,6 @@
 
 const { authService } = require('../services')
 
-const err = { type: '', message: '', url: '' }
-
 const postChangePassword = async (req, res) => {
   const { id } = req.params
   const { oldPassword, newPassword, newPassword2 } = req.body

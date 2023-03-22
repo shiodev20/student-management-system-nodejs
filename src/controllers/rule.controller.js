@@ -19,7 +19,12 @@ const getRuleDashboard = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/quy-dinh'
@@ -56,7 +61,12 @@ const putGeneralRuleUpdate = async (req, res, next) => {
     
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=1'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/quy-dinh?tag=1'
@@ -95,7 +105,12 @@ const putSubjectRuleUpdate = async (req, res, next) => {
 
   } catch (error) {
     switch(error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=2'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/quy-dinh?tag=2'
@@ -128,8 +143,6 @@ const putMarkTypeRuleUpdate = async (req, res, next) => {
       data.push(item)
     })
     
-    return res.json(data)
-
     const result = await markTypeService.updateMarkTypes(data)
 
     req.flash('successMsg', 'Cập nhật loại điểm thành công')
@@ -137,7 +150,12 @@ const putMarkTypeRuleUpdate = async (req, res, next) => {
 
   } catch (error) {
     switch(error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=3'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/quy-dinh?tag=3'

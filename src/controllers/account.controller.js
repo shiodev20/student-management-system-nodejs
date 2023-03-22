@@ -21,7 +21,13 @@ const getAccountSearch = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/`
@@ -49,7 +55,12 @@ const getAccountAddSearch = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/tai-khoan/tao-tai-khoan`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/tai-khoan/tao-tai-khoan`
@@ -73,7 +84,12 @@ const getAccountAdd = async (req, res, next) => {
     
   } catch (error) {
     switch (error.code) {
-      case 1, 0:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `tai-khoan/tao-tai-khoan`
+      break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `tai-khoan/tao-tai-khoan`
@@ -99,7 +115,12 @@ const postAccountAdd = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 1, 0:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/tai-khoan/tao-tai-khoan`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/tai-khoan/tao-tai-khoan`
@@ -125,7 +146,12 @@ const putAccountUpdateStatus = async (req, res, next) => {
     
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/`
@@ -147,7 +173,12 @@ const putAccountResetPassword = async (req, res, next) => {
     
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/`
@@ -168,7 +199,12 @@ const deleteAccountDelete = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/`

@@ -35,7 +35,12 @@ const getReportDashboard = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/bao-cao`
@@ -73,7 +78,12 @@ const getReportClassroomSubject = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao?tag=1`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/bao-cao?tag=1`
@@ -135,7 +145,12 @@ const getReportSubject = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao?tag=2`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/bao-cao?tag=2`
@@ -188,7 +203,12 @@ const getReportSemeter = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/bao-cao?tag=3`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/bao-cao?tag=3`

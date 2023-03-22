@@ -1,4 +1,12 @@
-const { classroomService, yearService, gradeService, semesterService, teacherService, studentService, ruleService } = require('../services')
+const { 
+  classroomService, 
+  yearService, 
+  gradeService, 
+  semesterService, 
+  teacherService, 
+  studentService, 
+  ruleService 
+} = require('../services')
 const customError = require('../utils/customError')
 
 
@@ -33,7 +41,12 @@ const getClassroomDashboard = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/'
@@ -58,7 +71,12 @@ const getClassroomAdd = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/lop-hoc/mo-lop-hoc'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/lop-hoc/mo-lop-hoc'
@@ -91,13 +109,13 @@ const postClassroomAdd = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/lop-hoc/mo-lop-hoc'
         break;
-      case 2:
-        err.type = 'formMsg'
+      case 1:
+        err.type = 'errorMsg'
         err.message = error.message
         err.url = '/lop-hoc/mo-lop-hoc'
         break;
@@ -117,7 +135,20 @@ const postClassroomsAdd = async (req, res, next) => {
     res.redirect('/lop-hoc/mo-lop-hoc')
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/lop-hoc/mo-lop-hoc'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/lop-hoc/mo-lop-hoc'
+        break;
+    }
+
+    next(err)
   }
 }
 
@@ -145,7 +176,12 @@ const getClassroomDetail = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/lop-hoc'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/lop-hoc'
@@ -176,7 +212,13 @@ const getClassroomStudentAssignment = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/${id}`
+        break;
+
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/${id}`
@@ -204,12 +246,16 @@ const postClassroomStudentAssignment = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/lap-danh-sach-lop-hoc/${classroomId}`
         break;
-
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/lap-danh-sach-lop-hoc/${classroomId}`
+        break;
     }
 
     next(err)
@@ -235,7 +281,12 @@ const getClassroomHeadTeacherAssignment = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/lop-hoc'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/lop-hoc'
@@ -263,7 +314,12 @@ const postClassroomHeadTeacherAssignment = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/phan-cong-gvcn/${classroomId}`
@@ -291,7 +347,12 @@ const getClassroomSubjectTeacherAssignment = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/phan-cong-gvbm/${id}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/phan-cong-gvbm/${id}`
@@ -326,7 +387,12 @@ const postClassroomSubjectTeacherAssignment = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/phan-cong-gvbm/${classroomId}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/phan-cong-gvbm/${classroomId}`
@@ -349,7 +415,12 @@ const deleteStudentClassroomDelete = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc/${classroomId}`
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = `/lop-hoc/${classroomId}`
@@ -371,7 +442,20 @@ const deleteClassroomDelete = async (req, res, next) => {
     res.redirect('/lop-hoc')
 
   } catch (error) {
-    console.log(error);
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc`
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = `/lop-hoc`
+        break;
+    }
+
+    next(err)
 
   }
 }

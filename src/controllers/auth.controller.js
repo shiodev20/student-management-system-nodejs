@@ -40,7 +40,12 @@ const postLogin = async (req, res, next) => {
 
   } catch (error) {
     switch (error.code) {
-      case 0, 1:
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/dang-nhap'
+        break;
+      case 1:
         err.type = 'errorMsg'
         err.message = error.message
         err.url = '/dang-nhap'
