@@ -6,9 +6,11 @@ const { authService, accountService, userService } = require('../services')
 
 const err = { type: '', message: '', url: '' }
 
+
 const getLogin = (req, res, next) => {
   res.render('auth/login', { documentTitle: 'Đăng nhập' })
 }
+
 
 const postLogin = async (req, res, next) => {
   const { username, password } = req.body
@@ -61,6 +63,7 @@ const postLogin = async (req, res, next) => {
   }
 }
 
+
 const getForgotPassword = async (req, res, next) => {
   try {
     res.render('auth/forgot-password', {
@@ -83,6 +86,7 @@ const getForgotPassword = async (req, res, next) => {
     next(err)
   }
 }
+
 
 const postForgotPassword = async (req, res, next) => {
   const { username } = req.body
