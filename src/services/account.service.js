@@ -58,6 +58,7 @@ const getAccountByUsername = async (username) => {
     })
 
     return result
+    
   } catch (error) {
     if (error.code != 0) throw error
     throw customError()
@@ -316,6 +317,30 @@ const resetAccountPassword = async (id) => {
   }
 }
 
+const forgotPassword = async (username, token, newPassword) => {
+  try {
+    const account = await getAccountByUsername(username)
+
+    if(!account) throw customError()
+
+    const isMatchPassword = token === account.password ? true : false
+
+    if(!isMatchPassword) throw customError()
+
+    const hashPassword = await bcrypt.hash(newPassword, 10)
+
+    const result = await account.update({
+      password: hashPassword
+    })
+
+    return result
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 const deleteAccount = async (id) => {
   try {
     const account = await getAccountById(id)
@@ -347,4 +372,5 @@ exports.getNoAccountEmplListBySearch = getNoAccountEmplListBySearch
 exports.addAccount = addAccount
 exports.updateAccountStatus = updateAccountStatus
 exports.resetPassword = resetAccountPassword
+exports.forgotPassword = forgotPassword
 exports.deleteAccount = deleteAccount
