@@ -99,6 +99,13 @@ const initialRoutes = (app) => {
   app.use('/nhan-vien', userRouter)
   app.use('/quy-dinh', ruleRouter)
   app.use('/api', apiRouter)
+
+  app.use('*', (req, res, next) => {
+    res.render('pages/404', {
+      documentTitle: '404'
+    })
+  })
+  
 }
 
 module.exports = initialRoutes
