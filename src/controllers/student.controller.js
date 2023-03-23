@@ -7,8 +7,10 @@ const {
   classroomService,
   markTypeService,
   rankService,
+  gradeService,
 } = require('../services')
 const customError = require('../utils/customError')
+const { Classroom } = require('../models')
 
 
 const err = { type: '', message: '', url: '' }
@@ -18,13 +20,25 @@ const getStudentDashboard = async (req, res, next) => {
   try {
     const currentYear = await yearService.getCurrentYear()
     const currentSemester = await semesterService.getCurrentSemester()
-    const students = await studentService.getStudentList()
+    const classrooms = await Classroom.findAll({ where: { yearId: currentYear.id }})
+
+    const gradeCount = {
+      grade10: 0,
+      grade11: 0,
+      grade12: 0
+    }
+
+    classrooms.forEach(classroom => {
+      if(classroom.gradeId === 'KH10') gradeCount.grade10 += classroom.size
+      if(classroom.gradeId === 'KH11') gradeCount.grade11 += classroom.size
+      if(classroom.gradeId === 'KH12') gradeCount.grade12 += classroom.size
+    })
 
     res.render('student/home', {
       documentTitle: 'Quản lý học sinh',
-      students,
       currentYear,
       currentSemester,
+      gradeCount,
     })
 
   } catch (error) {
@@ -256,7 +270,7 @@ const getStudentSearch = async (req, res, next) => {
     const currentSemester = await semesterService.getCurrentSemester()
     const students = await studentService.getStudentBySearch(info, type)
 
-    res.render('student/home', {
+    res.render('student/search', {
       documentTitle: 'Quản lý học sinh',
       currentYear,
       currentSemester,

@@ -1,0 +1,129 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+
+<div class="container-fluid page-body-wrapper">
+  
+<%- include('../partials/sidebar') %>
+
+  <div class="main-panel">
+
+    <div class="content-wrapper">
+
+      <div class="row">
+
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                <form action="/hoc-sinh/tim-kiem-hoc-sinh" method="GET">
+                  <div class="form-group row">
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="info">Thông tin</label>
+                      <input type="text" id="info" class="form-control form-control-sm font-weight-bold" name="info">
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 mb-2">
+                      <label for="type">Loại tìm kiếm</label>
+                      <select class="form-control form-control-sm font-weight-bold" id="type" name="type">
+                        <option value="0">Mã học sinh</option>
+                        <option value="1">Tên học sinh</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 align-self-end mb-2">
+                      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+
+                  </div>
+
+                </form>
+
+                <div class="w-100 d-block d-md-none">
+                  <hr>
+                </div>
+
+                <div>
+                  <a href="/hoc-sinh/tao-hoc-sinh" class="button is-primary">
+                    <button class="btn btn-primary btn-icon-text">
+                      <i class='fa-solid fa-user-plus btn-icon-prepend'></i>Tiếp nhận học sinh
+                    </button>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 grid-margin">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="table-primary">
+                    <tr>
+                      <th>STT</th>
+                      <th>Mã học sinh</th>
+                      <th>Họ</th>
+                      <th>Tên</th>
+                      <th>Ngày sinh</th>
+                      <th>Giới tính</th>
+                      <th>Địa chỉ</th>
+                      <th>Họ tên phụ huynh</th>
+                      <th>SĐT phụ huynh</th>
+                      <th>Lựa chọn</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+      
+                    <% students.forEach((student, idx) => { %>
+                      <tr>
+                        <th><%= idx + 1 %></th>
+                        <td class="font-weight-bold"><%= student.id %></td>
+                        <td class="font-weight-bold"><%= student.firstName %></td>
+                        <td class="font-weight-bold"><%= student.lastName %></td>
+                        <td class="font-weight-bold"><%= student.formatDob %></td>
+                        <td class="font-weight-bold"><%= student.genderText %></td>
+                        <td class="font-weight-bold"><%= student.address %></td>
+                        <td class="font-weight-bold"><%= student.parentName %></td>
+                        <td class="font-weight-bold"><%= student.parentPhone %></td>
+                        <td>
+                          <div class="d-flex justify-content-center">
+
+                            <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="mr-1">
+                              <button class="btn btn-info btn-icon"><i class='fa-solid fa-chart-simple'></i></button>
+                            </a>
+
+                            <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="mr-1">
+                              <button class="btn btn-success btn-icon"><i class='fa-solid fa-pen'></i></button>
+                            </a>
+
+                            <form class="mr-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
+                              <button class="btn btn-danger btn-icon"><i class='fa-solid fa-trash'></i></button>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }) %>
+      
+          
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      
+<%- include('../partials/footer') %>
+<%- include('../partials/library') %>

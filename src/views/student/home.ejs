@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-md-4 col-sm-12 align-self-end mb-2">
-                      <button type="submit" class="btn btn-info">Tìm kiếm</button>
+                      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </div>
 
                   </div>
@@ -60,67 +60,65 @@
           </div>
         </div>
 
-        <div class="col-12 grid-margin">
-
+        <div class="col-md-12 grid-margin">
           <div class="card">
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead class="table-primary">
-                    <tr>
-                      <th>STT</th>
-                      <th>Mã học sinh</th>
-                      <th>Họ</th>
-                      <th>Tên</th>
-                      <th>Ngày sinh</th>
-                      <th>Giới tính</th>
-                      <th>Địa chỉ</th>
-                      <th>Họ tên phụ huynh</th>
-                      <th>SĐT phụ huynh</th>
-                      <th>Lựa chọn</th>
-                    </tr>
-                  </thead>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-3">
+                  <div class="form-group">
+                    <label class="font-weight-bold">Năm học hiện tại</label>
+                    <input type="text" class="form-control font-weight-bold rounded" value="<%= currentYear.name %>" readonly>
+                  </div>
+                </div>
+    
+                <div class="col-sm-12 col-md-3">
+                  <div class="form-group">
+                    <label class="font-weight-bold">Học kỳ hiện tại</label>
+                    <input type="text" class="form-control font-weight-bold rounded" value="<%= currentSemester.name %>" readonly> 
+                  </div>
+                </div>
+    
+                <div class="col-md-12 grid-margin transparent">
+                  <div class="row">
+                    <div class="col-md-4 mb-4 stretch-card transparent">
+                      <div class="card card-tale card-dashboard">
+                        <div class="card-body">
+                          <p class="mb-4 card-dashboard-title">Khối 10</p>
+                          <p class="fs-30 mb-2"><%= gradeCount.grade10 %> <i class="fa-solid fa-user"></i></p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-4 stretch-card transparent">
+                      <div class="card card-dark-blue card-dashboard">
+                        <div class="card-body">
+                          <p class="mb-4 card-dashboard-title">Khối 11</p>
+                          <p class="fs-30 mb-2"><%= gradeCount.grade11 %> <i class="fa-solid fa-user"></i></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-4 stretch-card transparent">
+                      <div class="card card-light-danger card-dashboard">
+                        <div class="card-body">
+                          <p class="mb-4 card-dashboard-title">Khối 12</p>
+                          <p class="fs-30 mb-2"><%= gradeCount.grade12 %> <i class="fa-solid fa-user"></i></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   
-                  <tbody>
-      
-                    <% students.forEach((student, idx) => { %>
-                      <tr>
-                        <th><%= idx + 1 %></th>
-                        <td class="font-weight-bold"><%= student.id %></td>
-                        <td class="font-weight-bold"><%= student.firstName %></td>
-                        <td class="font-weight-bold"><%= student.lastName %></td>
-                        <td class="font-weight-bold"><%= student.formatDob %></td>
-                        <td class="font-weight-bold"><%= student.genderText %></td>
-                        <td class="font-weight-bold"><%= student.address %></td>
-                        <td class="font-weight-bold"><%= student.parentName %></td>
-                        <td class="font-weight-bold"><%= student.parentPhone %></td>
-                        <td>
-                          <div class="d-flex justify-content-center">
-
-                            <a href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>" class="mr-1">
-                              <button class="btn btn-info btn-icon"><i class='fa-solid fa-chart-simple'></i></button>
-                            </a>
-
-                            <a href="/hoc-sinh/cap-nhat-hoc-sinh/<%= student.id %>" class="mr-1">
-                              <button class="btn btn-success btn-icon"><i class='fa-solid fa-pen'></i></button>
-                            </a>
-
-                            <form class="mr-1"  style="display: inline-block;" action="/hoc-sinh/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
-                              <button class="btn btn-danger btn-icon"><i class='fa-solid fa-trash'></i></button>
-                            </form>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }) %>
-      
-          
-                  </tbody>
-                </table>
+                </div>
+    
               </div>
+
             </div>
           </div>
+
+         
         </div>
 
+        
       </div>
 
 
