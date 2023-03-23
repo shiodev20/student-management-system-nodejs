@@ -265,7 +265,7 @@ const addAccount = async ({ id, username }) => {
 
     if (!empl) throw customError(1, `Không tìm thấy nhân viên ${username}`)
 
-    const hashPassword = await bcrypt.hash('123456', 10)
+    const hashPassword = await bcrypt.hash(process.env.DEFAULT_PASSWORD, process.env.BCRYPT_SALT)
 
     const result = await Account.create({
       id,
@@ -305,7 +305,7 @@ const resetAccountPassword = async (id) => {
     const account = await getAccountById(id)
     if (!account) throw customError(1, `Không tìm thấy nhân viên ${id}`)
 
-    const hashPassword = await bcrypt.hash('123456', 10)
+    const hashPassword = await bcrypt.hash(process.env.DEFAULT_PASSWORD, process.env.BCRYPT_SALT)
 
     const result = await account.update({ password: hashPassword })
 
@@ -327,7 +327,7 @@ const forgotPassword = async (username, token, newPassword) => {
 
     if(!isMatchPassword) throw customError()
 
-    const hashPassword = await bcrypt.hash(newPassword, 10)
+    const hashPassword = await bcrypt.hash(newPassword, process.env.BCRYPT_SALT)
 
     const result = await account.update({
       password: hashPassword

@@ -1,6 +1,5 @@
 const mailer = require('nodemailer')
 const mailConfig = require('../config/mail.config')
-
   
 const sendMail = (to, subject, html) => {
   const transport = mailer.createTransport({

@@ -60,7 +60,7 @@ const changePassword = async (id, oldPassword, newPassword, newPassword2) => {
 
     if(newPassword !== newPassword2) throw customError()
 
-    const newPasswordHash = await bcrypt.hash(newPassword, 10)
+    const newPasswordHash = await bcrypt.hash(newPassword, process.env.BCRYPT_SALT)
 
     const result = await account.update({
       password: newPasswordHash
