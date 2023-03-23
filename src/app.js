@@ -18,7 +18,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }))
+app.use(session({ 
+  secret: process.env.SESSION_SECRET, 
+  resave: false, 
+  saveUninitialized: true 
+}))
+
 app.use(flash())
 app.use(methodOverride('_method'))
 
