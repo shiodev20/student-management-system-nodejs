@@ -8,9 +8,12 @@ const studentRouter = require('./student.route')
 const userRouter = require('./user.route')
 const apiRouter = require('./api.route')
 
+
+
 const { isLogin } = require('../middlewares/auth.middleware')
 
 const { yearService, semesterService, classroomService, accountService, roleService, gradeService, authService, userService } = require('../services')
+const { Student, Classroom, Teacher, Employee } = require('../models')
 
 const err = { type: '', message: '', url: '' }
 
@@ -18,15 +21,33 @@ const initialRoutes = (app) => {
 
   app.get('/', [isLogin], async (req, res) => {
     let roles = null
+    let currentYear = null
+    let currentSemester = null
 
     switch (req.session.user.role) {
       case 'VT1':
-        res.render('dashboard/staff', { documentTitle: 'Trang chủ' })
+        currentYear = await yearService.getCurrentYear()
+        currentSemester = await semesterService.getCurrentSemester()
+
+        const studentCount = await Student.count()
+        const classroomCount = await Classroom.count()
+        const employeeCount = await Employee.count()
+        const teacherCount = await Teacher.count()
+
+        res.render('dashboard/staff', { 
+          documentTitle: 'Trang chủ',
+          currentYear,
+          currentSemester,
+          studentCount,
+          classroomCount,
+          employeeCount,
+          teacherCount,
+        })
         break;
 
       case 'VT2':
-        const currentYear = await yearService.getCurrentYear()
-        const currentSemester = await semesterService.getCurrentSemester()
+        currentYear = await yearService.getCurrentYear()
+        currentSemester = await semesterService.getCurrentSemester()
         const grades = await gradeService.getGradeList()
         const classroomsBySubjectTeacher = await classroomService.getClassroomsBySubjectTeacher(req.session.user.id, currentYear.id)
 

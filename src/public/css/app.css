@@ -1,3 +1,22 @@
+.dashboard-calendar {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #4B49AC;
+}
+
+.card-dashboard .card-dashboard-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-dashboard i {
+  position: relative;
+  bottom: 4px;
+  font-size: 20px;
+}
 input:read-only {
   background-color: #fff !important;
 }

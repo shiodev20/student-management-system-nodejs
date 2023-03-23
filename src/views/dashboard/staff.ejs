@@ -10,26 +10,87 @@
 
     <div class="content-wrapper">
 
-    <div class="container">
-      <div class="task-container">
-        <a href="/hoc-sinh" class="task-item has-text-dark">
-          <p><i class='bx bxs-user'></i> Quản lý học sinh</p>
-        </a>
-    
-        <a href="/lop-hoc" class="task-item has-text-dark">
-          <p><i class='bx bxs-school'></i> Quản lý lớp học</p>
-        </a>
-    
-        <a href="/bao-cao" class="task-item has-text-dark">
-          <p><i class='bx bx-line-chart'></i> Báo cáo thống kê</p>
-        </a>
-    
-        <a href="/quy-dinh" class="task-item has-text-dark">
-          <p><i class='bx bx-list-ul'></i> Quản lý quy định</p>
-        </a>
-      </div>
-    </div>
+      <div class="row">
 
+        <div class="col-md-12 grid-margin">
+          <div class="row">
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label class="font-weight-bold">Năm học hiện tại</label>
+                <input type="text" class="form-control font-weight-bold rounded" value="<%= currentYear.name %>" readonly>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label class="font-weight-bold">Học kỳ hiện tại</label>
+                <input type="text" class="form-control font-weight-bold rounded" value="<%= currentSemester.name %>" readonly> 
+              </div>
+            </div>
+          </div>
+
+         
+        </div>
+
+        <div class="col-md-12 grid-margin">
+
+          <div class="row">
+
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card tale-bg">
+                <div class="dashboard-calendar">
+                  <script>document.write(new Date().toUTCString())</script>
+                </div>
+                <div class="card-people mt-auto">
+                  <img src="images/dashboard/student.svg" alt="student" height="250">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 grid-margin transparent">
+              <div class="row">
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-tale card-dashboard">
+                    <div class="card-body">
+                      <p class="mb-4 card-dashboard-title">Học sinh</p>
+                      <p class="fs-30 mb-2"><%= studentCount %> <i class="fa-solid fa-user"></i></p>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-dark-blue card-dashboard">
+                    <div class="card-body">
+                      <p class="mb-4 card-dashboard-title">Lớp học</p>
+                      <p class="fs-30 mb-2"><%= classroomCount %> <i class="fa-solid fa-chalkboard"></i></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                  <div class="card card-light-blue card-dashboard">
+                    <div class="card-body">
+                      <p class="mb-4 card-dashboard-title">Giáo viên</p>
+                      <p class="fs-30 mb-2"><%= teacherCount %> <i class="fa-solid fa-user-graduate"></i></p>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 stretch-card transparent">
+                  <div class="card card-light-danger card-dashboard">
+                    <div class="card-body">
+                      <p class="mb-4 card-dashboard-title">Nhân viên</p>
+                      <p class="fs-30 mb-2"><%= employeeCount %> <i class="fa-solid fa-user-tie"></i></p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 <%- include('../partials/footer') %>
