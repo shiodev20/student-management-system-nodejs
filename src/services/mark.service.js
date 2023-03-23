@@ -64,6 +64,7 @@ const getMarksOfStudent = async (studentId, yearId, semesterId) => {
     const semester = await semesterService.getSemesterById(semesterId)
     if(!semester) throw customError(1, `Không tìm thấy học kỳ ${semesterId}`)
 
+    
     const studentResult = await Subject.findAll({
       include: {
         model: Mark,
@@ -77,7 +78,6 @@ const getMarksOfStudent = async (studentId, yearId, semesterId) => {
         }
       }
     })
-
 
     return studentResult
 

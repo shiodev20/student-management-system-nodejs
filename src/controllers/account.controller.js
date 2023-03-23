@@ -110,6 +110,7 @@ const postAccountAdd = async (req, res, next) => {
 
     const result = await accountService.addAccount(account)
 
+    console.log(1);
     req.flash('successMsg', `Cấp tài khoản cho nhân viên ${username} thành công`)
     res.redirect('/tai-khoan/tao-tai-khoan')
 

@@ -20,32 +20,32 @@
               <div class="row">
 
                 <div class="col-md-4 col-sm-12 mb-4">
-                  <label for="info">Mã lớp</label>
+                  <label>Mã lớp</label>
                   <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.id %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
-                  <label for="info">Năm học</label>
+                  <label>Năm học</label>
                   <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.yearId %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
-                  <label for="info">Khối lớp</label>
+                  <label>Khối lớp</label>
                   <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.gradeId %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
-                  <label for="info">Lớp</label>
+                  <label>Lớp</label>
                   <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.name %>" readonly>
                 </div> 
                 
                 <div class="col-md-4 col-sm-12 mb-4">
-                  <label for="info">Sỉ số</label>
+                  <label>Sỉ số</label>
                   <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.size %>" readonly>
                 </div>
 
                 <div class="col-md-4 col-sm-12 mb-4">
-                  <label for="info">Giáo viên chủ nhiệm</label>
+                  <label>Giáo viên chủ nhiệm</label>
                   <input type="text" id="info" class="form-control form-control-sm font-weight-bold" value="<%= classroom.headTeacher ? classroom.headTeacher.fullName : null %>" readonly>
                 </div>
               </div>
@@ -54,9 +54,9 @@
 
               <label for="">Lựa chọn:</label><br>
               
-              <a href="/lop-hoc/lap-danh-sach-lop-hoc/<%= classroom.id %>" class="btn btn-info mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>">Thêm học sinh</a>
-              <a href="/lop-hoc/phan-cong-gvcn/<%= classroom.id %>"class="btn btn-info mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>"">Phân công GVCN</a>
-              <a href="/lop-hoc/phan-cong-gvbm/<%= classroom.id %>" class="btn btn-info mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>"">Phân công GVBM</a>
+              <a href="/lop-hoc/lap-danh-sach-lop-hoc/<%= classroom.id %>" class="btn btn-primary mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>">Thêm học sinh</a>
+              <a href="/lop-hoc/phan-cong-gvcn/<%= classroom.id %>"class="btn btn-primary mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>"">Phân công GVCN</a>
+              <a href="/lop-hoc/phan-cong-gvbm/<%= classroom.id %>" class="btn btn-primary mb-3 mr-1 <%= classroom.yearId != currentYear.id ? 'disabled' : '' %>"">Phân công GVBM</a>
 
             </div>
           </div>
@@ -78,13 +78,6 @@
               <div class="tab-content">
 
                 <div class="tab-pane fade show active" id="studentList">
-
-                  <label>Lựa chọn:</label><br>
-                  <a href="/">
-                    <button class="btn btn-primary btn-icon-text mb-3">
-                      <i class="fa-solid fa-file btn-icon-prepend"></i>In danh sách lớp
-                    </button>
-                  </a>
 
                   <div class="table-responsive">
                     <table class="table table-hover">

@@ -129,6 +129,8 @@ const postClassroomAdd = async (req, res, next) => {
 const postClassroomsAdd = async (req, res, next) => {
   const { year, grade, quantity } = req.body
   try {
+    if(quantity <= 0) throw customError(1, `Số lượng lớp phải lớn hơn 0`)
+    
     const result = await classroomService.addClassrooms(year, grade, quantity)
 
     req.flash('successMsg', `Mở ${quantity} lớp học thành công`)

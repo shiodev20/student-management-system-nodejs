@@ -212,6 +212,9 @@ const deleteUser = async (id) => {
       }))
     }
 
+    const account = await user.getAccount()
+    await account.update({ status: false })
+    
     const result = await user.update({ status: false })
 
     return result

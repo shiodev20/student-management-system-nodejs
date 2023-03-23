@@ -90,6 +90,8 @@ const postStudentAdd = async (req, res, next) => {
       parentPhone: req.body.parentPhone,
     }
 
+    console.log(student);
+    
     const checkAge = await ruleService.checkStudentAge(student.dob)
 
     if (!checkAge) {
@@ -226,9 +228,13 @@ const getStudentResult = async (req, res, next) => {
     const markTypes = await markTypeService.getMarkTypeList()
     const student = await studentService.getStudentById(id)
     const classroom = await classroomService.getClassroomByStudent(id, year)
+
+    if(!classroom) throw customError(1, `Học sinh ${id} chưa được phân lớp`)
+
     const studentResult = await markService.getMarksOfStudent(id, year, semester)
     const studentAvgSemester = await markService.updateAvgSemester(year, semester, classroom.id, id)
     const studentRank = await rankService.getRankByMark(studentAvgSemester)
+
 
     res.render('student/result', {
       documentTitle: 'Kết quả học tập',

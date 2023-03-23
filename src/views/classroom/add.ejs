@@ -20,20 +20,20 @@
                 <form action="/lop-hoc/mo-nhieu-lop" method="POST">
                   <div class="form-inline">
                     
-                    <label class="mr-sm-2 mb-2" for="info">Năm học</label>
+                    <label class="mr-sm-2 mb-2 font-weight-bold" for="info">Năm học</label>
                     <input type="text" id="info" name="year" value="<%= currentYear.id %>" readonly hidden>
-                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5" value="<%= currentYear.name %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5 font-weight-bold" value="<%= currentYear.name %>" readonly>
   
 
-                    <label class="mr-sm-2 mb-2" for="type">Khối lớp</label>
-                    <select class="form-control form-control-sm mb-3 mr-sm-5" id="type" name="grade">
+                    <label class="mr-sm-2 mb-2 font-weight-bold" for="type">Khối lớp</label>
+                    <select class="form-control form-control-sm mb-3 mr-sm-5 font-weight-bold" id="type" name="grade">
                       <% grades.forEach(grade=> { %>
                         <option value="<%= grade.id %>"><%= grade.name %></option>
                       <% }) %>
                     </select>
                     
-                    <label class="mr-sm-2 mb-2" for="info">Số lượng</label>
-                    <input type="number" id="info" name="quantity" class="form-control form-control-sm mb-3 mr-sm-5" value="0">
+                    <label class="mr-sm-2 mb-2 font-weight-bold" for="info">Số lượng</label>
+                    <input type="number" id="info" name="quantity" class="form-control form-control-sm mb-3 mr-sm-5 font-weight-bold" value="0">
 
                     <button type="submit" class="btn btn-primary mb-3">Mở lớp</button>
   
@@ -52,20 +52,20 @@
                 <form action="/lop-hoc/mo-lop-hoc" method="POST">
                   <div class="form-inline">
                     
-                    <label class="mr-sm-2 mb-2" for="info">Năm học</label>
+                    <label class="mr-sm-2 mb-2 font-weight-bold" for="info">Năm học</label>
                     <input type="text" id="info" name="year" value="<%= currentYear.id %>" readonly hidden>
-                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5" value="<%= currentYear.name %>" readonly>
+                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5 font-weight-bold" value="<%= currentYear.name %>" readonly>
   
 
-                    <label class="mr-sm-2 mb-2" for="type">Khối lớp</label>
-                    <select class="form-control form-control-sm mb-3 mr-sm-5" id="type" name="grade">
+                    <label class="mr-sm-2 mb-2 font-weight-bold" for="type">Khối lớp</label>
+                    <select class="form-control form-control-sm mb-3 mr-sm-5 font-weight-bold" id="type" name="grade">
                       <% grades.forEach(grade=> { %>
                         <option value="<%= grade.id %>"><%= grade.name %></option>
                       <% }) %>
                     </select>
                     
-                    <label class="mr-sm-2 mb-2" for="info">Tên lớp</label>
-                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5" name="classroomName">
+                    <label class="mr-sm-2 mb-2 font-weight-bold" for="info">Tên lớp</label>
+                    <input type="text" id="info" class="form-control form-control-sm mb-3 mr-sm-5 font-weight-bold" name="classroomName">
 
                     <button type="submit" class="btn btn-primary mb-3">Mở lớp</button>
   
