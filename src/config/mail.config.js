@@ -1,3 +1,4 @@
+require('dotenv/config');
 
 const config = {
   mailer: process.env.MAIL_MAILER,
