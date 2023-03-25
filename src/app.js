@@ -1,9 +1,10 @@
+require('dotenv/config')
+
 const path = require('path')
 const express = require('express')
 const session = require('express-session')
 const flash = require('connect-flash')
 const methodOverride = require('method-override')
-require('dotenv/config')
 
 const initialRoutes = require('./routes')
 
@@ -47,6 +48,6 @@ initialRoutes(app)
 
 app.use(errorMiddleware)
 
-app.listen(3000, () => { 
+app.listen(process.env.APP_PORT, () => { 
   console.log('app is running') 
 })
