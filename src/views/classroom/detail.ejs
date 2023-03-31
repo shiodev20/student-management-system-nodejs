@@ -106,14 +106,18 @@
                               <div class="d-flex justify-content-center">
                                 <a 
                                   class="mr-2"
-                                  href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= currentYear.id %>&semester=<%= currentSemester.id %>"
+                                  href="/hoc-sinh/ket-qua-hoc-tap/<%= student.id %>?year=<%= classroom.yearId %>&semester=<%= currentSemester.id %>"
                                 >
                                   <button class="btn btn-info btn-icon"><i class="fa-solid fa-chart-simple"></i></button>
                                 </a>
-    
-                                <form action="/lop-hoc/<%= classroom.id %>/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
-                                  <button class="btn btn-danger btn-icon"><i class='fa-solid fa-trash'></i></button>
-                                </form>
+                                
+                                <% if(classroom.yearId !== currentYear.id) { %>
+                                  <button class="btn btn-danger btn-icon disabled"><i class='fa-solid fa-trash'></i></button>
+                                <% } else { %>
+                                  <form action="/lop-hoc/<%= classroom.id %>/xoa-hoc-sinh/<%= student.id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger btn-icon"><i class='fa-solid fa-trash'></i></button>
+                                  </form>
+                                <% } %>
                               </div>
     
                             </td>

@@ -1,4 +1,4 @@
-const { ruleService, subjectService, markTypeService } = require('../services')
+const { ruleService, subjectService, markTypeService, yearService, semesterService } = require('../services')
 const customError = require('../utils/customError')
 
 const err = { type: '', message: '', url: '' }
@@ -8,12 +8,16 @@ const getRuleDashboard = async (req, res, next) => {
     const rules = await ruleService.getRuleList()
     const subjects = await subjectService.getSubjectList()
     const markTypes = await markTypeService.getMarkTypeList()
+    const years = await yearService.getYearList()
+    const semesters = await semesterService.getSemesterList()
 
     res.render('rule/home', {
       documentTitle: 'Quản lý quy định',
       rules,
       subjects,
       markTypes,
+      years,
+      semesters,      
       tag: req.query.tag ? req.query.tag : null,
     })
 
@@ -166,9 +170,36 @@ const putMarkTypeRuleUpdate = async (req, res, next) => {
   }
 }
 
+const putSchoolTimeUpdate = async (req, res, next) => {
+  const { year, semester } = req.body
+
+  try {
+    const result = ruleService.updateSchoolTime(year, semester)
+
+    req.flash('successMsg', 'Cập nhật niên khóa thành công')
+    res.redirect('/quy-dinh?tag=4')
+
+  } catch (error) {
+    switch (error.code) {
+      case 0:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=4'
+        break;
+      case 1:
+        err.type = 'errorMsg'
+        err.message = error.message
+        err.url = '/quy-dinh?tag=4'
+        break;
+    }
+    next(err)
+  }
+}
+
 module.exports = {
   getRuleDashboard,
   putGeneralRuleUpdate,
   putSubjectRuleUpdate,
   putMarkTypeRuleUpdate,
+  putSchoolTimeUpdate,
 }

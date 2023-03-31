@@ -19,6 +19,7 @@ const getRankByMark = async (mark) => {
     
     const ranks = await getRankList()
 
+    console.log(ranks);
     ranks.forEach(rank => {
       if(mark >= rank.minValue && mark <= rank.maxValue) {
         result = rank.name

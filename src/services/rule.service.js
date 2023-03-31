@@ -1,6 +1,8 @@
 const { Rule } = require('../models')
 const customError = require('../utils/customError')
 
+const yearService = require('./year.service')
+const semesterService = require('./semester.service')
 
 const getRuleList = async () => {
   try {
@@ -63,7 +65,21 @@ const updateRules = async (rules) => {
   }
 }
 
+const updateSchoolTime = async (yearId, semesterId) => {
+  try {
+    await yearService.updateYearStatus(yearId)
+    await semesterService.updateSemesterStatus(semesterId)
+
+    return true
+
+  } catch (error) {
+    if(error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getRuleList = getRuleList
 exports.getRuleById = getRuleById
 exports.updateRules = updateRules
 exports.checkStudentAge = checkStudentAge
+exports.updateSchoolTime = updateSchoolTime

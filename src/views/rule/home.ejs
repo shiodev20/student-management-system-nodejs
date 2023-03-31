@@ -15,17 +15,20 @@
           <div class="card">
 
             <div class="card-body">
-              <div class="card-title">Quản lý quy định</div>
+              <div class="card-title">Quản lý chung</div>
 
               <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link font-weight-bold <%= (tag == null || tag == '1') ? 'active' : ''%>" data-toggle="tab" href="#general-rule" role="tab">Quy định chung</a>
+                  <a class="nav-link font-weight-bold <%= (tag == null || tag == '1') ? 'active' : ''%>" data-toggle="tab" href="#general-rule" role="tab">Quy định</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link font-weight-bold <%= (tag && tag == '2') ? 'active' : ''%>"" data-toggle="tab" href="#subject-rule" role="tab">Môn học</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link font-weight-bold <%= (tag && tag == '3') ? 'active' : ''%>"" data-toggle="tab" href="#mark-rule" role="tab">Điểm số</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link font-weight-bold <%= (tag  && tag == '4') ? 'active' : ''%>" data-toggle="tab" href="#schooltime-rule" role="tab">Niên khóa</a>
                 </li>
               </ul>
 
@@ -153,6 +156,43 @@
                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                       </div>
                     </div>
+                  </form>
+                </div>
+
+                <div class="tab-pane fade <%= (tag && tag == '4') ? 'active show' : ''%>" id="schooltime-rule">
+                  <form action="/quy-dinh/cap-nhat-nien-khoa?_method=PUT&tag=4" method="POST">
+                    <div class="row">
+                      <div class="col-md-3 col-sm-12 mb-3">
+                        <label for="">Năm học hiện tại</label>
+                        <select name="year" class="form-control">
+                          <% years.forEach(year => { %>
+                            <% if(year.status) { %>
+                              <option value="<%= year.id%>" selected><%= year.name%></option>
+                            <% } else { %>
+                              <option value="<%= year.id%>"><%= year.name%></option>
+                            <% } %>
+
+                          <% }) %>
+                        </select>
+                      </div>
+
+                      <div class="col-md-3 col-sm-12 mb-3">
+                        <label for="">Học kỳ hiện tại</label>
+                        <select name="semester" class="form-control">
+                          <% semesters.forEach(semester => { %>
+                            <% if(semester.status) { %>
+                              <option value="<%= semester.id%>" selected><%= semester.name%></option>
+                            <% } else { %>
+                              <option value="<%= semester.id%>"><%= semester.name%></option>
+                            <% } %>
+
+                          <% }) %>
+                        </select>
+                      </div>
+
+                    </div>
+
+                      <button type="submit" class="btn btn-primary">Cập nhật</button>
                   </form>
                 </div>
 

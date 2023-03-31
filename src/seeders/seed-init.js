@@ -3,15 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+
     await queryInterface.bulkInsert('rules', [
       {
         id: 'QD1',
@@ -49,15 +41,15 @@ module.exports = {
     console.log('done ', 'roles');
 
     await queryInterface.bulkInsert('years', [
-      { id: 'NH2122', name: '2021-2022', order: 1, status: 0 },
-      { id: 'NH2223', name: '2022-2023', order: 2, status: 1 },
+      { id: 'NH2122', name: '2021-2022', order: 1, status: 1 },
+      { id: 'NH2223', name: '2022-2023', order: 2, status: 0 },
       { id: 'NH2324', name: '2023-2024', order: 3, status: 0 },
     ], {})
     console.log('done ', 'years');
 
     await queryInterface.bulkInsert('semesters', [
-      { id: 'HK1', name: 'Học kỳ 1', status: 1 },
-      { id: 'HK2', name: 'Học kỳ 2', status: 0 },
+      { id: 'HK1', name: 'Học kỳ 1', status: 0 },
+      { id: 'HK2', name: 'Học kỳ 2', status: 1 },
     ], {})
     console.log('done ', 'semesters');
 
@@ -89,6 +81,40 @@ module.exports = {
       { id: 'LD5', name: 'TBM', coefficient: null },
     ], {})
     console.log('done ', 'marktypes');
+
+    await queryInterface.bulkInsert('ranks', [
+      {
+        id: 'R1',
+        name: 'Giỏi',
+        minValue: 8,
+        maxValue: 10,
+      },
+      {
+        id: 'R2',
+        name: 'Khá',
+        minValue: 6.5,
+        maxValue: 7.9,
+      },
+      {
+        id: 'R3',
+        name: 'Trung bình',
+        minValue: 5,
+        maxValue: 6.4,
+      },
+      {
+        id: 'R4',
+        name: 'Yếu',
+        minValue: 3.5,
+        maxValue: 4.9,
+      },
+      {
+        id: 'R5',
+        name: 'Kém',
+        minValue: 0,
+        maxValue: 3.4,
+      },
+    ])
+    console.log('done ', 'ranks');
 
     await queryInterface.bulkInsert('students', [
       {
@@ -819,157 +845,195 @@ module.exports = {
         name: '10A1',
         size: 4,
         gradeId: 'KH10',
-        yearId: 'NH2122'
+        yearId: 'NH2122',
+        headTeacherId: 'GV000001'
       },
       {
         id: '10A22122',
         name: '10A2',
         size: 4,
         gradeId: 'KH10',
-        yearId: 'NH2122'
+        yearId: 'NH2122',
+        headTeacherId: 'GV000002'
       },
       {
         id: '11A12122',
         name: '11A1',
         size: 4,
         gradeId: 'KH11',
-        yearId: 'NH2122'
+        yearId: 'NH2122',
+        headTeacherId: 'GV000003'
       },
       {
         id: '11A22122',
         name: '11A2',
         size: 4,
         gradeId: 'KH11',
-        yearId: 'NH2122'
+        yearId: 'NH2122',
+        headTeacherId: 'GV000004'
       },
       {
         id: '12A12122',
         name: '12A1',
         size: 4,
         gradeId: 'KH12',
-        yearId: 'NH2122'
+        yearId: 'NH2122',
+        headTeacherId: 'GV000005'
       },
       {
         id: '12A22122',
         name: '12A2',
         size: 4,
         gradeId: 'KH12',
-        yearId: 'NH2122'
+        yearId: 'NH2122',
+        headTeacherId: 'GV000006'
       },
     ], {})
     console.log('done ', 'classrooms');
+
 
     await queryInterface.bulkInsert('teachingassignments', [
       {
         classroomId: '10A12122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV000001',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV000003',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH3',
+        subjectTeacherId: 'GV000005',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH4',
+        subjectTeacherId: 'GV000007',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH5',
+        subjectTeacherId: 'GV000009',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH6',
+        subjectTeacherId: 'GV000011',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH7',
+        subjectTeacherId: 'GV000013',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH8',
+        subjectTeacherId: 'GV000015',
       },
       {
         classroomId: '10A12122',
         subjectId: 'MH9',
+        subjectTeacherId: 'GV000017',
       },
+
+
+
+
 
       {
         classroomId: '10A22122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV000002',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV000004',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH3',
+        subjectTeacherId: 'GV000006',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH4',
+        subjectTeacherId: 'GV000008',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH5',
+        subjectTeacherId: 'GV000010',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH6',
+        subjectTeacherId: 'GV000012',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH7',
+        subjectTeacherId: 'GV000014',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH8',
+        subjectTeacherId: 'GV000016',
       },
       {
         classroomId: '10A22122',
         subjectId: 'MH9',
+        subjectTeacherId: 'GV000018',
       },
 
 
       {
         classroomId: '11A12122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV000001',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV000003',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH3',
+        subjectTeacherId: 'GV000005',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH4',
+        subjectTeacherId: 'GV000007',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH5',
+        subjectTeacherId: 'GV000009',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH6',
+        subjectTeacherId: 'GV000011',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH7',
+        subjectTeacherId: 'GV000013',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH8',
+        subjectTeacherId: 'GV000015',
       },
       {
         classroomId: '11A12122',
         subjectId: 'MH9',
+        subjectTeacherId: 'GV000017',
       },
 
 
@@ -977,38 +1041,47 @@ module.exports = {
       {
         classroomId: '11A22122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV000002',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV000004',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH3',
+        subjectTeacherId: 'GV000006',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH4',
+        subjectTeacherId: 'GV000008',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH5',
+        subjectTeacherId: 'GV000010',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH6',
+        subjectTeacherId: 'GV000012',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH7',
+        subjectTeacherId: 'GV000014',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH8',
+        subjectTeacherId: 'GV000016',
       },
       {
         classroomId: '11A22122',
         subjectId: 'MH9',
+        subjectTeacherId: 'GV000018',
       },
 
 
@@ -1017,38 +1090,47 @@ module.exports = {
       {
         classroomId: '12A12122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV000001',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV000003',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH3',
+        subjectTeacherId: 'GV000005',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH4',
+        subjectTeacherId: 'GV000007',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH5',
+        subjectTeacherId: 'GV000009',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH6',
+        subjectTeacherId: 'GV000011',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH7',
+        subjectTeacherId: 'GV000013',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH8',
+        subjectTeacherId: 'GV000015',
       },
       {
         classroomId: '12A12122',
         subjectId: 'MH9',
+        subjectTeacherId: 'GV000017',
       },
 
 
@@ -1056,41 +1138,51 @@ module.exports = {
       {
         classroomId: '12A22122',
         subjectId: 'MH1',
+        subjectTeacherId: 'GV000002',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH2',
+        subjectTeacherId: 'GV000004',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH3',
+        subjectTeacherId: 'GV000006',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH4',
+        subjectTeacherId: 'GV000008',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH5',
+        subjectTeacherId: 'GV000010',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH6',
+        subjectTeacherId: 'GV000012',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH7',
+        subjectTeacherId: 'GV000014',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH8',
+        subjectTeacherId: 'GV000016',
       },
       {
         classroomId: '12A22122',
         subjectId: 'MH9',
+        subjectTeacherId: 'GV000018',
       },
     ], {})
     console.log('done ', 'teachingassignments');
+
 
     await queryInterface.bulkInsert('classroomdetails', [
       {
@@ -1225,6 +1317,7 @@ module.exports = {
     await queryInterface.bulkDelete('marktypes', null, {});
     await queryInterface.bulkDelete('roles', null, {});
     await queryInterface.bulkDelete('rules', null, {});
+    await queryInterface.bulkDelete('ranks', null, {});
 
   }
 };

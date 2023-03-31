@@ -41,6 +41,29 @@ const getCurrentSemester = async () => {
   }
 }
 
+const updateSemesterStatus = async (id) => {
+  try {
+    const updateSemester = await getSemesterById(id)
+    if(!updateSemester) throw customError(1, `Không tìm thấy học kỳ ${id}`)
+
+    const currentSemester = await getCurrentSemester()
+
+    let result = null
+
+    if(currentSemester.id !== updateSemester.id) {
+      await currentSemester.update({ status: 0 })
+      result = await updateSemester.update({ status: 1 })
+    }
+
+    return result
+    
+  } catch (error) {
+    if (error.code != 0) throw error
+    throw customError()
+  }
+}
+
 exports.getSemesterList = getSemesterList
 exports.getSemesterById = getSemesterById
 exports.getCurrentSemester = getCurrentSemester
+exports.updateSemesterStatus = updateSemesterStatus
