@@ -100,11 +100,6 @@ const postForgotPassword = async (req, res, next) => {
 
     const account = await user.getAccount()
 
-    // console.log(user.fullName);
-    // console.log(`${process.env.APP_HOST}/lay-lai-mat-khau/${user.id}?token=${account.password}`);
-    
-    // return
-
     sendMail(user.email, 'ShioSMS - Lấy lại mật khẩu đăng nhập',
       `
       <div>

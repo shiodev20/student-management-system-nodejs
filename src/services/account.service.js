@@ -33,7 +33,6 @@ const getAccountList = async () => {
     return result
 
   } catch (error) {
-    console.log(error);
     if (error.code != 0) throw error
     throw customError()
   }
@@ -267,8 +266,6 @@ const addAccount = async ({ id, username }) => {
 
     const hashPassword = await bcrypt.hash(process.env.DEFAULT_PASSWORD, parseInt(process.env.BCRYPT_SALT))
     
-    console.log(hashPassword);
-
     const result = await Account.create({
       id,
       username,

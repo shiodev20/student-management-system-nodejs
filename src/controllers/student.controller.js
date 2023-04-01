@@ -90,8 +90,6 @@ const postStudentAdd = async (req, res, next) => {
       parentPhone: req.body.parentPhone,
     }
 
-    console.log(student);
-    
     const checkAge = await ruleService.checkStudentAge(student.dob)
 
     if (!checkAge) {
@@ -235,7 +233,6 @@ const getStudentResult = async (req, res, next) => {
     const studentAvgSemester = await markService.updateAvgSemester(year, semester, classroom.id, id)
     const studentRank = await rankService.getRankByMark(studentAvgSemester)
 
-    console.log(studentRank);
     
     res.render('student/result', {
       documentTitle: 'Kết quả học tập',
