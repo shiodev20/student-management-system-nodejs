@@ -48,8 +48,8 @@ module.exports = {
     console.log('done ', 'years');
 
     await queryInterface.bulkInsert('semesters', [
-      { id: 'HK1', name: 'Học kỳ 1', status: 0 },
-      { id: 'HK2', name: 'Học kỳ 2', status: 1 },
+      { id: 'HK1', name: 'Học kỳ 1', status: 1 },
+      { id: 'HK2', name: 'Học kỳ 2', status: 0 },
     ], {})
     console.log('done ', 'semesters');
 
@@ -843,7 +843,7 @@ module.exports = {
       {
         id: '10A12122',
         name: '10A1',
-        size: 4,
+        size: 0,
         gradeId: 'KH10',
         yearId: 'NH2122',
         headTeacherId: 'GV000001'
@@ -851,7 +851,7 @@ module.exports = {
       {
         id: '10A22122',
         name: '10A2',
-        size: 4,
+        size: 0,
         gradeId: 'KH10',
         yearId: 'NH2122',
         headTeacherId: 'GV000002'
@@ -859,7 +859,7 @@ module.exports = {
       {
         id: '11A12122',
         name: '11A1',
-        size: 4,
+        size: 0,
         gradeId: 'KH11',
         yearId: 'NH2122',
         headTeacherId: 'GV000003'
@@ -867,7 +867,7 @@ module.exports = {
       {
         id: '11A22122',
         name: '11A2',
-        size: 4,
+        size: 0,
         gradeId: 'KH11',
         yearId: 'NH2122',
         headTeacherId: 'GV000004'
@@ -875,7 +875,7 @@ module.exports = {
       {
         id: '12A12122',
         name: '12A1',
-        size: 4,
+        size: 0,
         gradeId: 'KH12',
         yearId: 'NH2122',
         headTeacherId: 'GV000005'
@@ -883,7 +883,7 @@ module.exports = {
       {
         id: '12A22122',
         name: '12A2',
-        size: 4,
+        size: 0,
         gradeId: 'KH12',
         yearId: 'NH2122',
         headTeacherId: 'GV000006'
@@ -1184,115 +1184,115 @@ module.exports = {
     console.log('done ', 'teachingassignments');
 
 
-    await queryInterface.bulkInsert('classroomdetails', [
-      {
-        classroomId: '10A12122',
-        studentId: 'HS000001',
-      },
-      {
-        classroomId: '10A12122',
-        studentId: 'HS000002',
-      },
-      {
-        classroomId: '10A12122',
-        studentId: 'HS000003',
-      },
-      {
-        classroomId: '10A12122',
-        studentId: 'HS000004',
-      },
+    // await queryInterface.bulkInsert('classroomdetails', [
+    //   {
+    //     classroomId: '10A12122',
+    //     studentId: 'HS000001',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     studentId: 'HS000002',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     studentId: 'HS000003',
+    //   },
+    //   {
+    //     classroomId: '10A12122',
+    //     studentId: 'HS000004',
+    //   },
 
 
-      {
-        classroomId: '10A22122',
-        studentId: 'HS000005',
-      },
-      {
-        classroomId: '10A22122',
-        studentId: 'HS000006',
-      },
-      {
-        classroomId: '10A22122',
-        studentId: 'HS000007',
-      },
-      {
-        classroomId: '10A22122',
-        studentId: 'HS000008',
-      },
+    //   {
+    //     classroomId: '10A22122',
+    //     studentId: 'HS000005',
+    //   },
+    //   {
+    //     classroomId: '10A22122',
+    //     studentId: 'HS000006',
+    //   },
+    //   {
+    //     classroomId: '10A22122',
+    //     studentId: 'HS000007',
+    //   },
+    //   {
+    //     classroomId: '10A22122',
+    //     studentId: 'HS000008',
+    //   },
 
 
-      {
-        classroomId: '11A12122',
-        studentId: 'HS000009',
-      },
-      {
-        classroomId: '11A12122',
-        studentId: 'HS000010',
-      },
-      {
-        classroomId: '11A12122',
-        studentId: 'HS000011',
-      },
-      {
-        classroomId: '11A12122',
-        studentId: 'HS000012',
-      },
+    //   {
+    //     classroomId: '11A12122',
+    //     studentId: 'HS000009',
+    //   },
+    //   {
+    //     classroomId: '11A12122',
+    //     studentId: 'HS000010',
+    //   },
+    //   {
+    //     classroomId: '11A12122',
+    //     studentId: 'HS000011',
+    //   },
+    //   {
+    //     classroomId: '11A12122',
+    //     studentId: 'HS000012',
+    //   },
 
 
-      {
-        classroomId: '11A22122',
-        studentId: 'HS000013',
-      },
-      {
-        classroomId: '11A22122',
-        studentId: 'HS000014',
-      },
-      {
-        classroomId: '11A22122',
-        studentId: 'HS000015',
-      },
-      {
-        classroomId: '11A22122',
-        studentId: 'HS000016',
-      },
+    //   {
+    //     classroomId: '11A22122',
+    //     studentId: 'HS000013',
+    //   },
+    //   {
+    //     classroomId: '11A22122',
+    //     studentId: 'HS000014',
+    //   },
+    //   {
+    //     classroomId: '11A22122',
+    //     studentId: 'HS000015',
+    //   },
+    //   {
+    //     classroomId: '11A22122',
+    //     studentId: 'HS000016',
+    //   },
 
 
-      {
-        classroomId: '12A12122',
-        studentId: 'HS000017',
-      },
-      {
-        classroomId: '12A12122',
-        studentId: 'HS000018',
-      },
-      {
-        classroomId: '12A12122',
-        studentId: 'HS000019',
-      },
-      {
-        classroomId: '12A12122',
-        studentId: 'HS000020',
-      },
+    //   {
+    //     classroomId: '12A12122',
+    //     studentId: 'HS000017',
+    //   },
+    //   {
+    //     classroomId: '12A12122',
+    //     studentId: 'HS000018',
+    //   },
+    //   {
+    //     classroomId: '12A12122',
+    //     studentId: 'HS000019',
+    //   },
+    //   {
+    //     classroomId: '12A12122',
+    //     studentId: 'HS000020',
+    //   },
 
 
-      {
-        classroomId: '12A22122',
-        studentId: 'HS000021',
-      },
-      {
-        classroomId: '12A22122',
-        studentId: 'HS000022',
-      },
-      {
-        classroomId: '12A22122',
-        studentId: 'HS000023',
-      },
-      {
-        classroomId: '12A22122',
-        studentId: 'HS000024',
-      },
-    ])
-    console.log('done ', 'Classroomdetails');
+    //   {
+    //     classroomId: '12A22122',
+    //     studentId: 'HS000021',
+    //   },
+    //   {
+    //     classroomId: '12A22122',
+    //     studentId: 'HS000022',
+    //   },
+    //   {
+    //     classroomId: '12A22122',
+    //     studentId: 'HS000023',
+    //   },
+    //   {
+    //     classroomId: '12A22122',
+    //     studentId: 'HS000024',
+    //   },
+    // ])
+    // console.log('done ', 'Classroomdetails');
   },
 
   async down(queryInterface, Sequelize) {

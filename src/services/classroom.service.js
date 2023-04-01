@@ -331,13 +331,14 @@ const addStudentToClassroom = async (classroomId, studentId) => {
     for (const semester of semesters) {
       for (const markType of markTypes) {
         for (const subject of subjects) {
+
           await Mark.create({
             yearId: classroom.yearId,
             semesterId: semester.id,
             classroomId: classroom.id,
             subjectId: subject.id,
             studentId: student.id,
-            markTypeId: markType.id
+            markTypeId: markType.id,
           })
         }
       }

@@ -44,6 +44,7 @@ app.use((req, res, next) => {
   next()
 })
 
+
 initialRoutes(app)
 
 app.use(errorMiddleware)

@@ -130,27 +130,35 @@ const getNoClassAssignmentStudents = async (gradeId, yearId) => {
       }
     })
 
-    const assignedStudentIds = []
-
-    assignedStudents.forEach(student => assignedStudentIds.push(student.id))
-
-
-    const result = await Student.findAll({
-      where: {
-        id: { [Op.notIn]: assignedStudentIds }
-      },
-      include: {
-        model: Classroom,
-        as: 'classrooms',
-        through: { attributes: [] },
+    let result = null
+    
+    if(assignedStudents.length == 0) {
+      result = []
+    }
+    else {
+      const assignedStudentIds = []
+  
+      assignedStudents.forEach(student => assignedStudentIds.push(student.id))
+  
+  
+      result = await Student.findAll({
         where: {
-          [Op.and]: [
-            { gradeId: { [Op.eq]: gradeBefore.id } },
-            { yearId: { [Op.eq]: yearBefore.id } },
-          ]
+          id: { [Op.notIn]: assignedStudentIds }
+        },
+        include: {
+          model: Classroom,
+          as: 'classrooms',
+          through: { attributes: [] },
+          where: {
+            [Op.and]: [
+              { gradeId: { [Op.eq]: gradeBefore.id } },
+              { yearId: { [Op.eq]: yearBefore.id } },
+            ]
+          }
         }
-      }
-    })
+      })
+    }
+    
 
     return result
 

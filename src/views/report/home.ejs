@@ -205,7 +205,7 @@
                     <ul class="nav nav-tabs">
                       <% grades.forEach((grade, idx) => { %>
                         <li class="nav-item">
-                          <a class="nav-link font-weight-bold <% idx == 0 ? 'active': '' %>" data-toggle="tab" href="#<%= grade.id %>" role="tab"><%= grade.name %></a>
+                          <a class="nav-link font-weight-bold <%= idx == 0 ? 'active' : '' %>" data-toggle="tab" href="#<%= grade.id %>" role="tab"><%= grade.name %></a>
                         </li>
                       <% }) %>
                     </ul>
@@ -295,7 +295,7 @@
                     <ul class="nav nav-tabs">
                       <% grades.forEach((grade, idx) => { %>
                         <li class="nav-item">
-                          <a class="nav-link font-weight-bold <% idx == 0 ? 'active': '' %>" data-toggle="tab" href="#<%= grade.id %>" role="tab"><%= grade.name %></a>
+                          <a class="nav-link font-weight-bold <%= idx == 0 ? 'active': '' %>" data-toggle="tab" href="#<%= grade.id %>" role="tab"><%= grade.name %></a>
                         </li>
                       <% }) %>
                     </ul>

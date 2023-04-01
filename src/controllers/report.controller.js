@@ -187,6 +187,7 @@ const getReportSemeter = async (req, res, next) => {
       })
     })
 
+   
     res.render('report/home', {
       documentTitle: 'Báo cáo thống kê',
       years,
