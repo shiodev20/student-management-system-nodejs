@@ -5,15 +5,15 @@ module.exports = {
     await queryInterface.createTable('rules', {
       id: {
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(6),
         allowNull: false,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       label: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       value: {

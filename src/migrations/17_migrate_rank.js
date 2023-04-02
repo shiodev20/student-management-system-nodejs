@@ -5,11 +5,11 @@ module.exports = {
     await queryInterface.createTable('ranks', {
       id: {
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(6),
         allowNull: false,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       minValue: {
