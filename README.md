@@ -6,6 +6,6 @@
 
 ## ERD
 
-![ShioSMS-ERD](https://drive.google.com/file/d/187NmjjVOMFxoFMtRKy3cOn43UQVUEPUY/view?usp=sharing)
+![ShioSMS-ERD](/screenshot/ShioSMS-ERD.png)
 
 
