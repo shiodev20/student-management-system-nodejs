@@ -158,3 +158,9 @@ handleNotification(notification)
 handleCheckClassSize(classSize, classSizeMax, assignStudentInputs)
 handleFirstReport(firstReportYearSelect, firstReportClassroomSelect, firstReportClassroomOptions)
 handleChangePasswordModal(userIdInput, oldPasswordInput, newPasswordInput, newPassword2Input, changePasswordSubmit, changePasswordError)
+
+
+document.querySelector('.navbar-toggler.navbar-toggler-right.d-lg-none.align-self-center')
+.addEventListener('click', () => {
+  document.querySelector('.sidebar.sidebar-offcanvas').classList.toggle('active')
+})
